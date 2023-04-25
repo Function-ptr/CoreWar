@@ -1,0 +1,9 @@
+CC;gcc
+PROJECT_DIR;.
+SOURCES_DIR;.
+HEADERS_DIR;include/
+CFLAGS;-Wall
+DEBUGFLAGS;-Wall
+LIBS_DIR;lib/all
+LIB_POS;.
+EXEC;yolo
