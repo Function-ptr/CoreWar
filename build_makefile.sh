@@ -26,9 +26,8 @@ if [ "$releaseprefix" == "" ]; then
 fi
 
 opti="-Ofast \\
--ftree-loop-distribution -funroll-all-loops \\
+-funroll-loops \\
 -march=native -mtune=native -fopenmp \\
--fno-optimize-sibling-calls \\
 -flto=auto"
 
 debug="-Wshadow -Wduplicated-cond -Wcast-align\\
