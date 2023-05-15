@@ -22,6 +22,25 @@
     #include <stdio.h>
     #include "op.h"
 
+    #define TABLE_SIZE 16
+
+    typedef struct Entry {
+        char *key;
+        void *value;
+        struct Entry *next;
+    } Entry;
+
+    typedef struct HashTable {
+        Entry *buckets[TABLE_SIZE];
+    } hash_table;
+
+    unsigned long hash(char *str);
+    hash_table* create_table(void);
+    void insert(hash_table *table, char *key, void *value);
+    void* lookup(hash_table *table, char *key);
+    void delete(hash_table *table, char *key);
+    void free_table(hash_table *table);
+
 char *get_filename(char *arg);
 
 #endif //ASM_ASM_H

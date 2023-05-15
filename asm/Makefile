@@ -7,15 +7,21 @@
 
 SOURCES = .
 
-SRCS = 	main.c	\
+SRCS = 	hash.c	\
+	hash_table.c	\
+	main.c	\
 	op.c	\
 	parse_filename.c	\
 
-OBJS = 	obj/main.o	\
+OBJS = 	obj/hash.o	\
+	obj/hash_table.o	\
+	obj/main.o	\
 	obj/op.o	\
 	obj/parse_filename.o	\
 
-RELEASE_OBJS = 	obj/release/main.o	\
+RELEASE_OBJS = 	obj/release/hash.o	\
+	obj/release/hash_table.o	\
+	obj/release/main.o	\
 	obj/release/op.o	\
 	obj/release/parse_filename.o	\
 
