@@ -15,6 +15,7 @@
                                       |___/
 */
 
+#include <sys/types.h>
 #include "asm.h"
 
 unsigned long hash(char *str)
@@ -22,7 +23,7 @@ unsigned long hash(char *str)
     unsigned long hash = 5381;
     int c;
     while ((c = (unsigned char)*str++))
-        hash = ((hash << 5) + hash) + c;
+        hash = ((hash << 5) + hash) + (ulong)c;
     return hash % TABLE_SIZE;
 }
 

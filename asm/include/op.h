@@ -63,12 +63,15 @@ typedef struct {
 */
 extern op_t op_tab[];
 
+#define SWAP_UINT32(x) (((x >> 24) & 0xff) | ((x << 8) & 0xff0000) |\
+    (x >> 8 & 0xff00) | (x << 24 & 0xff000000))
+
 /*
 ** header
 */
     # define PROG_NAME_LENGTH        128
     # define COMMENT_LENGTH          2048
-
+    #define CEM 0xf383ea00
     # define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
 typedef struct {
     int magic;

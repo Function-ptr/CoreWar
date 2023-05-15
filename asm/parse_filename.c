@@ -25,11 +25,12 @@ char *get_filename(char *arg)
     if (my_strstr(arg, ".s"))
         return dup;
     int len = my_strlen(dup);
-    dup = my_reallocarray(dup, len + 3, sizeof(char), len + 1);
-    if (!dup) {
+    char *tmp = realloc(dup, (size_t)len + 3 * sizeof(char));
+    if (!tmp) {
         free(dup);
         return NULL;
     }
+    dup = tmp;
     my_strcpy(dup + len, ".s");
     return dup;
 }

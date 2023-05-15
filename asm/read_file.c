@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** asm.h
+** read_file.c
 ** File description:
-** ASM
+** read .s file
 */
 /*
  __  __        _                            ___            ___
@@ -14,42 +14,31 @@
                               __/ |               ______
                              |___/               |______|
 */
-#ifndef ASM_ASM_H
-    #define ASM_ASM_H
-    #include <unistd.h>
-    #include <stddef.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include "op.h"
+#include "asm.h"
+#include "my.h"
 
-typedef uint8_t byte;
-typedef uint16_t word;
-typedef uint32_t dword;
-typedef uint64_t qword;
-
-    #define TABLE_SIZE 16
-
-    typedef struct Entry {
-        char *key;
-        void *value;
-        struct Entry *next;
-    } Entry;
-
-    typedef struct HashTable {
-        Entry *buckets[TABLE_SIZE];
-    } hash_table;
-
-    unsigned long hash(char *str);
-    hash_table* create_table(void);
-    void insert(hash_table *table, char *key, void *value);
-    void* lookup(hash_table *table, char *key);
-    void delete(hash_table *table, char *key);
-    void free_table(hash_table *table);
-
-char *get_filename(char *arg);
-char *read_s_file(char *filename);
-
-#endif //ASM_ASM_H
+char *read_s_file(char *filename)
+{
+    FILE *f = fopen(filename, "r");
+    char *file_content = NULL, *buff = NULL;
+    int file_len = 0, len = 0;
+    size_t s = 0;
+    while (getline(&buff, &s, f) != -1) {
+        len = my_strlen(buff);
+        char *tmp = realloc(file_content,
+            (size_t)(len + file_len + 1) * sizeof(char));
+        if (!tmp && file_content) free(file_content);
+        if (!tmp) return NULL;
+        file_content = tmp;
+        my_strcpy(file_content + file_len, buff);
+        file_len += len;
+        free(buff);
+        buff = NULL;
+    }
+    free(buff);
+    fclose(f);
+    return file_content;
+}
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

@@ -22,18 +22,16 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -Ofast -ftree-vectorize \
--ftree-loop-distribution -funroll-all-loops -funswitch-loops \
--march=native -mtune=native -fopenmp -mavx2 \
--lm -ffast-math -mfpmath=sse \
--fno-omit-frame-pointer -fno-optimize-sibling-calls \
--flto=auto
+OPTI = -Ofast \
+-funroll-loops \
+-march=native -mtune=native -fopenmp \
+-flto=auto -D_FORTIFY_SOURCE=2
 
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
--D_FORTIFY_SOURCE=2 -fstack-protector
+-fstack-protector
 
 # 	Optimization flags:
 
@@ -79,13 +77,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(debug) $(opti)\
+CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall -Wextra $(debug) \
+DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) \
+RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
 	$(LIB) $(HEADER)
 
 all: $(NAME)

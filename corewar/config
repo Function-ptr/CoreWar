@@ -2,9 +2,9 @@ CC;gcc
 PROJECT_DIR;.
 SOURCES_DIR;.
 HEADERS_DIR;include/
-CFLAGS;$(debug) $(opti)
-DEBUGFLAGS;$(debug)
-RELEASEFLAGS;$(opti) -fomit-frame-pointer
+CFLAGS;$(DEBUG) $(OPTI)
+DEBUGFLAGS;$(DEBUG)
+RELEASEFLAGS;$(OPTI) -fomit-frame-pointer
 LIBS_DIR;lib/all
 LIB_POS;..
 EXEC;corewar
