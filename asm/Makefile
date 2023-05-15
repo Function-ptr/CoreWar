@@ -45,7 +45,7 @@ OPTI = -Ofast \
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
--fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
+-fno-omit-frame-pointer -fanalyzer -ggdb\
 -fstack-protector
 
 # 	Optimization flags:
