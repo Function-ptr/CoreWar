@@ -24,7 +24,7 @@ int main(int ac, char **av)
     free(filename);
     if (!fcontent)
         return 84;
-    write(1, fcontent, (size_t)my_strlen(fcontent));
+    int s = (int)write(1, fcontent, (size_t)my_strlen(fcontent));
     free(fcontent);
-    return (0);
+    return (s == -1 ? 84 : 0);
 }
