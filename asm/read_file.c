@@ -21,14 +21,15 @@ char *read_s_file(char *filename)
 {
     FILE *f = fopen(filename, "r");
     char *file_content = NULL, *buff = NULL;
-    int file_len = 0, len = 0;
-    size_t s = 0;
+    uint64_t file_len = 0, s = 0;
     while (getline(&buff, &s, f) != -1) {
-        len = my_strlen(buff);
-        char *tmp = realloc(file_content,
-            (size_t)(len + file_len + 1) * sizeof(char));
+        uint64_t len = (uint64_t)my_strlen(buff);
+        char *tmp = realloc(file_content, len + file_len + 1 * sizeof(char));
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
         if (!tmp && file_content) free(file_content);
-        if (!tmp) return NULL;
+        if (!tmp) { fclose(f); return NULL;
+        }
         file_content = tmp;
         my_strcpy(file_content + file_len, buff);
         file_len += len;

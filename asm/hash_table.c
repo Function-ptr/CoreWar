@@ -31,6 +31,8 @@ void insert(hash_table *table, char *key, void *value)
 {
     unsigned long index = hash(key);
     Entry *entry = malloc(sizeof(Entry));
+    if (!entry)
+        return;
     entry->key = my_strdup(key);
     entry->value = value;
     entry->next = table->buckets[index];
