@@ -25,11 +25,10 @@ if [ "$releaseprefix" == "" ]; then
     releaseprefix="obj/release"
 fi
 
-opti="-Ofast -ftree-vectorize \\
--ftree-loop-distribution -funroll-all-loops -funswitch-loops \\
--march=native -mtune=native -fopenmp -mavx2 \\
--lm -ffast-math -mfpmath=sse \\
--fno-omit-frame-pointer -fno-optimize-sibling-calls \\
+opti="-Ofast \\
+-ftree-loop-distribution -funroll-all-loops \\
+-march=native -mtune=native -fopenmp \\
+-fno-optimize-sibling-calls \\
 -flto=auto"
 
 debug="-Wshadow -Wduplicated-cond -Wcast-align\\
