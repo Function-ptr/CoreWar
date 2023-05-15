@@ -12,18 +12,21 @@ SRCS = 	hash.c	\
 	main.c	\
 	op.c	\
 	parse_filename.c	\
+	read_file.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
 	obj/main.o	\
 	obj/op.o	\
 	obj/parse_filename.o	\
+	obj/read_file.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
 	obj/release/main.o	\
 	obj/release/op.o	\
 	obj/release/parse_filename.o	\
+	obj/release/read_file.o	\
 
 OBJ_DIR = obj
 
@@ -89,13 +92,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(debug) $(opti)\
+CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall -Wextra $(debug) \
+DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
+RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
 	$(LIB) $(HEADER)
 
 all: $(NAME)
