@@ -8,10 +8,16 @@
 SOURCES = .
 
 SRCS = 	main.c	\
+	op.c	\
+	parse_filename.c	\
 
 OBJS = 	obj/main.o	\
+	obj/op.o	\
+	obj/parse_filename.o	\
 
 RELEASE_OBJS = 	obj/release/main.o	\
+	obj/release/op.o	\
+	obj/release/parse_filename.o	\
 
 OBJ_DIR = obj
 
@@ -22,11 +28,9 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -Ofast -ftree-vectorize \
--ftree-loop-distribution -funroll-all-loops -funswitch-loops \
--march=native -mtune=native -fopenmp -mavx2 \
--lm -ffast-math -mfpmath=sse \
--fno-omit-frame-pointer -fno-optimize-sibling-calls \
+OPTI = -Ofast \
+-funroll-loops \
+-march=native -mtune=native -fopenmp \
 -flto=auto
 
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
@@ -85,7 +89,7 @@ CFLAGS += -Wall -Wextra $(debug) $(opti)\
 DEBUGFLAGS += -Wall -Wextra $(debug) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) \
+RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
 	$(LIB) $(HEADER)
 
 all: $(NAME)
