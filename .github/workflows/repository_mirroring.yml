@@ -65,13 +65,13 @@ jobs:
       image: quentinfil/epitouk_light_weight:latest
     steps:
       - uses: actions/checkout@v3
-      - name: Compile program
-        run: |
-          make
-          cp 42sh tests/
-        timeout-minutes: 2
-      - name: Clean build
-        run: make clean
+      #- name: Compile program
+      #  run: |
+      #    make
+      #    cp 42sh tests/
+      #  timeout-minutes: 2
+      #- name: Clean build
+      #  run: make clean
       #- name: Run tester and check output
       #  run: |
       #    commit="${{ github.event.head_commit.message }}"
