@@ -5,8 +5,9 @@
 ** header op corewar
 */
 
-#ifndef _OP_H_
-    # define _OP_H_
+#ifndef COREWAR_OP_H_
+    #include <stdint.h>
+    # define COREWAR_OP_H_
 
     # define MEM_SIZE                (6 * 1024)
     # define IDX_MOD                 512   /* modulo of the index < */
@@ -41,12 +42,12 @@ typedef char args_type_t;
                                    into r1 (4 bytes )) */
     # define T_LAB           8       /* LABEL */
 
-typedef struct {
+typedef struct a{
     char *mnemonique;
     char nbr_args;
     args_type_t type[MAX_ARGS_NUMBER];
     char code;
-    int  nbr_cycles;
+    uint16_t nbr_cycles;
     char *comment;
 } op_t;
 

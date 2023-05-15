@@ -5,3 +5,4 @@ liball.a
 obj/*.o
 asm/asm
 corewar/corewar
+/asm/coding-style-reports.log
