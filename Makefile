@@ -11,16 +11,29 @@ SRCS = 	main.c	\
 
 OBJS = 	obj/main.o	\
 
+RELEASE_OBJS = 	obj/release/main.o	\
+
 OBJ_DIR = obj
 
-OBJ = $(SRCS:%.c=obj/%.o)
+RELEASE_DIR = obj/release
 
-OPTI = -O3 -Ofast \
--fopt-info-vec-all -ftree-vectorize \
+OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+
+RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
+
+OPTI = -Ofast -ftree-vectorize \
 -ftree-loop-distribution -funroll-all-loops -funswitch-loops \
 -march=native -mtune=native -fopenmp -mavx2 \
 -lm -ffast-math -mfpmath=sse \
--flto
+-fno-omit-frame-pointer -fno-optimize-sibling-calls \
+-flto=auto
+
+DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
+-pedantic -Wformat=2\
+-Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
+-fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
+-D_FORTIFY_SOURCE=2 -fstack-protector
 
 # 	Optimization flags:
 
@@ -58,9 +71,7 @@ OPTI = -O3 -Ofast \
 # -flto: Enables link-time optimization, which allows the compiler to optimize
 # 	across object files.
 
-CSFML = -lcsfml-graphics -lcsfml-system -lcsfml-window -lcsfml-audio
-
-NAME  = 
+NAME  = yolo
 
 CC  = gcc
 
@@ -68,11 +79,14 @@ LIB = -L.	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall \
+CFLAGS += -Wall -Wextra $(debug) $(opti)\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall \
-	$(LIB) $(HEADER) -ggdb
+DEBUGFLAGS += -Wall -Wextra $(debug) \
+	$(LIB) $(HEADER)
+
+RELEASEFLAGS += -Wall -Wextra $(opti) \
+	$(LIB) $(HEADER)
 
 all: $(NAME)
 
@@ -80,17 +94,26 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o \
 $(addprefix $(OBJ_DIR)/, $(basename $(subst /,-,$<)).o)
 
+$(RELEASE_DIR)/%.o: %.c
+	@$(CC) $(RELEASEFLAGS) -c $< -o \
+$(addprefix $(RELEASE_DIR)/, $(basename $(subst /,-,$<)).o)
+
 $(NAME): $(OBJ)
 	@make -s -C ./lib/all
 	@$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 	@echo -e "[1;32mProject built successfully[0m"
+
+release: fclean $(RELEASE_OBJ)
+	@make -s -C ./lib/all
+	@$(CC) -o $(NAME) $(RELEASE_OBJS) $(RELEASEFLAGS)
+	@echo -e "[1;32;5mRelease built successfully[0m"
 
 debug:	clean
 	@$(CC) $(SRCS) -o $(NAME) $(DEBUGFLAGS)
 	@echo -e "[1;33mProject built in debug mode[0m"
 
 clean:
-	@rm $(OBJS) .idea/ -rf
+	@rm $(OBJS) $(RELEASE_OBJS) .idea/ -rf
 	@rm *.gcno -rf
 	@find . -type f,d \( -name "*~" -o -name "\#*\#" \) -delete
 	@find . -type f,d -name "vgcore*" -delete
@@ -103,4 +126,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all $(NAME) clean fclean re release

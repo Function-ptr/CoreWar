@@ -2,8 +2,9 @@ CC;gcc
 PROJECT_DIR;.
 SOURCES_DIR;.
 HEADERS_DIR;include/
-CFLAGS;-Wall
-DEBUGFLAGS;-Wall
+CFLAGS;$(debug) $(opti)
+DEBUGFLAGS;$(debug)
+RELEASEFLAGS;$(opti)
 LIBS_DIR;lib/all
 LIB_POS;.
 EXEC;yolo
