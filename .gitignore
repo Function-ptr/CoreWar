@@ -3,3 +3,5 @@ liball.a
 .idea/
 .vscode/
 obj/*.o
+asm/asm
+corewar/corewar
