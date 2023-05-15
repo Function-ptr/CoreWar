@@ -48,7 +48,7 @@ char to_upper(char c)
 
 long my_strtol(const char *s, char **ep, int b)
 {
-    unsigned long r = 0; bool neg = false; int d;
+    unsigned long r = 0; bool neg = false;
     while (is_space(*s)) s++;
     if (*s == '-' || *s == '+') neg = (*s++ == '-');
     if (!b)
@@ -56,7 +56,7 @@ long my_strtol(const char *s, char **ep, int b)
         (++s, 16) : 8) : 10;
     else if (b == 16 && *s == '0' && (*(s + 1) == 'x' ||
         *(s + 1) == 'X')) s += 2;
-    for (; *s; s++) {
+    for (int d; *s; s++) {
         d = is_digit(*s) ? *s - '0' : is_alpha(*s) ?
             to_upper(*s) - 'A' + 10 : -1;
         if (d < 0 || d >= b) break;

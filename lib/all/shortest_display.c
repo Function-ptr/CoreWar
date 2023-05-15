@@ -10,8 +10,7 @@
 
 int rest_is_null(double d, int dec)
 {
-    int tmp;
-    for (; 0 < dec; dec--) {
+    for (int tmp; 0 < dec; dec--) {
         d = rounding_d(10 * d, dec);
         tmp = (int)d;
         d -= tmp;

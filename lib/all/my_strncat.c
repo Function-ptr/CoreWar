@@ -12,7 +12,7 @@ char *my_strncat(char *dest, char const *str, int n)
 
     for (i = 0; dest[i] != '\0'; i++) {
     }
-    for (j = 0; str[j] != '\0' && j < n; j++) {
+    for (j = 0; j < n && str[j] != '\0'; j++) {
         dest[i] = str[j];
         i++;
     }

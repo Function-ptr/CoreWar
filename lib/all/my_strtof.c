@@ -26,16 +26,17 @@ char to_lower(char c)
 
 float my_strtof(const char *s, char **ep)
 {
-    float r = 0.f, sign = 1.f, fact = 10.f;
+    float r = 0.f, sign = 1.f;
     while (is_space(*s)) s++;
     if (*s == '-' || *s == '+')
         sign = (*s++ == '-') ? -1 : 1;
     for (; is_digit(*s); s++)
         r = r * 10 + (*s - '0');
-    if (*s == '.')
+    if (*s == '.') {
+        float fact = 10.f;
         for (s++; is_digit(*s); s++, fact *= 10)
             r = r + (*s - '0') / fact;
-    if (to_lower(*s) == 'e') {
+    } if (to_lower(*s) == 'e') {
         int e_sign = 1, e_val = 0;
         if (*(++s) == '-' || *s == '+')
             e_sign = (*s++ == '-') ? -1 : 1;
@@ -43,8 +44,7 @@ float my_strtof(const char *s, char **ep)
             e_val = e_val * 10 + (*s - '0');
         r *= my_powf(10, e_sign * e_val);
     }
-    if (ep)
-        *ep = (char *)s;
+    if (ep) *ep = (char *)s;
     return sign * r;
 }
 /*

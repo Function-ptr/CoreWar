@@ -43,7 +43,7 @@ void *my_realloc(void *ptr, size_t size, size_t new_size)
 
 void *my_reallocarray(void *ptr, size_t nmemb, size_t size, size_t oldnmemb)
 {
-    if (nmemb * size < 0 || oldnmemb * size < 0) {
+    if (nmemb > UINT64_MAX / size || oldnmemb > UINT64_MAX / size) {
         errno = ENOMEM;
         return NULL;
     }

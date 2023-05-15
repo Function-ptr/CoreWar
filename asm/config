@@ -4,7 +4,7 @@ SOURCES_DIR;.
 HEADERS_DIR;include/
 CFLAGS;$(debug) $(opti)
 DEBUGFLAGS;$(debug)
-RELEASEFLAGS;$(opti)
+RELEASEFLAGS;$(opti) -fomit-frame-pointer
 LIBS_DIR;lib/all
 LIB_POS;..
 EXEC;asm
