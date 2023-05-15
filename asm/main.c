@@ -24,7 +24,10 @@ int main(int ac, char **av)
     free(filename);
     if (!fcontent)
         return 84;
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunused-result"
     write(1, fcontent, (size_t)my_strlen(fcontent));
+    #pragma GCC diagnostic pop
     free(fcontent);
     return (0);
 }
