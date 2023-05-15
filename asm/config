@@ -6,5 +6,5 @@ CFLAGS;$(debug) $(opti)
 DEBUGFLAGS;$(debug)
 RELEASEFLAGS;$(opti)
 LIBS_DIR;lib/all
-LIB_POS;.
-EXEC;corewar
+LIB_POS;..
+EXEC;asm

@@ -17,7 +17,8 @@ lib:
 	@ar rc liball.a *.o
 	@cp liball.a ../
 	@cp liball.a ../../
-	@cp ./include/*.h ../../include
+	@cp ./include/*.h ../../asm/include
+	@cp ./include/*.h ../../corewar/include
 	@find . -type f,d -name "*.o" -delete
 
 build:
