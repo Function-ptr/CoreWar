@@ -12,7 +12,7 @@ char *my_strncpy(char *dest, char const *str, int n)
     for (i = 0; str[i] != '\0' && i < n; i++) {
         dest[i] = str[i];
     }
-    for (i; i < n; i++) {
+    for (; i < n; i++) {
         dest[i] = '\0';
     }
     return (dest);

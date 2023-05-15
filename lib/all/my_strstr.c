@@ -21,9 +21,9 @@ char *my_strstr(char *str, char const *to_find)
     int test;
     int i = 0;
 
-    if (to_find == "")
+    if (to_find == NULL || *to_find == 0)
         return (str);
-    for (i; str[i] != '\0'; i++) {
+    for (; str[i] != '\0'; i++) {
         test = is_needle(&str[i], to_find);
         if (test)
             return (&str[i]);
