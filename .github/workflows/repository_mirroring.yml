@@ -3,7 +3,7 @@ name: Mirroring
 on: [ pull_request, push ]
 
 env:
-  EXECUTABLES: '42sh'
+  EXECUTABLES: 'asm/asm,corewar/corewar'
 
 jobs:
   check_coding_style:
