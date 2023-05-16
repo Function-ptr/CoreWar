@@ -17,6 +17,20 @@
 #include "asm.h"
 #include "my.h"
 
+void purge_spaces(char *buff, uint64_t len)
+{
+    if (my_strstr(buff, NAME_CMD_STRING) || my_strstr(buff, COMMENT_CMD_STRING))
+        return;
+    int nb_spaces = 0;
+    for (uint64_t i = 0; i < len; i++)
+        nb_spaces = buff[i] == ' ' ? nb_spaces + 1 : nb_spaces;
+    while (nb_spaces > 1) {
+        char *pos = my_strrchr(buff, ' ');
+        my_memmove(pos, pos + 1, (size_t)my_strlen(pos));
+        nb_spaces--;
+    }
+}
+
 char *process_line(char *buff, char **file_content, uint64_t file_len)
 {
     if (my_strchr(buff, COMMENT_CHAR)) {
@@ -28,6 +42,7 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
     }
     if (buff[0] == '\t') buff++;
     uint64_t len = (uint64_t)my_strlen(buff);
+    purge_spaces(buff, len);
     char *tmp = realloc(*file_content, len + file_len + 1 * sizeof(char));
     #pragma GCC diagnostic push
     #pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
