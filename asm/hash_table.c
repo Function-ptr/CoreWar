@@ -21,9 +21,8 @@
 hash_table *create_table(void)
 {
     hash_table *table = malloc(sizeof(hash_table));
-    for (int i = 0; i < TABLE_SIZE; i++) {
+    for (int i = 0; i < TABLE_SIZE; i++)
         table->buckets[i] = NULL;
-    }
     return table;
 }
 
@@ -44,9 +43,8 @@ void* lookup(hash_table *table, char *key)
     unsigned long index = hash(key);
     Entry *bucket = table->buckets[index];
     while (bucket) {
-        if (my_strcmp(bucket->key, key) == 0) {
+        if (my_strcmp(bucket->key, key) == 0)
             return bucket->value;
-        }
         bucket = bucket->next;
     }
     return NULL;
@@ -64,13 +62,10 @@ void delete(hash_table *table, char *key)
             bucket = bucket->next;
             continue;
         }
-
-        if (prev) {
+        if (prev)
             prev->next = bucket->next;
-        } else {
+        else
             table->buckets[index] = bucket->next;
-        }
-
         free(bucket->key); free(bucket);
         return;
     }
