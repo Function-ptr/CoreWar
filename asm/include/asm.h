@@ -29,17 +29,22 @@ typedef uint64_t qword;
 
     #define TABLE_SIZE 16
 
+    typedef struct {
+        char* const str;
+        uint64_t len;
+    } string_t;
+
     typedef struct Entry {
-        char *key;
-        op_t *value;
+        string_t key;
+        op_t* const value;
         struct Entry *next;
     } Entry;
 
     typedef struct HashTable {
-        Entry *buckets[TABLE_SIZE];
+        Entry* buckets[TABLE_SIZE];
     } hash_table;
 
-    unsigned long hash(char *str);
+    unsigned long hash(const char *str);
     hash_table* create_table(void);
     void insert(hash_table *table, const char *key,
     const op_t *value);

@@ -67,7 +67,7 @@ void delete(hash_table *const table, const char *const key)
             prev->next = bucket->next;
         else
             table->buckets[index] = bucket->next;
-        free(bucket->key); free(bucket);
+        free(bucket->key.str); free(bucket);
         return;
     }
 }
