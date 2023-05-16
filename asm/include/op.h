@@ -61,7 +61,7 @@ typedef struct {
 /*
 ** op_tab
 */
-extern op_t op_tab[];
+extern const op_t op_tab[];
 
 #define SWAP_UINT32(x) (((x >> 24) & 0xff) | ((x << 8) & 0xff0000) |\
     (x >> 8 & 0xff00) | (x << 24 & 0xff000000))

@@ -31,7 +31,7 @@ typedef uint64_t qword;
 
     typedef struct Entry {
         char *key;
-        void *value;
+        op_t *value;
         struct Entry *next;
     } Entry;
 
@@ -41,9 +41,10 @@ typedef uint64_t qword;
 
     unsigned long hash(char *str);
     hash_table* create_table(void);
-    void insert(hash_table *table, char *key, void *value);
-    void* lookup(hash_table *table, char *key);
-    void delete(hash_table *table, char *key);
+    void insert(hash_table *table, const char *key,
+    const op_t *value);
+    op_t* lookup(hash_table *table, const char *key);
+    void delete(hash_table *table, const char *key);
     void free_table(hash_table *table);
 
 char *get_filename(char *arg);

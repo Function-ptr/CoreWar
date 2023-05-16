@@ -27,7 +27,8 @@ hash_table *create_table(void)
     return table;
 }
 
-void insert(hash_table *table, char *key, void *value)
+void insert(hash_table *const table, const char *const key,
+    const op_t *const value)
 {
     unsigned long index = hash(key);
     Entry *entry = malloc(sizeof(Entry));
@@ -39,7 +40,7 @@ void insert(hash_table *table, char *key, void *value)
     table->buckets[index] = entry;
 }
 
-void* lookup(hash_table *table, char *key)
+op_t* lookup(hash_table *const table, const char *const key)
 {
     unsigned long index = hash(key);
     Entry *bucket = table->buckets[index];
@@ -52,7 +53,7 @@ void* lookup(hash_table *table, char *key)
     return NULL;
 }
 
-void delete(hash_table *table, char *key)
+void delete(hash_table *const table, const char *const key)
 {
     unsigned long index = hash(key);
     Entry *bucket = table->buckets[index];
@@ -76,7 +77,7 @@ void delete(hash_table *table, char *key)
     }
 }
 
-void free_table(hash_table *table)
+void free_table(hash_table *const table)
 {
     for (int i = 0; i < TABLE_SIZE; i++) {
         Entry *bucket = table->buckets[i];
