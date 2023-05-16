@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** asm.h
+** strings.c
 ** File description:
-** ASM
+** strings functions
 */
 /*
  __  __        _                            ___            ___
@@ -14,51 +14,40 @@
                               __/ |               ______
                              |___/               |______|
 */
-#ifndef ASM_ASM_H
-    #define ASM_ASM_H
-    #include <unistd.h>
-    #include <stddef.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include "op.h"
+#include "asm.h"
+#include "my.h"
 
-typedef uint8_t byte;
-typedef uint16_t word;
-typedef uint32_t dword;
-typedef uint64_t qword;
+string_t *create_string(char *str)
+{
+    uint64_t len = (uint64_t)my_strlen(str);
+    string_t *new = malloc(sizeof(string_t));
+    if (!new) return NULL;
+    new->len = len;
+    char * newstr = malloc(sizeof(char) * len);
+    if (!newstr) {
+        free(new);
+        return NULL;
+    }
+    my_memmove(newstr, str, len);
+    new->str = newstr;
+    return new;
+}
 
-    #define TABLE_SIZE 16
+string_t *string_dup(string_t *str)
+{
+    string_t *new = malloc(sizeof(string_t));
+    if (!new) return NULL;
+    new->len = str->len;
+    char * duped = malloc(sizeof(char) * new->len);
+    if (!duped) {
+        free(new);
+        return NULL;
+    }
+    my_memmove(duped, str->str, new->len);
+    new->str = duped;
+    return new;
+}
 
-    typedef struct {
-        char* str;
-        uint64_t len;
-    } string_t;
-
-    typedef struct Entry {
-        string_t key;
-        op_t* const value;
-        struct Entry *next;
-    } Entry;
-
-    typedef struct HashTable {
-        Entry* buckets[TABLE_SIZE];
-    } hash_table;
-
-    unsigned long hash(const char *str);
-    hash_table* create_table(void);
-    void insert(hash_table *table, const char *key,
-    const op_t *value);
-    op_t* lookup(hash_table *table, const char *key);
-    void delete(hash_table *table, const char *key);
-    void free_table(hash_table *table);
-
-    string_t *create_string(char *str);
-    string_t *string_dup(string_t *str);
-
-char *get_filename(char *arg);
-char *read_s_file(char *filename);
-
-#endif //ASM_ASM_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀
