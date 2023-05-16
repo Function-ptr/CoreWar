@@ -24,15 +24,12 @@ char *read_s_file(char *filename)
     uint64_t file_len = 0, s = 0;
     while (getline(&obuff, &s, f) != -1) {
         buff = obuff;
-        if (buff[0] == COMMENT_CHAR) {
-            free(obuff);
-            buff = obuff = my_calloc(2, sizeof(char), 0);
-            obuff[0] = '\n';
-        }
         if (my_strchr(buff, COMMENT_CHAR)) {
             char *comm = my_strchr(buff, COMMENT_CHAR);
             for (; comm != buff && (*(comm - 1) == ' ' || *(comm - 1) ==
             COMMENT_CHAR); comm--);
+            *comm = '\n';
+            my_memset(comm + 1, (size_t)my_strlen(comm + 1), 0);
         }
         if (buff[0] == '\t') buff++;
         uint64_t len = (uint64_t)my_strlen(buff);
