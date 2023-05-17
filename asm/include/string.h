@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** tokenizer.h
+** string.h
 ** File description:
-** tokenizer
+** count based string
 */
 /*
  _____               __      __
@@ -15,36 +15,21 @@
                                       |___/
 */
 
-#ifndef COREWAR_TOKENIZER_H
-    #define COREWAR_TOKENIZER_H
+#ifndef COREWAR_STRING_H
+    #define COREWAR_STRING_H
 
     #include <stdint.h>
-    #include "string.h"
 
-    typedef enum : uint8_t {
-        TOKEN_MNEMONIC,
-        TOKEN_REGISTER,
-        TOKEN_DIRECT,
-        TOKEN_INDIRECT,
-        TOKEN_COMMA,
-        TOKEN_NEWLINE,
-        TOKEN_LABEL,
-        TOKEN_UNKNOWN
-    } token_type_t;
+    typedef struct string {
+            char* str;
+            uint64_t len;
+        } string_t;
 
-    typedef struct {
-        token_type_t type;
-        string_t token;
-    } token_t;
+    string_t *create_string(char *str);
+    string_t *string_dup(string_t *str);
+    void free_string(string_t *str);
 
-    char* parse_register(char *input, token_t *token);
-    char* parse_direct(char *input, token_t *token);
-    char* parse_indirect(char *input, token_t *token);
-    char* parse_mnemonic(char *input, token_t *token);
-    char* parse_comma(char *input, token_t *token);
-    char* parse_newline(char *input, token_t *token);
-
-#endif //COREWAR_TOKENIZER_H
+#endif //COREWAR_STRING_H
 
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄
