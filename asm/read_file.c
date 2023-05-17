@@ -51,7 +51,7 @@ void clean_labels(char *buff, uint64_t *len)
             break;
         if (*(pos - 1) == '%')
             break;
-        while(my_strchr(" \t", *(pos + 1)))
+        while (my_strchr(" \t", *(pos + 1)))
             my_memmove(pos + 1, pos + 2, (size_t)my_strlen(pos + 1));
         *len = (uint64_t)my_strlen(buff);
         pos = my_strchr(pos + 1, LABEL_CHAR);
@@ -67,7 +67,7 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
         *comm = '\n';
         my_memset(comm + 1, (size_t)my_strlen(comm + 1), 0);
     }
-    while(is_space(*buff))
+    while (is_space(*buff))
         my_memmove(buff, buff + 1, (size_t) my_strlen(buff));
     uint64_t len = (uint64_t)my_strlen(buff);
     clean_labels(buff, &len);
