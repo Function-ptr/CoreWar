@@ -26,7 +26,8 @@ char* parse_label(char *input, token_t *token, uint16_t line_nb)
         return (NULL);
     token->type = TOKEN_LABEL;
     while (*end && *end != LABEL_CHAR) {
-        if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9')) {
+        if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9') &&
+        *end != '_') {
             print_syntax_error(input, line_nb);
             return (NULL);
         }

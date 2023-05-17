@@ -24,7 +24,7 @@
     #include "string.h"
     #include "op.h"
 
-    typedef enum : uint8_t {
+    typedef enum {
         TOKEN_MNEMONIC,
         TOKEN_REGISTER,
         TOKEN_DIRECT,
