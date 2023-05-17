@@ -42,7 +42,7 @@ typedef char args_type_t;
                                    into r1 (4 bytes )) */
     # define T_LAB           8       /* LABEL */
 
-typedef struct {
+typedef struct a {
     char mnemonique[5];
     char nbr_args;
     args_type_t type[MAX_ARGS_NUMBER];

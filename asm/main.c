@@ -8,6 +8,14 @@
 #include "my.h"
 #include "asm.h"
 
+void nwwrite(int fd, char *buf, size_t size)
+{
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunused-result"
+    write(fd, buf, size);
+    #pragma GCC diagnostic pop
+}
+
 void swap_uint32(uint32_t *little) {
     *little = (*little >> 24) |
         ((*little << 8) & 0x00FF0000) |
@@ -18,16 +26,10 @@ void swap_uint32(uint32_t *little) {
 int main(int ac, char **av)
 {
     if (ac != 2) return 84;
-    char *filename = get_filename(av[1]);
-    if (!filename) return 84;
-    char *fcontent = read_s_file(filename);
-    free(filename);
+    char *fcontent = read_s_file(av[1]);
     if (!fcontent)
         return 84;
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wunused-result"
-    write(1, fcontent, (size_t)my_strlen(fcontent));
-    #pragma GCC diagnostic pop
+    nwwrite(1, fcontent, (size_t)my_strlen(fcontent));
     free(fcontent);
     return (0);
 }

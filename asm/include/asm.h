@@ -52,9 +52,11 @@ typedef uint64_t qword;
     void free_table(hash_table *table);
     string_t *create_string(char *str);
     string_t *string_dup(string_t *str);
+    void free_string(string_t *str);
 
-char *get_filename(char *arg);
 char *read_s_file(char *filename);
+
+void nwwrite(int fd, char *buf, size_t size);
 
 #endif //ASM_ASM_H
 /*

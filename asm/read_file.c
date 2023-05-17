@@ -56,21 +56,23 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
 char *read_s_file(char *filename)
 {
     FILE *f = fopen(filename, "r");
+    if (f == NULL) {
+        nwwrite(2, "Error in function open: No such file or directory.\n", 51);
+        return NULL;
+    }
     char *file_content = NULL, *buff = NULL, *obuff = NULL;
     uint64_t file_len = 0, s = 0;
     while (getline(&obuff, &s, f) != -1) {
         buff = process_line(obuff, &file_content, file_len);
         if (!file_content) {
-            free(obuff);
-            fclose(f);
+            free(obuff); fclose(f);
             return NULL;
         }
         my_strcpy(file_content + file_len, buff);
         file_len += (uint64_t)my_strlen(buff);
         free(obuff);
         obuff = buff = NULL;
-    }
-    free(obuff);
+    } free(obuff);
     fclose(f);
     return file_content;
 }

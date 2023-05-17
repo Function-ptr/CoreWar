@@ -35,7 +35,6 @@
         char *value;
     } token_t;
 
-    char* skip_whitespace(char *input);
     char* parse_register(char *input, token_t *token);
     char* parse_direct(char *input, token_t *token);
     char* parse_indirect(char *input, token_t *token);
