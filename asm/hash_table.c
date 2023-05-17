@@ -26,20 +26,19 @@ hash_table *create_table(void)
     return table;
 }
 
-void insert(hash_table *const table, const char *const key,
-    const op_t *const value)
+void insert(hash_table* table, char* key, op_t* value)
 {
     unsigned long index = hash(key);
     Entry *entry = malloc(sizeof(Entry));
     if (!entry)
         return;
-    entry->key = my_strdup(key);
+    entry->key = key;
     entry->value = value;
     entry->next = table->buckets[index];
     table->buckets[index] = entry;
 }
 
-op_t* lookup(hash_table *const table, const char *const key)
+op_t* lookup(hash_table* table, char* key)
 {
     unsigned long index = hash(key);
     Entry *bucket = table->buckets[index];
@@ -51,7 +50,7 @@ op_t* lookup(hash_table *const table, const char *const key)
     return NULL;
 }
 
-void delete(hash_table *const table, const char *const key)
+void delete(hash_table *const table, char *key)
 {
     unsigned long index = hash(key);
     Entry *bucket = table->buckets[index];
@@ -67,7 +66,7 @@ void delete(hash_table *const table, const char *const key)
             prev->next = bucket->next;
         else
             table->buckets[index] = bucket->next;
-        free(bucket->key.str); free(bucket);
+        free(bucket->key); free(bucket);
         return;
     }
 }

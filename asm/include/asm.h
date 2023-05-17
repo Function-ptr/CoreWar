@@ -35,8 +35,8 @@ typedef uint64_t qword;
     } string_t;
 
     typedef struct Entry {
-        string_t key;
-        op_t* const value;
+        char *key;
+        op_t* value;
         struct Entry *next;
     } Entry;
 
@@ -44,14 +44,12 @@ typedef uint64_t qword;
         Entry* buckets[TABLE_SIZE];
     } hash_table;
 
-    unsigned long hash(const char *str);
+    unsigned long hash(char *str);
     hash_table* create_table(void);
-    void insert(hash_table *table, const char *key,
-    const op_t *value);
-    op_t* lookup(hash_table *table, const char *key);
-    void delete(hash_table *table, const char *key);
+    void insert(hash_table* table, char* key, op_t* value);
+    op_t* lookup(hash_table *table, char *key);
+    void delete(hash_table *table, char *key);
     void free_table(hash_table *table);
-
     string_t *create_string(char *str);
     string_t *string_dup(string_t *str);
 

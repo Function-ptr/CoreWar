@@ -43,12 +43,11 @@ typedef char args_type_t;
     # define T_LAB           8       /* LABEL */
 
 typedef struct {
-    char *mnemonique;
+    char mnemonique[5];
     char nbr_args;
     args_type_t type[MAX_ARGS_NUMBER];
     char code;
     uint16_t nbr_cycles;
-    char *comment;
 } op_t;
 
 /*
@@ -61,7 +60,7 @@ typedef struct {
 /*
 ** op_tab
 */
-extern const op_t op_tab[];
+extern const op_t op_tab[16];
 
 #define SWAP_UINT32(x) (((x >> 24) & 0xff) | ((x << 8) & 0xff0000) |\
     (x >> 8 & 0xff00) | (x << 24 & 0xff000000))

@@ -17,7 +17,7 @@
 
 #include "asm.h"
 
-unsigned long hash(const char *const str)
+unsigned long hash(char* str)
 {
     unsigned long hash = 5381;
     int c;
