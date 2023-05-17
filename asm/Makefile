@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SOURCES = . tokenizer
+SOURCES = . tokenizer parser
 
 SRCS = 	hash.c	\
 	hash_table.c	\
@@ -22,6 +22,8 @@ SRCS = 	hash.c	\
 	tokenizer/print_syntax_error.c	\
 	tokenizer/register_tokenizer.c	\
 	tokenizer/tokenizer.c	\
+	parser/link_line.c	\
+	parser/parser.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
@@ -38,6 +40,8 @@ OBJS = 	obj/hash.o	\
 	obj/tokenizer-print_syntax_error.o	\
 	obj/tokenizer-register_tokenizer.o	\
 	obj/tokenizer-tokenizer.o	\
+	obj/parser-link_line.o	\
+	obj/parser-parser.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
@@ -54,6 +58,8 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/tokenizer-print_syntax_error.o	\
 	obj/release/tokenizer-register_tokenizer.o	\
 	obj/release/tokenizer-tokenizer.o	\
+	obj/release/parser-link_line.o	\
+	obj/release/parser-parser.o	\
 
 OBJ_DIR = obj
 
