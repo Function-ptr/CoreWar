@@ -34,6 +34,15 @@ char *my_strrchr(char *s, int c)
     return last;
 }
 
+char *my_dstrchr(char *start, char *endptr, char c)
+{
+    for (; *start && start != endptr; start++) {
+        if (*start == c)
+            return start;
+    }
+    return NULL;
+}
+
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀
