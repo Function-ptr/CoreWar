@@ -32,6 +32,17 @@ void print_syntax_error(char *input, uint16_t line_nb)
     nwwrite(2, "\n", 1);
 }
 
+void print_instruction_error(char *input, uint16_t line_nb)
+{
+    char *end = input;
+    for (; *end && *end != '\n'; ++end);
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 20);
+    (void)my_put_nbr_do(line_nb);
+    nwwrite(2, ": \033[38;5;9mError: Invalid instruction\033[0m\n", 43);
+    nwwrite(2, input, (size_t) (end - input));
+    nwwrite(2, "\n", 1);
+}
+
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄
 ─█────█─█──█────█────█────█─█──█

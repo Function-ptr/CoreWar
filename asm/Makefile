@@ -9,6 +9,7 @@ SOURCES = . tokenizer
 
 SRCS = 	hash.c	\
 	hash_table.c	\
+	init_hashtable.c	\
 	main.c	\
 	op.c	\
 	parse_headers.c	\
@@ -17,12 +18,14 @@ SRCS = 	hash.c	\
 	tokenizer/direct_tokenizer.c	\
 	tokenizer/indirect_tokenizer.c	\
 	tokenizer/label_tokenizer.c	\
+	tokenizer/mnemonic_tokenizer.c	\
 	tokenizer/print_syntax_error.c	\
 	tokenizer/register_tokenizer.c	\
 	tokenizer/tokenizer.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
+	obj/init_hashtable.o	\
 	obj/main.o	\
 	obj/op.o	\
 	obj/parse_headers.o	\
@@ -31,12 +34,14 @@ OBJS = 	obj/hash.o	\
 	obj/tokenizer-direct_tokenizer.o	\
 	obj/tokenizer-indirect_tokenizer.o	\
 	obj/tokenizer-label_tokenizer.o	\
+	obj/tokenizer-mnemonic_tokenizer.o	\
 	obj/tokenizer-print_syntax_error.o	\
 	obj/tokenizer-register_tokenizer.o	\
 	obj/tokenizer-tokenizer.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
+	obj/release/init_hashtable.o	\
 	obj/release/main.o	\
 	obj/release/op.o	\
 	obj/release/parse_headers.o	\
@@ -45,6 +50,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/tokenizer-direct_tokenizer.o	\
 	obj/release/tokenizer-indirect_tokenizer.o	\
 	obj/release/tokenizer-label_tokenizer.o	\
+	obj/release/tokenizer-mnemonic_tokenizer.o	\
 	obj/release/tokenizer-print_syntax_error.o	\
 	obj/release/tokenizer-register_tokenizer.o	\
 	obj/release/tokenizer-tokenizer.o	\

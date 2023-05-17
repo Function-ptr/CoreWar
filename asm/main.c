@@ -38,6 +38,7 @@ int main(int ac, char **av)
         nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
         return 84;
     }
+    init_hashtable();
     free(n);
     free_string(content);
     free(fcontent);

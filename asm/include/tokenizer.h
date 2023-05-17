@@ -29,7 +29,6 @@
         TOKEN_REGISTER,
         TOKEN_DIRECT,
         TOKEN_INDIRECT,
-        TOKEN_COMMA,
         TOKEN_NEWLINE,
         TOKEN_LABEL,
         TOKEN_UNKNOWN
@@ -50,10 +49,10 @@
         uint16_t *current_token);
     char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb,
         uint16_t *current_token);
-    char* parse_comma(char *input, token_t *token, uint16_t line_nb);
     char* parse_newline(char *input, token_t *token, uint16_t line_nb,
         uint16_t *current_token);
     void print_syntax_error(char *input, uint16_t line_nb);
+    void print_instruction_error(char *input, uint16_t line_nb);
 
 #endif //COREWAR_TOKENIZER_H
 
