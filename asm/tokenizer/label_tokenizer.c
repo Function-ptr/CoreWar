@@ -18,26 +18,41 @@
 #include "tokenizer.h"
 #include "my.h"
 
-char* parse_label(char *input, token_t *token, uint16_t line_nb)
+char* is_there_label(char *input)
 {
     char *end = input;
 
-    if (!input || !token)
+    if (!input)
         return (NULL);
-    token->type = TOKEN_LABEL;
-    while (*end && *end != LABEL_CHAR) {
+    while (*end && *end != LABEL_CHAR && *end != '\n')
+        end++;
+    if (*end == LABEL_CHAR && *(end - 1) != DIRECT_CHAR)
+        return (end - 1);
+    return (NULL);
+}
+
+char* parse_label(char *input, token_t *token, uint16_t line_nb,
+    uint16_t *current_token)
+{
+    char *end;
+    if (!input || !token) return (NULL);
+    if (!(end = is_there_label(input))) return (input);
+    char *copy = end + 2;
+    while (*end != '\n') {
         if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9')) {
             print_syntax_error(input, line_nb);
             return (NULL);
         }
-        end++;
+        end--;
     }
-    char temp[end - input + 1];
-    my_memcpy(temp, input, (size_t) (end - input));
+    char temp[copy - input];
+    my_memcpy(temp, input, (size_t) (copy - input));
     temp[end - input] = '\0';
-
+    token->type = TOKEN_LABEL;
     token->token = create_string(temp);
-    return (end);
+    if (token->token.len == 0) return (NULL);
+    *current_token += 1;
+    return (copy);
 }
 
 /*
