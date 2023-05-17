@@ -29,7 +29,8 @@ typedef uint32_t dword;
 typedef uint64_t qword;
 
     #define TABLE_SIZE 16
-
+    #define NOCOM "\033[1;95mWarning:\033[97m No comment specified.\033[0m\n"
+    #define NONAME "\033[1;31mError:\033[97m No name specified.\033[0m\n"
 
     typedef struct Entry {
         char *key;
@@ -47,6 +48,7 @@ typedef uint64_t qword;
     op_t* lookup(hash_table *table, char *key);
     void delete(hash_table *table, char *key);
     void free_table(hash_table *table);
+    header_t *parse_header(string_t *string);
 
 char *read_s_file(char *filename);
 

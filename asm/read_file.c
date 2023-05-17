@@ -19,10 +19,20 @@
 
 void purge_spaces(char *buff, uint64_t len)
 {
-    if (my_strstr(buff, NAME_CMD_STRING) || my_strstr(buff, COMMENT_CMD_STRING))
-        return;
+    char *name = my_strstr(buff, NAME_CMD_STRING);
+    char *command = my_strstr(buff, COMMENT_CMD_STRING);
     int nb_spaces = 0;
-    for (uint64_t i = 0; i < len; i++)
+    if (name) {
+        name += my_strlen(NAME_CMD_STRING);
+        while (name[1] == ' ' || name[1] == '\t')
+            my_memmove(name, name + 1, (size_t)my_strlen(name));
+        return;
+    } if (command) {
+        command += my_strlen(COMMENT_CMD_STRING);
+        while (command[1] == ' ' || command[1] == '\t')
+            my_memmove(command, command + 1, (size_t)my_strlen(command));
+        return;
+    } for (uint64_t i = 0; i < len; i++)
         nb_spaces = buff[i] == ' ' ? nb_spaces + 1 : nb_spaces;
     while (nb_spaces > 1) {
         char *pos = my_strrchr(buff, ' ');
@@ -41,7 +51,7 @@ void clean_labels(char *buff, uint64_t *len)
             break;
         if (*(pos - 1) == '%')
             break;
-        while(my_strchr(" \t", *(pos + 1)))
+        while (my_strchr(" \t", *(pos + 1)))
             my_memmove(pos + 1, pos + 2, (size_t)my_strlen(pos + 1));
         *len = (uint64_t)my_strlen(buff);
         pos = my_strchr(pos + 1, LABEL_CHAR);
@@ -57,7 +67,7 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
         *comm = '\n';
         my_memset(comm + 1, (size_t)my_strlen(comm + 1), 0);
     }
-    while(is_space(*buff))
+    while (is_space(*buff))
         my_memmove(buff, buff + 1, (size_t) my_strlen(buff));
     uint64_t len = (uint64_t)my_strlen(buff);
     clean_labels(buff, &len);
