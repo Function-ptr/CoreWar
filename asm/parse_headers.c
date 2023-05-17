@@ -19,7 +19,7 @@
 
 const uint32_t cem = COREWAR_EM;
 
-int get_len_to_newline_quote(char *str)
+int get_len_to_newline_quote(char array str)
 {
     if (str == NULL) return 0;
     int len = 0;

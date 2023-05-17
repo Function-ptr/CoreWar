@@ -21,7 +21,7 @@
 
 void print_syntax_error(char array input, uint16_t line_nb)
 {
-    char *end = input;
+    char ptr end = input;
 
     while (*end && *end != '\n')
         end++;
@@ -32,9 +32,9 @@ void print_syntax_error(char array input, uint16_t line_nb)
     nwwrite(2, "\n", 1);
 }
 
-void print_instruction_error(char *input, uint16_t line_nb)
+void print_instruction_error(char array input, uint16_t line_nb)
 {
-    char *end = input;
+    char ptr end = input;
     for (; *end && *end != '\n'; ++end);
     nwwrite(2, "\033[1m\033[38;5;8mLine ", 20);
     (void)my_put_nbr_do(line_nb);

@@ -18,9 +18,9 @@
 #include "tokenizer.h"
 #include "my.h"
 
-char ptr is_there_label(char array input)
+char* is_there_label(char array input)
 {
-    char *end = input;
+    char ptr end = input;
 
     if (!input)
         return (NULL);
@@ -31,8 +31,8 @@ char ptr is_there_label(char array input)
     return (NULL);
 }
 
-char array parse_label(char array input, token_t ptr token, uint16_t line_nb,
-    uint16_t ptr current_token)
+char* parse_label(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t ptr current_token)
 {
     char ptr end;
     if (!input || !token) return (NULL);

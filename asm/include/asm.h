@@ -33,26 +33,26 @@ typedef uint64_t qword;
     #define NONAME "\033[1;31mError:\033[97m No name specified.\033[0m\n"
 
     typedef struct Entry {
-        char *key;
-        op_t* value;
+        char array key;
+        op_t ptr value;
         struct Entry *next;
     } Entry;
 
     typedef struct HashTable {
-        Entry* buckets[TABLE_SIZE];
+        Entry ptr buckets[TABLE_SIZE];
     } hash_table;
 
-    extern hash_table *hashtable;
+    extern hash_table ptr hashtable;
 
-    unsigned long hash(char *str);
-    hash_table* create_table(void);
-    void insert(hash_table* table, char* key, op_t* value);
-    op_t* lookup(hash_table *table, char *key);
-    void delete(hash_table *table, char *key);
-    void free_table(hash_table *table);
-    header_t *parse_header(string_t *string);
-    char *read_s_file(char *filename);
-    void nwwrite(int fd, char *buf, size_t size);
+    unsigned long hash(char array str);
+    hash_table ptr create_table(void);
+    void insert(hash_table ptr table, char array key, op_t ptr value);
+    op_t ptr lookup(hash_table ptr table, char array key);
+    void delete(hash_table ptr table, char array key);
+    void free_table(hash_table ptr table);
+    header_t ptr parse_header(string_t ptr string);
+    char array read_s_file(char array filename);
+    void nwwrite(int fd, char array buf, size_t size);
     void init_hashtable(void);
 
 #endif //ASM_ASM_H

@@ -18,12 +18,12 @@
 #include "asm.h"
 #include "my.h"
 
-char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb,
-    uint16_t *current_token)
+char* parse_mnemonic(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t ptr current_token)
 {
-    char *end = my_strchr(input, ' ');
-    char *val = my_strndup(input, (int)(end - input));
-    op_t *res = lookup(hashtable, val);
+    char ptr end = my_strchr(input, ' ');
+    char array val = my_strndup(input, (int)(end - input));
+    op_t ptr res = lookup(hashtable, val);
     if (res == NULL) {
         print_instruction_error(input, line_nb);
         free(val);
@@ -32,6 +32,7 @@ char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb,
     token->type = TOKEN_MNEMONIC;
     token->token = create_string(val);
     free(val);
+    *current_token += 1;
     return end;
 }
 /*

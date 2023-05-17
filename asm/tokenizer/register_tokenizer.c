@@ -18,10 +18,10 @@
 #include "tokenizer.h"
 #include "my.h"
 
-char* parse_register(char *input, token_t *token, uint16_t line_nb,
-    uint16_t *current_token)
+char* parse_register(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t array current_token)
 {
-    char *end = input;
+    char ptr end = input;
     if (!input || !token) return (NULL);
     while (*end && *end != REG_CHAR && *end != '\n') end++;
     if (*end != REG_CHAR) return (input);

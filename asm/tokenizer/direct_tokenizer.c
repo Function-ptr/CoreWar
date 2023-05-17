@@ -18,17 +18,18 @@
 #include <stdbool.h>
 #include "my.h"
 
-char array parse_direct(char array input, token_t ptr token, uint16_t line_nb)
+char *parse_direct(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t ptr current_token)
 {
-    char *end = input, has_direct_char = false;
+    char ptr end = input, has_direct_char = false;
     if (!input || !token) return NULL;
     token->type = TOKEN_DIRECT;
     for (; *end && *end != SEPARATOR_CHAR && *end != '\n'; end++)
         has_direct_char = *end == DIRECT_CHAR ? true : has_direct_char;
     if (!has_direct_char) return input;
-    char *directpos = my_dstrchr(input, end, DIRECT_CHAR);
+    char ptr directpos = my_dstrchr(input, end, DIRECT_CHAR);
     int len_direct = (int)(end - directpos);
-    char *val = my_strndup(directpos + 1, len_direct);
+    char array val = my_strndup(directpos + 1, len_direct);
     if (*val != LABEL_CHAR && !my_str_isnum(val)) {
         print_syntax_error(input, line_nb);
         free(val);
@@ -37,6 +38,7 @@ char array parse_direct(char array input, token_t ptr token, uint16_t line_nb)
     string_t str = create_string(val);
     free(val);
     token->token = str;
+    *current_token += 1;
     return end;
 }
 /*

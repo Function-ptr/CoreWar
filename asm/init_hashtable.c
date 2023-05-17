@@ -17,7 +17,7 @@
 #include "asm.h"
 #include "my.h"
 
-hash_table *hashtable;
+hash_table ptr hashtable;
 
 void init_hashtable(void)
 {

@@ -16,14 +16,15 @@
 */
 
 #include "my.h"
+#include "tokenizer.h"
 #include "string.h"
 
-string_t create_string(char *str)
+string_t create_string(char array str)
 {
     uint64_t len = (uint64_t)my_strlen(str);
     string_t new = {0, 0};
     new.len = 0;
-    char * newstr = malloc(sizeof(char) * len);
+    char array newstr = malloc(sizeof(char) * len);
     if (!newstr) {
         return new;
     }
@@ -37,7 +38,7 @@ string_t string_dup(string_t str)
 {
     string_t new = {0, 0};
     new.len = 0;
-    char * duped = malloc(sizeof(char) * new.len);
+    char array duped = malloc(sizeof(char) * new.len);
     if (!duped) {
         return new;
     }
