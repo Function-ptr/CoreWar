@@ -19,6 +19,7 @@ SRCS = 	hash.c	\
 	tokenizer/label_tokenizer.c	\
 	tokenizer/print_syntax_error.c	\
 	tokenizer/register_tokenizer.c	\
+	tokenizer/tokenizer.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
@@ -32,6 +33,7 @@ OBJS = 	obj/hash.o	\
 	obj/tokenizer-label_tokenizer.o	\
 	obj/tokenizer-print_syntax_error.o	\
 	obj/tokenizer-register_tokenizer.o	\
+	obj/tokenizer-tokenizer.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
@@ -45,6 +47,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/tokenizer-label_tokenizer.o	\
 	obj/release/tokenizer-print_syntax_error.o	\
 	obj/release/tokenizer-register_tokenizer.o	\
+	obj/release/tokenizer-tokenizer.o	\
 
 OBJ_DIR = obj
 

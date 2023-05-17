@@ -7,6 +7,9 @@
 
 #ifndef COREWAR_OP_H_
     #include <stdint.h>
+
+    #define ptr *
+    #define array *
     # define COREWAR_OP_H_
 
     # define MEM_SIZE                (6 * 1024)
