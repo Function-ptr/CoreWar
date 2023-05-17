@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** tokenizer.h
+** print_syntax_error.c
 ** File description:
-** tokenizer
+** print syntax error
 */
 /*
  _____               __      __
@@ -15,41 +15,21 @@
                                       |___/
 */
 
-#ifndef COREWAR_TOKENIZER_H
-    #define COREWAR_TOKENIZER_H
+#include "tokenizer.h"
+#include "my.h"
 
-    #include <stdint.h>
-    #include <unistd.h>
-    #include <stddef.h>
-    #include "string.h"
-    #include "op.h"
+void print_syntax_error(char *input, uint16_t line_nb)
+{
+    char *end = input;
 
-    typedef enum : uint8_t {
-        TOKEN_MNEMONIC,
-        TOKEN_REGISTER,
-        TOKEN_DIRECT,
-        TOKEN_INDIRECT,
-        TOKEN_COMMA,
-        TOKEN_NEWLINE,
-        TOKEN_LABEL,
-        TOKEN_UNKNOWN
-    } token_type_t;
-
-    typedef struct {
-        token_type_t type;
-        string_t token;
-    } token_t;
-
-    char* parse_label(char *input, token_t *token, uint16_t line_nb);
-    char* parse_register(char *input, token_t *token, uint16_t line_nb);
-    char* parse_direct(char *input, token_t *token, uint16_t line_nb);
-    char* parse_indirect(char *input, token_t *token, uint16_t line_nb);
-    char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb);
-    char* parse_comma(char *input, token_t *token, uint16_t line_nb);
-    char* parse_newline(char *input, token_t *token, uint16_t line_nb);
-    void print_syntax_error(char *input, uint16_t line_nb);
-
-#endif //COREWAR_TOKENIZER_H
+    while (*end && *end != '\n')
+        end++;
+    (void)write(2, "\033[1m\033[38;5;8mLine ", 20);
+    (void)my_put_nbr_do(line_nb);
+    (void)write(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
+    (void)write(2, input, (size_t) (end - input));
+    (void)write(2, "\n", 1);
+}
 
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄

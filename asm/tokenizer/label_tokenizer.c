@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** tokenizer.h
+** label_tokenizer.c
 ** File description:
-** tokenizer
+** tokenizer for labels
 */
 /*
  _____               __      __
@@ -15,41 +15,30 @@
                                       |___/
 */
 
-#ifndef COREWAR_TOKENIZER_H
-    #define COREWAR_TOKENIZER_H
+#include "tokenizer.h"
+#include "my.h"
 
-    #include <stdint.h>
-    #include <unistd.h>
-    #include <stddef.h>
-    #include "string.h"
-    #include "op.h"
+char* parse_label(char *input, token_t *token, uint16_t line_nb)
+{
+    char *end = input;
 
-    typedef enum : uint8_t {
-        TOKEN_MNEMONIC,
-        TOKEN_REGISTER,
-        TOKEN_DIRECT,
-        TOKEN_INDIRECT,
-        TOKEN_COMMA,
-        TOKEN_NEWLINE,
-        TOKEN_LABEL,
-        TOKEN_UNKNOWN
-    } token_type_t;
+    if (!input || !token)
+        return (NULL);
+    token->type = TOKEN_LABEL;
+    while (*end && *end != LABEL_CHAR) {
+        if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9')) {
+            print_syntax_error(input, line_nb);
+            return (NULL);
+        }
+        end++;
+    }
+    char temp[end - input + 1];
+    my_memcpy(temp, input, (size_t) (end - input));
+    temp[end - input] = '\0';
 
-    typedef struct {
-        token_type_t type;
-        string_t token;
-    } token_t;
-
-    char* parse_label(char *input, token_t *token, uint16_t line_nb);
-    char* parse_register(char *input, token_t *token, uint16_t line_nb);
-    char* parse_direct(char *input, token_t *token, uint16_t line_nb);
-    char* parse_indirect(char *input, token_t *token, uint16_t line_nb);
-    char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb);
-    char* parse_comma(char *input, token_t *token, uint16_t line_nb);
-    char* parse_newline(char *input, token_t *token, uint16_t line_nb);
-    void print_syntax_error(char *input, uint16_t line_nb);
-
-#endif //COREWAR_TOKENIZER_H
+    token->token = create_string(temp);
+    return (end);
+}
 
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄

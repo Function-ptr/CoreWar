@@ -80,6 +80,8 @@ int nb_in_base(char nb, const char *base);
 
 int my_str_isalphanum(char *str);
 
+int my_put_nbr_do(int n);
+
 
 //////////////////
 ///  My Lib C  ///
