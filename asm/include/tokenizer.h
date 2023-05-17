@@ -30,8 +30,7 @@
         TOKEN_DIRECT,
         TOKEN_INDIRECT,
         TOKEN_NEWLINE,
-        TOKEN_LABEL,
-        TOKEN_UNKNOWN
+        TOKEN_LABEL
     } token_type_t;
 
     typedef struct {
@@ -49,12 +48,10 @@
         uint16_t line_nb, uint16_t ptr current_token);
     char array parse_mnemonic(char array input, token_t ptr token,
         uint16_t line_nb, uint16_t ptr current_token);
-    char array parse_comma(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
-    char array parse_newline(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
     void print_syntax_error(char array input, uint16_t line_nb);
     void print_instruction_error(char *input, uint16_t line_nb);
+    token_t array tokenize(char array input, uint16_t current_line,
+        uint16_t nb_of_line_in_file);
 
 #endif //COREWAR_TOKENIZER_H
 
