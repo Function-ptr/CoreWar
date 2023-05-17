@@ -39,19 +39,21 @@
         string_t token;
     } token_t;
 
-    char* parse_label(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    char* parse_register(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    char* parse_direct(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    char* parse_indirect(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    char* parse_newline(char *input, token_t *token, uint16_t line_nb,
-        uint16_t *current_token);
-    void print_syntax_error(char *input, uint16_t line_nb);
+    char array parse_label(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_register(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_direct(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_indirect(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_mnemonic(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_comma(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    char array parse_newline(char array input, token_t ptr token,
+        uint16_t line_nb, uint16_t ptr current_token);
+    void print_syntax_error(char array input, uint16_t line_nb);
     void print_instruction_error(char *input, uint16_t line_nb);
 
 #endif //COREWAR_TOKENIZER_H

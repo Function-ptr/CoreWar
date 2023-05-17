@@ -19,7 +19,7 @@
 #include "my.h"
 #include "asm.h"
 
-void print_syntax_error(char *input, uint16_t line_nb)
+void print_syntax_error(char array input, uint16_t line_nb)
 {
     char *end = input;
 

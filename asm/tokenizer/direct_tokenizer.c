@@ -18,7 +18,7 @@
 #include <stdbool.h>
 #include "my.h"
 
-char *parse_direct(char *input, token_t *token, uint16_t line_nb)
+char array parse_direct(char array input, token_t ptr token, uint16_t line_nb)
 {
     char *end = input, has_direct_char = false;
     if (!input || !token) return NULL;

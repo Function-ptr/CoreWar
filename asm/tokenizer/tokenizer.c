@@ -20,7 +20,7 @@
 
 
 
-token_t array tokenize(char *input, uint16_t line_nb)
+token_t array tokenize(char array input, uint16_t line_nb)
 {
 
 }
