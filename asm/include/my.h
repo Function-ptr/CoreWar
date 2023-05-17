@@ -149,4 +149,6 @@ char *itos(int nb);
 
 float my_strtof(const char *s, char **ep);
 
+char *my_dstrchr(char *start, char *endptr, char c);
+
 #endif

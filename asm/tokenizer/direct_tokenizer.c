@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** direct_tokenizer.c
 ** File description:
-** my_strchr
+** tokenize direct values
 */
 /*
  __  __        _                            ___            ___
@@ -14,35 +14,31 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "tokenizer.h"
+#include <stdbool.h>
+#include "my.h"
 
-char *my_strchr(char *s, int c)
+char *parse_direct(char *input, token_t *token, uint16_t line_nb)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
-}
-
-char *my_strrchr(char *s, int c)
-{
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    char *end = input, has_direct_char = false;
+    if (!input || !token) return NULL;
+    token->type = TOKEN_DIRECT;
+    for (; *end && *end != SEPARATOR_CHAR && *end != '\n'; end++)
+        has_direct_char = *end == DIRECT_CHAR ? true : has_direct_char;
+    if (!has_direct_char) return input;
+    char *directpos = my_dstrchr(input, end, DIRECT_CHAR);
+    int len_direct = (int)(end - directpos);
+    char *val = my_strndup(directpos + 1, len_direct);
+    if (*val != LABEL_CHAR && !my_str_isnum(val)) {
+        print_syntax_error(input, line_nb);
+        free(val);
+        return NULL;
     }
-    return last;
+    string_t str = create_string(val);
+    free(val);
+    token->token = str;
+    return end;
 }
-
-char *my_dstrchr(char *start, char *endptr, char c)
-{
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

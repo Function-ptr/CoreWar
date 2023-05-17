@@ -17,6 +17,7 @@
 
 #include "tokenizer.h"
 #include "my.h"
+#include "asm.h"
 
 void print_syntax_error(char *input, uint16_t line_nb)
 {
@@ -24,11 +25,11 @@ void print_syntax_error(char *input, uint16_t line_nb)
 
     while (*end && *end != '\n')
         end++;
-    (void)write(2, "\033[1m\033[38;5;8mLine ", 20);
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 20);
     (void)my_put_nbr_do(line_nb);
-    (void)write(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
-    (void)write(2, input, (size_t) (end - input));
-    (void)write(2, "\n", 1);
+    nwwrite(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
+    nwwrite(2, input, (size_t) (end - input));
+    nwwrite(2, "\n", 1);
 }
 
 /*
