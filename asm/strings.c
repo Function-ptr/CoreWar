@@ -28,7 +28,7 @@ string_t *create_string(char *str)
         free(new);
         return NULL;
     }
-    my_memmove(newstr, str, len);
+    my_memcpy(newstr, str, len - 1);
     new->str = newstr;
     return new;
 }
@@ -43,7 +43,7 @@ string_t *string_dup(string_t *str)
         free(new);
         return NULL;
     }
-    my_memmove(duped, str->str, new->len);
+    my_memcpy(duped, str->str, new->len);
     new->str = duped;
     return new;
 }

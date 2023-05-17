@@ -115,7 +115,7 @@ char *my_strndup(char *str, int len);
 
 void *my_memmove(void *dest, const void *src, size_t n);
 
-void *my_memcpy(void *restrict dest, const void *restrict src, size_t n);
+void* my_memcpy(void* dest, const void* src, size_t n);
 
 int my_printf(const char *f, ...);
 

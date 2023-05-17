@@ -21,6 +21,7 @@
     #include <stdint.h>
     #include <stdio.h>
     #include "op.h"
+    #include "tokenizer.h"
 
 typedef uint8_t byte;
 typedef uint16_t word;
@@ -29,10 +30,6 @@ typedef uint64_t qword;
 
     #define TABLE_SIZE 16
 
-    typedef struct {
-        char* str;
-        uint64_t len;
-    } string_t;
 
     typedef struct Entry {
         char *key;
@@ -50,9 +47,6 @@ typedef uint64_t qword;
     op_t* lookup(hash_table *table, char *key);
     void delete(hash_table *table, char *key);
     void free_table(hash_table *table);
-    string_t *create_string(char *str);
-    string_t *string_dup(string_t *str);
-    void free_string(string_t *str);
 
 char *read_s_file(char *filename);
 
