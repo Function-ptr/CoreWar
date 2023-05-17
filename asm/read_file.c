@@ -19,10 +19,20 @@
 
 void purge_spaces(char *buff, uint64_t len)
 {
-    if (my_strstr(buff, NAME_CMD_STRING) || my_strstr(buff, COMMENT_CMD_STRING))
-        return;
+    char *name = my_strstr(buff, NAME_CMD_STRING);
+    char *command = my_strstr(buff, COMMENT_CMD_STRING);
     int nb_spaces = 0;
-    for (uint64_t i = 0; i < len; i++)
+    if (name) {
+        name += my_strlen(NAME_CMD_STRING);
+        while (name[1] == ' ' || name[1] == '\t')
+            my_memmove(name, name + 1, (size_t)my_strlen(name));
+        return;
+    } if (command) {
+        command += my_strlen(COMMENT_CMD_STRING);
+        while (command[1] == ' ' || command[1] == '\t')
+            my_memmove(command, command + 1, (size_t)my_strlen(command));
+        return;
+    } for (uint64_t i = 0; i < len; i++)
         nb_spaces = buff[i] == ' ' ? nb_spaces + 1 : nb_spaces;
     while (nb_spaces > 1) {
         char *pos = my_strrchr(buff, ' ');
