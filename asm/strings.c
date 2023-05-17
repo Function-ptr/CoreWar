@@ -22,7 +22,7 @@ string_t *create_string(char *str)
     uint64_t len = (uint64_t)my_strlen(str);
     string_t *new = malloc(sizeof(string_t));
     if (!new) return NULL;
-    new->len = len;
+    new->len = len - 1;
     char * newstr = malloc(sizeof(char) * len);
     if (!newstr) {
         free(new);
@@ -37,7 +37,7 @@ string_t *string_dup(string_t *str)
 {
     string_t *new = malloc(sizeof(string_t));
     if (!new) return NULL;
-    new->len = str->len;
+    new->len = str->len - 1;
     char * duped = malloc(sizeof(char) * new->len);
     if (!duped) {
         free(new);
