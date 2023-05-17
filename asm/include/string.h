@@ -25,9 +25,9 @@
             uint64_t len;
         } string_t;
 
-    string_t *create_string(char *str);
-    string_t *string_dup(string_t *str);
-    void free_string(string_t *str);
+    string_t create_string(char *str);
+    string_t string_dup(string_t str);
+    void free_string(string_t str);
 
 #endif //COREWAR_STRING_H
 

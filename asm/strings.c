@@ -14,44 +14,42 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include "asm.h"
-#include "my.h"
 
-string_t *create_string(char *str)
+#include "my.h"
+#include "string.h"
+
+string_t create_string(char *str)
 {
     uint64_t len = (uint64_t)my_strlen(str);
-    string_t *new = malloc(sizeof(string_t));
-    if (!new) return NULL;
-    new->len = len - 1;
+    string_t new;
+    new.len = 0;
     char * newstr = malloc(sizeof(char) * len);
     if (!newstr) {
-        free(new);
-        return NULL;
+        return new;
     }
     my_memcpy(newstr, str, len - 1);
-    new->str = newstr;
+    new.len = len - 1;
+    new.str = newstr;
     return new;
 }
 
-string_t *string_dup(string_t *str)
+string_t string_dup(string_t str)
 {
-    string_t *new = malloc(sizeof(string_t));
-    if (!new) return NULL;
-    new->len = str->len - 1;
-    char * duped = malloc(sizeof(char) * new->len);
+    string_t new;
+    new.len = 0;
+    char * duped = malloc(sizeof(char) * new.len);
     if (!duped) {
-        free(new);
-        return NULL;
+        return new;
     }
-    my_memcpy(duped, str->str, new->len);
-    new->str = duped;
+    my_memcpy(duped, str.str, new.len);
+    new.len = str.len - 1;
+    new.str = duped;
     return new;
 }
 
-void free_string(string_t *str)
+void free_string(string_t str)
 {
-    free(str->str);
-    free(str);
+    free(str.str);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
