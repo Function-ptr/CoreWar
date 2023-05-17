@@ -24,13 +24,36 @@
     #include "string.h"
     #include "op.h"
 
+    #define CHECK_TOKEN_AND_TOKENIZE_NEWLINE \
+        if (input == NULL) { \
+            free(tokens); \
+            return (NULL); \
+        } \
+        if (current_token + 1 >= max_tokens) { \
+            max_tokens *= 2; \
+            token_t array tmp = realloc(tokens, sizeof(token_t) * max_tokens); \
+            if (!tmp) { \
+                free(tokens); \
+                return (NULL); \
+            } \
+            tokens = tmp; \
+        } \
+        if (*input == '\n') { \
+            tokens[current_token].token = create_string("\n"); \
+            tokens[current_token].type = TOKEN_NEWLINE; \
+            current_token++; \
+            input++; \
+            continue; \
+        }
+
     typedef enum {
         TOKEN_MNEMONIC,
         TOKEN_REGISTER,
         TOKEN_DIRECT,
         TOKEN_INDIRECT,
         TOKEN_NEWLINE,
-        TOKEN_LABEL
+        TOKEN_LABEL,
+        TOKEN_END
     } token_type_t;
 
     typedef struct {

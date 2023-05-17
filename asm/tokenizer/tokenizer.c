@@ -18,28 +18,6 @@
 #include "tokenizer.h"
 #include "my.h"
 
-#define CHECK_TOKEN_AND_TOKENIZE_NEWLINE \
-    if (input == NULL) { \
-        free(tokens); \
-        return (NULL); \
-    } \
-    if (current_token + 1 >= max_tokens) { \
-        max_tokens *= 2; \
-        token_t array tmp = realloc(tokens, sizeof(token_t) * max_tokens); \
-        if (!tmp) { \
-            free(tokens); \
-            return (NULL); \
-        } \
-        tokens = tmp; \
-    } \
-    if (*input == '\n') { \
-        tokens[current_token].token = create_string("\n"); \
-        tokens[current_token].type = TOKEN_NEWLINE; \
-        current_token++; \
-        input++; \
-        continue; \
-    }
-
 token_t array tokenize(char array input, uint16_t current_line,
     uint16_t nb_of_line_in_file)
 {
@@ -62,7 +40,7 @@ token_t array tokenize(char array input, uint16_t current_line,
         input = parse_indirect(input, &tokens[current_token], current_line,
             &current_token);
         CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-    }
+    } tokens[current_token].type = TOKEN_END; return tokens;
 }
 
 /*
