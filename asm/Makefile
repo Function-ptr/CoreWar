@@ -11,6 +11,7 @@ SRCS = 	hash.c	\
 	hash_table.c	\
 	main.c	\
 	op.c	\
+	parse_headers.c	\
 	read_file.c	\
 	strings.c	\
 
@@ -18,6 +19,7 @@ OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
 	obj/main.o	\
 	obj/op.o	\
+	obj/parse_headers.o	\
 	obj/read_file.o	\
 	obj/strings.o	\
 
@@ -25,6 +27,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
 	obj/release/main.o	\
 	obj/release/op.o	\
+	obj/release/parse_headers.o	\
 	obj/release/read_file.o	\
 	obj/release/strings.o	\
 
