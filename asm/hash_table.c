@@ -20,16 +20,16 @@
 
 hash_table *create_table(void)
 {
-    hash_table *table = malloc(sizeof(hash_table));
+    hash_table ptr table = malloc(sizeof(hash_table));
     for (int i = 0; i < TABLE_SIZE; i++)
         table->buckets[i] = NULL;
     return table;
 }
 
-void insert(hash_table* table, char* key, op_t* value)
+void insert(hash_table ptr table, char array key, op_t ptr value)
 {
     unsigned long index = hash(key);
-    Entry *entry = malloc(sizeof(Entry));
+    Entry ptr entry = malloc(sizeof(Entry));
     if (!entry)
         return;
     entry->key = key;
@@ -38,10 +38,10 @@ void insert(hash_table* table, char* key, op_t* value)
     table->buckets[index] = entry;
 }
 
-op_t* lookup(hash_table* table, char* key)
+op_t ptr lookup(hash_table ptr table, char array key)
 {
     unsigned long index = hash(key);
-    Entry *bucket = table->buckets[index];
+    Entry ptr bucket = table->buckets[index];
     while (bucket) {
         if (my_strcmp(bucket->key, key) == 0)
             return bucket->value;
@@ -50,11 +50,11 @@ op_t* lookup(hash_table* table, char* key)
     return NULL;
 }
 
-void delete(hash_table *const table, char *key)
+void delete(hash_table ptr const table, char array key)
 {
     unsigned long index = hash(key);
-    Entry *bucket = table->buckets[index];
-    Entry *prev = NULL;
+    Entry ptr bucket = table->buckets[index];
+    Entry ptr prev = NULL;
 
     while (bucket) {
         if (my_strcmp(bucket->key, key) != 0) {

@@ -39,15 +39,15 @@
     } token_t;
 
     char array parse_label(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
+        uint16_t line_nb, uint32_t ptr current_token);
     char array parse_register(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
+        uint16_t line_nb, uint32_t ptr current_token);
     char array parse_direct(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
+        uint16_t line_nb, uint32_t ptr current_token);
     char array parse_indirect(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
+        uint16_t line_nb, uint32_t ptr current_token);
     char array parse_mnemonic(char array input, token_t ptr token,
-        uint16_t line_nb, uint16_t ptr current_token);
+        uint16_t line_nb, uint32_t ptr current_token);
     void print_syntax_error(char array input, uint16_t line_nb);
     void print_instruction_error(char *input, uint16_t line_nb);
     token_t array tokenize(char array input, uint16_t current_line,

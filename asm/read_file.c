@@ -17,10 +17,10 @@
 #include "asm.h"
 #include "my.h"
 
-void purge_spaces(char *buff, uint64_t len)
+void purge_spaces(char array buff, uint64_t len)
 {
-    char *name = my_strstr(buff, NAME_CMD_STRING);
-    char *command = my_strstr(buff, COMMENT_CMD_STRING);
+    char ptr name = my_strstr(buff, NAME_CMD_STRING);
+    char ptr command = my_strstr(buff, COMMENT_CMD_STRING);
     int nb_spaces = 0;
     if (name) {
         name += my_strlen(NAME_CMD_STRING);
@@ -35,13 +35,13 @@ void purge_spaces(char *buff, uint64_t len)
     } for (uint64_t i = 0; i < len; i++)
         nb_spaces = buff[i] == ' ' ? nb_spaces + 1 : nb_spaces;
     while (nb_spaces > 1) {
-        char *pos = my_strrchr(buff, ' ');
+        char ptr pos = my_strrchr(buff, ' ');
         my_memmove(pos, pos + 1, (size_t)my_strlen(pos));
         nb_spaces--;
     }
 }
 
-void clean_labels(char *buff, uint64_t *len)
+void clean_labels(char array buff, uint64_t ptr len)
 {
     if (my_strstr(buff, NAME_CMD_STRING) || my_strstr(buff, COMMENT_CMD_STRING))
         return;
@@ -58,10 +58,11 @@ void clean_labels(char *buff, uint64_t *len)
     }
 }
 
-char *process_line(char *buff, char **file_content, uint64_t file_len)
+char array process_line(char array buff, char ptr array file_content,
+    uint64_t file_len)
 {
     if (my_strchr(buff, COMMENT_CHAR)) {
-        char *comm = my_strchr(buff, COMMENT_CHAR);
+        char ptr comm = my_strchr(buff, COMMENT_CHAR);
         for (; comm != buff && (*(comm - 1) == ' ' || *(comm - 1) ==
         COMMENT_CHAR); comm--);
         *comm = '\n';
@@ -72,7 +73,7 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
     uint64_t len = (uint64_t)my_strlen(buff);
     clean_labels(buff, &len);
     purge_spaces(buff, len);
-    char *tmp = realloc(*file_content, len + file_len + 1 * sizeof(char));
+    char array tmp = realloc(*file_content, len + file_len + 1 * sizeof(char));
     #pragma GCC diagnostic push
     #pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
     if (!tmp && *file_content)
@@ -82,14 +83,14 @@ char *process_line(char *buff, char **file_content, uint64_t file_len)
 
 }
 
-char *read_s_file(char *filename)
+char array read_s_file(char array filename)
 {
-    FILE *f = fopen(filename, "r");
+    FILE ptr f = fopen(filename, "r");
     if (f == NULL) {
         nwwrite(2, "Error in function open: No such file or directory.\n", 51);
         return NULL;
     }
-    char *file_content = NULL, *buff = NULL, *obuff = NULL;
+    char array file_content = NULL, array buff = NULL, array obuff = NULL;
     uint64_t file_len = 0, s = 0;
     while (getline(&obuff, &s, f) != -1) {
         buff = process_line(obuff, &file_content, file_len);
