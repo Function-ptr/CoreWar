@@ -28,14 +28,14 @@ int main(int ac, char **av)
 {
     if (ac != 2) return 84;
     char *fcontent = read_s_file(av[1]);
-    if (!fcontent)
-        return 84;
+    if (!fcontent) return 84;
     string_t content = create_string(fcontent);
     nwwrite(1, fcontent, (size_t)my_strlen(fcontent));
     header_t *n = parse_header(&content);
     if (!n) {
         free_string(content);
         free(fcontent);
+        nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
         return 84;
     }
     free(n);
