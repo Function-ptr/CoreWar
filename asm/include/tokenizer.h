@@ -42,7 +42,8 @@
 
     char* parse_label(char *input, token_t *token, uint16_t line_nb,
         uint16_t *current_token);
-    char* parse_register(char *input, token_t *token, uint16_t line_nb);
+    char* parse_register(char *input, token_t *token, uint16_t line_nb,
+        uint16_t *current_token);
     char* parse_direct(char *input, token_t *token, uint16_t line_nb);
     char* parse_indirect(char *input, token_t *token, uint16_t line_nb);
     char* parse_mnemonic(char *input, token_t *token, uint16_t line_nb);

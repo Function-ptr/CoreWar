@@ -18,30 +18,29 @@
 #include "tokenizer.h"
 #include "my.h"
 
-char* parse_register(char *input, token_t *token, uint16_t line_nb)
+char* parse_register(char *input, token_t *token, uint16_t line_nb,
+    uint16_t *current_token)
 {
     char *end = input;
-
-    if (!input || !token)
-        return (NULL);
-    token->type = TOKEN_REGISTER;
-    if (*end != 'r') {
+    if (!input || !token) return (NULL);
+    while (*end && *end != REG_CHAR && *end != '\n') end++;
+    if (*end != REG_CHAR) return (input);
+    if (*(end - 1) != ' ' && *(end - 1) != ',' && !(*(end + 1) >= '0'
+    && *(end + 1) <= '9')) {
         print_syntax_error(input, line_nb);
         return (NULL);
     }
     end++;
-    while (*end && *end >= '0' && *end <= '9')
+    if ((*(end + 1) >= '0' && *(end + 1) <= '9'))
         end++;
-    if (*end != '\0' && *end != ' ' && *end != '\t' && *end != '\n') {
-        print_syntax_error(input, line_nb);
-        return (NULL);
-    }
     char temp[end - input + 1];
     my_memcpy(temp, input, (size_t) (end - input));
     temp[end - input] = '\0';
-
     token->token = create_string(temp);
-    return (end);
+    if (token->token.len == 0) return (NULL);
+    token->type = TOKEN_REGISTER;
+    *current_token += 1;
+    return (++end);
 }
 
 /*
