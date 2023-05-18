@@ -33,7 +33,8 @@ void handle_error(char* fcontent, string_t content, header_t* header)
     nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
 }
 
-int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content, header_t* header)
+int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
+    header_t* header)
 {
     char* end = NULL;
     uint16_t line_nb = 1;
@@ -76,4 +77,3 @@ int main(int ac, char **av)
 
     return process_file(fcontent, nb_of_line_in_file, content, NULL);
 }
-
