@@ -43,7 +43,7 @@
             tokens[current_token].type = TOKEN_NEWLINE; \
             current_token++; \
             input++; \
-            continue; \
+            break; \
         }
 
     typedef enum {
