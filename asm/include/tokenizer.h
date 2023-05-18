@@ -26,13 +26,17 @@
 
     #define CHECK_TOKEN_AND_TOKENIZE_NEWLINE \
         if (input == NULL) { \
+            for (uint32_t x = 0; x < current_token; x++) \
+                free_string(tokens[i].token); \
             free(tokens); \
             return (NULL); \
         } \
         if (current_token + 1 >= max_tokens) { \
             max_tokens *= 2; \
             token_t array tmp = realloc(tokens, sizeof(token_t) * max_tokens); \
-            if (!tmp) { \
+            if (!tmp) {                      \
+                for (uint32_t x = 0; x < current_token; x++) \
+                    free_string(tokens[i].token); \
                 free(tokens); \
                 return (NULL); \
             } \

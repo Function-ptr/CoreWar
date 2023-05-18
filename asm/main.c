@@ -47,8 +47,13 @@ int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
 
     init_hashtable();
 
-    tokenize(end, line_nb, nb_of_line_in_file);
-
+    token_t array tokens = tokenize(end, line_nb, nb_of_line_in_file);
+    if (!tokens) {
+        handle_error(fcontent, content, header);
+        return 84;
+    }
+    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
+            free_string(tokens[i].token);
     free(header);
     free_string(content);
     free(fcontent);
