@@ -31,7 +31,7 @@ int main(int ac, char **av)
     if (!fcontent) return 84;
     string_t content = create_string(fcontent);
     nwwrite(1, fcontent, (size_t)my_strlen(fcontent));
-    uint16_t line_nb = 0;
+    uint16_t line_nb = 1;
     header_t ptr n = parse_header(&content, &end, &line_nb);
     if (!n) {
         free_string(content);

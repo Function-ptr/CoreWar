@@ -87,7 +87,7 @@ header_t *create_and_fill_header(char ptr ptr end, char ptr comment,
         }
         int clen = process_comment(&comment);
         my_memcpy(header->comment, comment, (size_t)clen);
-        end += 11 + clen;
+        *end += 11 + clen;
     } else
         nwwrite(2, NOCOM, 48);
     return header;
