@@ -18,6 +18,7 @@
     #define ASM_PARSER_H
     #include "asm.h"
     #include "tokenizer.h"
+    #include <stdbool.h>
 
     typedef struct {
         token_t ptr mnemonic;
@@ -30,6 +31,9 @@
     } labels_t;
 
     void print_invalid_args_error(uint16_t line_nb, token_t inst);
+    bool register_unused(token_t token, uint16_t reg_bitmask,
+        uint16_t line_nb);
+    void update_register_usage(token_t token, uint16_t *reg_bitmask);
 #endif //ASM_PARSER_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
