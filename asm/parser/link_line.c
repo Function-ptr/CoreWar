@@ -42,10 +42,30 @@ void update_registers(line_t line, uint16_t ptr reg_bitmask, op_t *op,
         register_unused(*line.params[0], *reg_bitmask, line_nb);
 }
 
+void set_line_bytes(line_t *line)
+{
+    op_t *op = lookup(hashtable, line->mnemonic->token.str);
+    int size = 1;
+    uint8_t c = (uint8_t)op->code;
+    if (c != 9 && c != 1 && c != 12 && c != 15)
+        size += 1;
+    for (int i = 0; i < op->nbr_args; i++) {
+        if (line->params[i]->type == TOKEN_REGISTER)
+            ++size;
+        if (line->params[i]->type == TOKEN_INDIRECT)
+            size += 2;
+        if (line->params[i]->type == TOKEN_DIRECT && c > 8 && c < 16 && c != 13)
+            size += 2;
+        else
+            size += 4;
+    }
+    line->bytes_size = size;
+}
+
 line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     uint32_t ptr current_token, uint16_t nb_line)
 {
-    line_t line = {NULL, {NULL}}, failure = {NULL, {NULL}};
+    line_t line = {NULL, {NULL}, 0}, failure = {NULL, {NULL}, 0};
     for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
     line.mnemonic = &tokens[*current_token];
     op_t *op = lookup(hashtable, line.mnemonic->token.str);
@@ -61,6 +81,7 @@ line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     for (int i = 0; i < args_counter; i++, *current_token += 1)
         line.params[i] = &tokens[*current_token];
     update_registers(line, reg_bitmask, op, nb_line);
+    set_line_bytes(&line);
     return line;
 }
 /*

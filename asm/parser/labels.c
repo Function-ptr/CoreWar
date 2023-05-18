@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** parser.c
+** labels.c
 ** File description:
-** parse tokens and link them
+** manage labels
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,7 @@
 */
 #include "parser.h"
 
-line_t array parser(token_t array tokens, uint16_t nb_lines)
-{
-    uint16_t registers_bitmask = 0;
-    uint32_t curr_token = 0, bytes_pos = 0;
-    line_t array lines = NULL;
-    while (tokens[curr_token].type != TOKEN_END) {
-        if (tokens[curr_token].type == TOKEN_LABEL) {
 
-            ++curr_token;
-        }
-
-    }
-}
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

@@ -23,6 +23,7 @@
     typedef struct {
         token_t ptr mnemonic;
         token_t ptr params[4];
+        int bytes_size;
     } line_t;
 
     typedef struct {
@@ -34,6 +35,8 @@
     bool register_unused(token_t token, uint16_t reg_bitmask,
         uint16_t line_nb);
     void update_register_usage(token_t token, uint16_t *reg_bitmask);
+    line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
+        uint32_t ptr current_token, uint16_t nb_line);
 #endif //ASM_PARSER_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
