@@ -24,24 +24,56 @@ void swap_uint32(uint32_t ptr little)
         (*little << 24);
 }
 
+void handle_error(char* fcontent, string_t content, header_t* header)
+{
+    free_string(content);
+    free(fcontent);
+    free(header);
+
+    nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
+}
+
+int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content, header_t* header)
+{
+    char* end = NULL;
+    uint16_t line_nb = 1;
+
+    header = parse_header(&content, &end, &line_nb);
+    if (!header) {
+        handle_error(fcontent, content, header);
+        return 84;
+    }
+
+    init_hashtable();
+
+    tokenize(end, line_nb, nb_of_line_in_file);
+
+    free(header);
+    free_string(content);
+    free(fcontent);
+
+    return 0;
+}
+
 int main(int ac, char **av)
 {
-    if (ac != 2) return 84;
-    char array fcontent = read_s_file(av[1]), ptr end = NULL;
-    if (!fcontent) return 84;
-    string_t content = create_string(fcontent);
-    nwwrite(1, fcontent, (size_t)my_strlen(fcontent));
-    uint16_t line_nb = 1;
-    header_t ptr n = parse_header(&content, &end, &line_nb);
-    if (!n) {
-        free_string(content);
-        free(fcontent);
+    if (ac != 2)
+        return 84;
+
+    uint16_t nb_of_line_in_file = 0;
+
+    char* fcontent = read_s_file(av[1], &nb_of_line_in_file);
+    if (!fcontent) {
         nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
         return 84;
     }
-    init_hashtable();
-    free(n);
-    free_string(content);
-    free(fcontent);
-    return (0);
+
+    string_t content = create_string(fcontent);
+    if (content.len == 0) {
+        handle_error(fcontent, content, NULL);
+        return 84;
+    }
+
+    return process_file(fcontent, nb_of_line_in_file, content, NULL);
 }
+

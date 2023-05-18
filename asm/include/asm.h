@@ -56,7 +56,8 @@ after the name.\033[0m\n"
     void free_table(hash_table ptr table);
     header_t *parse_header(string_t ptr string, char ptr ptr endptr,
     uint16_t ptr line_nb);
-    char array read_s_file(char array filename);
+    char array read_s_file(char array filename,
+        uint16_t ptr nb_of_lines_in_file);
     void nwwrite(int fd, char array buf, size_t size);
     void init_hashtable(void);
     void print_syntax_error_header(char *value);
