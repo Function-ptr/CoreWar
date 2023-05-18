@@ -28,8 +28,8 @@ string_t create_string(char array str)
     if (!newstr) {
         return new;
     }
-    my_memcpy(newstr, str, len - 1);
-    new.len = len - 1;
+    my_memcpy(newstr, str, len);
+    new.len = len;
     new.str = newstr;
     return new;
 }
@@ -43,7 +43,7 @@ string_t string_dup(string_t str)
         return new;
     }
     my_memcpy(duped, str.str, new.len);
-    new.len = str.len - 1;
+    new.len = str.len;
     new.str = duped;
     return new;
 }

@@ -16,6 +16,7 @@
 */
 #include "tokenizer.h"
 #include "my.h"
+#include <stdio.h>
 
 char *parse_indirect(char array input, token_t ptr token, uint16_t line_nb,
     uint32_t ptr current_token)
