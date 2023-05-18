@@ -18,29 +18,42 @@
 #include "tokenizer.h"
 #include "my.h"
 
+void tokenize_first_newline(char ptr array input, token_t ptr token,
+    uint16_t ptr line_nb, uint32_t ptr current_token)
+{
+    if (!input || !token) return;
+    if (**input == '\n') {
+        token->token = create_string("\n");
+        token->type = TOKEN_NEWLINE;
+        *current_token += 1;
+        (*input)++;
+        *line_nb += 1;
+    }
+}
+
 token_t array tokenize(char array input, uint16_t current_line,
     uint16_t nb_of_line_in_file)
 {
     token_t array tokens = malloc(sizeof(token_t) * nb_of_line_in_file * 5);
     uint32_t max_tokens = nb_of_line_in_file * 5, current_token = 0;
     if (!tokens) return (NULL);
-    for (; current_line < nb_of_line_in_file; current_line++) {
-        input = parse_label(input, &tokens[current_token], current_line,
+    parse_func_t parse_funcs[] = {
+        parse_label,
+        parse_mnemonic,
+        parse_register,
+        parse_direct,
+        parse_indirect
+    }; size_t num_funcs = sizeof(parse_funcs) / sizeof(parse_funcs[0]);
+    tokenize_first_newline(&input, &tokens[current_token], &current_line,
+        &current_token);
+    for (; current_line < nb_of_line_in_file; current_line++)
+        for (size_t i = 0; i < num_funcs; i++) {
+            input = parse_funcs[i](input, &tokens[current_token], current_line,
             &current_token);
-        CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-        input = parse_mnemonic(input, &tokens[current_token],current_line,
-            &current_token);
-        CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-        input = parse_register(input, &tokens[current_token], current_line,
-            &current_token);
-        CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-        input = parse_direct(input, &tokens[current_token], current_line,
-            &current_token);
-        CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-        input = parse_indirect(input, &tokens[current_token], current_line,
-            &current_token);
-        CHECK_TOKEN_AND_TOKENIZE_NEWLINE
-    } tokens[current_token].type = TOKEN_END; return tokens;
+            CHECK_TOKEN_AND_TOKENIZE_NEWLINE
+        }
+    tokens[current_token].type = TOKEN_END;
+    return tokens;
 }
 
 /*

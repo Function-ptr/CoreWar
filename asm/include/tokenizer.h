@@ -61,6 +61,8 @@
         string_t token;
     } token_t;
 
+    typedef char* (*parse_func_t) (char *, token_t *, uint16_t, uint32_t*);
+
     char array parse_label(char array input, token_t ptr token,
         uint16_t line_nb, uint32_t ptr current_token);
     char array parse_register(char array input, token_t ptr token,

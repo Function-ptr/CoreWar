@@ -6,11 +6,11 @@
 */
 
 #ifndef COREWAR_OP_H_
+    # define COREWAR_OP_H_
     #include <stdint.h>
 
     #define ptr *
     #define array *
-    # define COREWAR_OP_H_
 
     # define MEM_SIZE                (6 * 1024)
     # define IDX_MOD                 512   /* modulo of the index < */
@@ -65,9 +65,6 @@ typedef struct {
 ** op_tab
 */
 extern const op_t op_tab[16];
-
-    #define SWAP_UINT32(x) (((x >> 24) & 0xff) | ((x << 8) & 0xff0000) | \
-    (x >> 8 & 0xff00) | (x << 24 & 0xff000000))
 
 /*
 ** header
