@@ -51,7 +51,7 @@ token_t array tokenize(char array input, uint16_t current_line,
             char ptr backup = input;
             input = parse_funcs[i](input, &tokens[current_token], current_line,
             &current_token);
-            if (*input == ',')
+            if (input && *input == ',')
                 input++;
             if (input == NULL) {
                 for (uint32_t x = 0; x < current_token; x++)
