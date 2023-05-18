@@ -23,7 +23,7 @@ int get_len_to_newline_quote(char array str)
 {
     if (str == NULL) return 0;
     int len = 0;
-    for (; str && str[len] != 0 && str[len] != '\n' && str[len] != '"'; len++);
+    for (; str[len] != 0 && str[len] != '\n' && str[len] != '"'; len++);
     return len;
 }
 
