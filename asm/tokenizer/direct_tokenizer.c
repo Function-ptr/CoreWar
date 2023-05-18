@@ -28,7 +28,7 @@ char *parse_direct(char array input, token_t ptr token, uint16_t line_nb,
         has_direct_char = *end == DIRECT_CHAR ? true : has_direct_char;
     if (!has_direct_char) return input;
     char ptr directpos = my_dstrchr(input, end, DIRECT_CHAR);
-    int len_direct = (int)(end - directpos);
+    int len_direct = (int)(end - directpos - 1);
     char array val = my_strndup(directpos + 1, len_direct);
     if (*val != LABEL_CHAR && !my_str_isnum(val)) {
         print_syntax_error(input, line_nb);
