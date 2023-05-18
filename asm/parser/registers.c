@@ -19,7 +19,6 @@
 
 uint8_t get_register_number(token_t token)
 {
-    if (token.type != TOKEN_REGISTER) return -1;
     uint8_t number = (uint8_t)my_strtol(token.token.str + 1, NULL, 10);
     return number;
 }

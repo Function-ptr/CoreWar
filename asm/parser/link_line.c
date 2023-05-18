@@ -25,7 +25,8 @@ void update_registers(line_t line, uint16_t ptr reg_bitmask, op_t *op,
     if (op->code == 3) {
         register_unused(*line.params[0], *reg_bitmask, line_nb);
         update_register_usage(*line.params[1], reg_bitmask);
-    } if (op->code > 3 && op->code < 12 && op->code != 8) {
+    }
+    if (op->code > 3 && op->code < 12 && op->code != 8) {
         register_unused(*line.params[0], *reg_bitmask, line_nb);
         register_unused(*line.params[1], *reg_bitmask, line_nb);
         update_register_usage(*line.params[2], reg_bitmask);
@@ -48,6 +49,7 @@ line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
     line.mnemonic = &tokens[*current_token];
     op_t *op = lookup(hashtable, line.mnemonic->token.str);
+    if (!op) return failure;
     *current_token += 1;
     int args_counter = 0;
     for (uint i = 0; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)

@@ -25,7 +25,7 @@ void print_syntax_error(char array input, uint16_t line_nb)
 
     while (*end && *end != '\n')
         end++;
-    nwwrite(2, "\033[1m\033[38;5;8mLine ", 20);
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
     (void)my_put_nbr_do(line_nb);
     nwwrite(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
     nwwrite(2, input, (size_t) (end - input));
@@ -36,7 +36,7 @@ void print_instruction_error(char array input, uint16_t line_nb)
 {
     char ptr end = input;
     for (; *end && *end != '\n'; ++end);
-    nwwrite(2, "\033[1m\033[38;5;8mLine ", 20);
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
     (void)my_put_nbr_do(line_nb);
     nwwrite(2, ": \033[38;5;9mError: Invalid instruction\033[0m\n", 43);
     nwwrite(2, input, (size_t) (end - input));
