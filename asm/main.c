@@ -38,15 +38,12 @@ int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
 {
     char* end = NULL;
     uint16_t line_nb = 1;
-
     header = parse_header(&content, &end, &line_nb);
     if (!header) {
         handle_error(fcontent, content, header);
         return 84;
     }
-
     init_hashtable();
-
     token_t array tokens = tokenize(end, line_nb, nb_of_line_in_file);
     if (!tokens) {
         handle_error(fcontent, content, header);
@@ -57,7 +54,6 @@ int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
     free(header);
     free_string(content);
     free(fcontent);
-
     return 0;
 }
 
