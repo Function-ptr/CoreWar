@@ -18,6 +18,25 @@
 #include "tokenizer.h"
 #include "my.h"
 
+bool detect_register_syntax_error(char ptr end, char array input,
+    uint16_t line_nb)
+{
+    if (*(end - 1) != ' ' && *(end - 1) != ',' && !(*(end + 1) >= '0'
+        && *(end + 1) <= '9')) {
+        print_syntax_error(input, line_nb);
+        return (true);
+    }
+    end++;
+    uint nb_register = (uint)my_strtol(end, NULL, 10);
+    if (nb_register < 1 || nb_register > REG_NUMBER) {
+        print_syntax_error(input, line_nb);
+        return true;
+    }
+    if ((*(end + 1) >= '0' && *(end + 1) <= '9'))
+        end++;
+    return false;
+}
+
 char* parse_register(char array input, token_t ptr token, uint16_t line_nb,
     uint32_t array current_token)
 {
@@ -25,14 +44,7 @@ char* parse_register(char array input, token_t ptr token, uint16_t line_nb,
     if (!input || !token) return (NULL);
     while (*end && *end != REG_CHAR && *end != '\n') end++;
     if (*end != REG_CHAR) return (input);
-    if (*(end - 1) != ' ' && *(end - 1) != ',' && !(*(end + 1) >= '0'
-    && *(end + 1) <= '9')) {
-        print_syntax_error(input, line_nb);
-        return (NULL);
-    }
-    end++;
-    if ((*(end + 1) >= '0' && *(end + 1) <= '9'))
-        end++;
+    if (detect_register_syntax_error(end, input, line_nb)) return NULL;
     char temp[end - input + 1];
     my_memcpy(temp, input, (size_t) (end - input));
     temp[end - input] = '\0';

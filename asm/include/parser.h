@@ -29,6 +29,7 @@
         int array byte_pos;
     } labels_t;
 
+    void print_invalid_args_error(uint16_t line_nb, token_t inst);
 #endif //ASM_PARSER_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
