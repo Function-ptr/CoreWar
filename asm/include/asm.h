@@ -31,6 +31,10 @@ typedef uint64_t qword;
     #define TABLE_SIZE 16
     #define NOCOM "\033[1;95mWarning:\033[97m No comment specified.\033[0m\n"
     #define NONAME "\033[1;31mError:\033[97m No name specified.\033[0m\n"
+    #define NAMELINE1 "\033[1;31mError:\033[97m The name of the program \
+must be on the first line.\033[0m\n"
+    #define COMAFNAME "\033[1;31mError:\033[97m The comment must be just \
+after the name.\033[0m\n"
 
     typedef struct Entry {
         char array key;
@@ -50,10 +54,12 @@ typedef uint64_t qword;
     op_t ptr lookup(hash_table ptr table, char array key);
     void delete(hash_table ptr table, char array key);
     void free_table(hash_table ptr table);
-    header_t ptr parse_header(string_t ptr string);
+    header_t *parse_header(string_t ptr string, char ptr ptr endptr,
+    uint16_t ptr line_nb);
     char array read_s_file(char array filename);
     void nwwrite(int fd, char array buf, size_t size);
     void init_hashtable(void);
+    void print_syntax_error_header(char *value);
 
 #endif //ASM_ASM_H
 /*

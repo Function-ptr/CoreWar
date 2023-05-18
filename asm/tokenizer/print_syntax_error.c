@@ -43,6 +43,13 @@ void print_instruction_error(char array input, uint16_t line_nb)
     nwwrite(2, "\n", 1);
 }
 
+void print_syntax_error_header(char *value)
+{
+    nwwrite(2, "\033[1;31mError: \033[97m", 20);
+    nwwrite(2, value, (size_t)my_strlen(value));
+    nwwrite(2, " syntax error.\n\033[0m", 20);
+}
+
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄
 ─█────█─█──█────█────█────█─█──█
