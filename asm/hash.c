@@ -16,14 +16,20 @@
 */
 
 #include "asm.h"
+#include "my.h"
 
-unsigned long hash(char array str)
+const char *keys[NUM_KEYS] = {"live", "ld", "st", "add", "sub", "and",
+    "or", "xor", "zjmp", "ldi", "sti", "fork",
+    "lld", "lldi", "lfork", "aff"};
+
+unsigned long hash(const char *str)
 {
-    unsigned long hash = 5381;
-    int c;
-    while ((c = (unsigned char)*str++))
-        hash = ((hash << 5) + hash) + (size_t)c;
-    return hash % TABLE_SIZE;
+    for (unsigned long i = 0; i < NUM_KEYS; ++i) {
+        if (my_strcmp(keys[i], str) == 0)
+            return i;
+    }
+
+    return TABLE_SIZE;
 }
 
 /*

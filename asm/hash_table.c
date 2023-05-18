@@ -32,7 +32,7 @@ void insert(hash_table ptr table, char array key, op_t ptr value)
     Entry ptr entry = malloc(sizeof(Entry));
     if (!entry)
         return;
-    entry->key = key;
+    entry->key = my_strdup(key);
     entry->value = value;
     entry->next = table->buckets[index];
     table->buckets[index] = entry;

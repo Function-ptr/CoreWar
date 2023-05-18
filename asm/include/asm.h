@@ -35,6 +35,7 @@ typedef uint64_t qword;
 must be on the first line.\033[0m\n"
     #define COMAFNAME "\033[1;31mError:\033[97m The comment must be just \
 after the name.\033[0m\n"
+    #define NUM_KEYS 16
 
     typedef struct Entry {
         char array key;
@@ -48,7 +49,7 @@ after the name.\033[0m\n"
 
     extern hash_table ptr hashtable;
 
-    unsigned long hash(char array str);
+    unsigned long hash(const char array str);
     hash_table ptr create_table(void);
     void insert(hash_table ptr table, char array key, op_t ptr value);
     op_t ptr lookup(hash_table ptr table, char array key);
