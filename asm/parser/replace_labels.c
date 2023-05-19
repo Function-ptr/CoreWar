@@ -28,7 +28,7 @@ uint8_t get_val_bytes(token_t **toks)
         return size;
     }
     if (toks[1]->type == TOKEN_DIRECT &&
-          c > 8 && c < 16 && c != 13)
+        c > 8 && c < 16 && c != 13)
         size += 2;
     else
         size += 4;
@@ -42,14 +42,17 @@ bool process_param(token_t **toks, labels_t ptr labels, uint32_t bytes_pos)
         int64_t label_pos = get_label_offset(labels, *param);
         if (label_pos == -1) return true;
         uint8_t bytes_val = get_val_bytes(toks);
+        char *tmp = realloc(param->token.str, bytes_val + 1);
+        if (!tmp) return true;
+        param->token.str = tmp;
         if (bytes_val == 4) {
             uint32_t v = (uint32_t)(bytes_pos - label_pos);
-            my_memcpy(param->token.str, &v, 4);
+            my_memcpy(param->token.str + 1, &v, 4);
         } else {
             uint16_t v = (uint16_t)(bytes_pos - label_pos);
-            my_memcpy(param->token.str, &v, 2);
+            my_memcpy(param->token.str + 1, &v, 2);
         }
-        param->token.len = bytes_val;
+        param->token.len = bytes_val + 1;
     }
     return false;
 }
@@ -67,7 +70,7 @@ bool replace_line_labels(line_t line, labels_t ptr labels, uint32_t bytes_pos)
 }
 
 bool replace_all_labels_refs(labels_t ptr labels, line_t array lines,
-   uint32_t processed_lines)
+    uint32_t processed_lines)
 {
     uint32_t bytes_pos = 0;
     if (lines == NULL) return true;

@@ -41,7 +41,7 @@ bool update_line(token_t array tokens, uint32_t ptr array data,
 {
     if (tokens[*data[2]].type == TOKEN_LABEL) return false;
     uint16_t line_nb = (uint16_t)*(data[1]), nb_lines = (uint16_t)*(data[0]);
-    uint32_t ptr len_output = data[4];
+    uint32_t ptr len_output = data[4], ptr bytes_pos = data[3];
     line_t l = link_line(tokens, data[2], line_nb);
     if (l.mnemonic == NULL) {
         if (*lines) free(*lines);
@@ -57,6 +57,7 @@ bool update_line(token_t array tokens, uint32_t ptr array data,
     tmp[*len_output] = l;
     *lines = tmp;
     *len_output += 1;
+    *bytes_pos += l.bytes_size;
     return false;
 }
 

@@ -35,13 +35,26 @@ unsigned long hash(const char *str)
 unsigned long hash_string(string_t str)
 {
     for (unsigned long i = 0; i < NUM_KEYS; ++i) {
-        if (my_strncmp(keys[i], str.str, (int)str.len) == 0)
+        int r = my_strncmp(keys[i], str.str, (int)str.len);
+        if (r == 0)
             return i;
     }
 
     return TABLE_SIZE;
 }
 
+op_t ptr lookup_string(hash_table ptr table, string_t key)
+{
+    unsigned long index = hash_string(key);
+    if (index == TABLE_SIZE) return NULL;
+    Entry ptr bucket = table->buckets[index];
+    while (bucket) {
+        if (my_strncmp(bucket->key, key.str, (int)key.len) == 0)
+            return bucket->value;
+        bucket = bucket->next;
+    }
+    return NULL;
+}
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄
 ─█────█─█──█────█────█────█─█──█

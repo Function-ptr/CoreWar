@@ -38,19 +38,6 @@ void insert(hash_table ptr table, char array key, op_t ptr value)
     table->buckets[index] = entry;
 }
 
-op_t ptr lookup_string(hash_table ptr table, string_t key)
-{
-    unsigned long index = hash_string(key);
-    if (index == TABLE_SIZE) return NULL;
-    Entry ptr bucket = table->buckets[index];
-    while (bucket) {
-        if (my_strncmp(bucket->key, key.str, (int)key.len) == 0)
-            return bucket->value;
-        bucket = bucket->next;
-    }
-    return NULL;
-}
-
 op_t ptr lookup(hash_table ptr table, char array key)
 {
     unsigned long index = hash(key);

@@ -35,7 +35,7 @@ int8_t write_buffer_to_file(char array filename, string_t buffer)
     if (fd == -1)
         return -1;
 
-    if(write(fd, buffer.str, buffer.len))
+    if (write(fd, buffer.str, buffer.len))
         return -1;
 
     if (close(fd) == -1)
