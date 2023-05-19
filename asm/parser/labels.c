@@ -19,6 +19,7 @@
 
 bool is_label_defined(labels_t ptr labels, token_t token, uint16_t line_nb)
 {
+    if (!labels) return true;
     for (uint32_t i = 0; i < labels->nb_labels; i++) {
         if (!my_strncmp(labels->labels[i], token.token.str,
             (int)token.token.len)) {
@@ -69,6 +70,7 @@ int64_t get_label_offset(labels_t ptr labels, token_t token)
 
 void clean_labels_struct(labels_t *labels)
 {
+    if (!labels) return;
     for (uint32_t i = 0; i < labels->nb_labels; i++)
         free(labels->labels[i]);
     free(labels->labels);
