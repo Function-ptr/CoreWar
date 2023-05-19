@@ -27,12 +27,13 @@ void swap_uint32(uint32_t ptr little)
 }
 */
 void free_file_processing(token_t array tokens, header_t ptr header,
-    string_t content)
+    string_t content, line_t array lines)
 {
     for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
         free_string(tokens[i].token);
     free(tokens);
     free(header);
+    if (lines) free(lines);
     free_string(content);
     free_table(hashtable);
 }
@@ -45,13 +46,12 @@ void handle_error(string_t content, header_t* header)
     nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
 }
 
-int process_file(uint16_t nb_of_line_in_file, string_t content,
-    header_t* header)
+int process_file(uint16_t nb_of_line_in_file, string_t content, char* file_name)
 {
     char* end = NULL;
     uint16_t line_nb = 1;
-    uint32_t nb_parsed_lines = 0;
-    header = parse_header(&content, &end, &line_nb);
+    header_t *header = parse_header(&content, &end, &line_nb);
+    uint32_t nb_parsed_lines = 0, file_size = sizeof(header_t);
     if (!header) {
         handle_error(content, header);
         return 84;
@@ -64,8 +64,18 @@ int process_file(uint16_t nb_of_line_in_file, string_t content,
     }
     line_t array lines = parser(tokens, nb_of_line_in_file, line_nb,
         &nb_parsed_lines);
-    if (lines) free(lines);
-    free_file_processing(tokens, header, content);
+    for (uint32_t i = 0; i < nb_parsed_lines; i++)
+        file_size += lines[i].bytes_size;
+    string_t output;
+    output.len = file_size; output.str = my_calloc
+        (file_size, sizeof(char), 0);
+    write_header_to_buffer(header, output);
+    if (write_buffer_to_file(file_name, output) == -1) {
+        free_file_processing(tokens, header, content, lines);
+        free_string(output);
+        return 84;
+    } free_string(output);
+    free_file_processing(tokens, header, content, lines);
     return 0;
 }
 
@@ -86,5 +96,5 @@ int main(int ac, char **av)
         handle_error(content, NULL);
         return 84;
     }
-    return process_file(nb_of_line_in_file, content, NULL);
+    return process_file(nb_of_line_in_file, content, av[1]);
 }

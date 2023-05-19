@@ -23,7 +23,7 @@
     typedef struct {
         token_t ptr mnemonic;
         token_t ptr params[4];
-        int bytes_size;
+        uint32_t bytes_size;
     } line_t;
 
     typedef struct {

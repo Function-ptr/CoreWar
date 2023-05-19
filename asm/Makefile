@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SOURCES = . tokenizer parser
+SOURCES = . tokenizer parser translator
 
 SRCS = 	hash.c	\
 	hash_table.c	\
@@ -26,6 +26,7 @@ SRCS = 	hash.c	\
 	parser/link_line.c	\
 	parser/parser.c	\
 	parser/parser_errors.c	\
+	translator/write_to_file.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
@@ -46,6 +47,7 @@ OBJS = 	obj/hash.o	\
 	obj/parser-link_line.o	\
 	obj/parser-parser.o	\
 	obj/parser-parser_errors.o	\
+	obj/translator-write_to_file.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
@@ -66,6 +68,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/parser-link_line.o	\
 	obj/release/parser-parser.o	\
 	obj/release/parser-parser_errors.o	\
+	obj/release/translator-write_to_file.o	\
 
 OBJ_DIR = obj
 
@@ -84,7 +87,7 @@ OPTI = -Ofast \
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
--fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
+-fno-omit-frame-pointer -fanalyzer -ggdb\
 -fstack-protector
 
 # 	Optimization flags:

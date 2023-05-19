@@ -1,6 +1,6 @@
 CC;gcc
 PROJECT_DIR;.
-SOURCES_DIR;. tokenizer parser
+SOURCES_DIR;. tokenizer parser translator
 HEADERS_DIR;include/
 CFLAGS;$(DEBUG) $(OPTI)
 DEBUGFLAGS;$(DEBUG)

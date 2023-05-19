@@ -20,7 +20,7 @@
 void set_line_bytes(line_t *line)
 {
     op_t *op = lookup(hashtable, line->mnemonic->token.str);
-    int size = 1;
+    uint32_t size = 1;
     if (!op) return;
     uint8_t c = (uint8_t)op->code;
     if (c != 9 && c != 1 && c != 12 && c != 15)
