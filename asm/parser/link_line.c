@@ -63,6 +63,15 @@ void set_line_bytes(line_t *line)
     line->bytes_size = size;
 }
 
+bool check_params_validity(line_t line, op_t ptr op)
+{
+    for (int i = 0; i < op->nbr_args; i++) {
+        if (!(line.params[i]->type & (uint)op->type[i]))
+            return false;
+    }
+    return true;
+}
+
 line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     uint32_t ptr current_token, uint16_t nb_line)
 {
@@ -75,12 +84,12 @@ line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     int args_counter = 0;
     for (uint i = 0; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)
         args_counter++;
-    if (args_counter != op->nbr_args) {
+    for (int i = 0; i < op->nbr_args; i++, *current_token += 1)
+        line.params[i] = &tokens[*current_token];
+    if (args_counter != op->nbr_args || !check_params_validity(line, op)) {
         print_invalid_args_error(nb_line, *line.mnemonic);
         return failure;
     }
-    for (int i = 0; i < args_counter; i++, *current_token += 1)
-        line.params[i] = &tokens[*current_token];
     update_registers(line, reg_bitmask, op, nb_line);
     set_line_bytes(&line);
     return line;
