@@ -26,7 +26,7 @@ void update_registers(line_t line, uint16_t ptr reg_bitmask, op_t *op,
         register_unused(*line.params[0], *reg_bitmask, line_nb);
         update_register_usage(*line.params[1], reg_bitmask);
     }
-    if (op->code > 3 && op->code < 12 && op->code != 8) {
+    if (op->code > 3 && op->code < 12 && op->code != 9) {
         register_unused(*line.params[0], *reg_bitmask, line_nb);
         register_unused(*line.params[1], *reg_bitmask, line_nb);
         update_register_usage(*line.params[2], reg_bitmask);
@@ -80,17 +80,17 @@ line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
     line.mnemonic = &tokens[*current_token];
     op_t *op = lookup(hashtable, line.mnemonic->token.str);
     if (!op) return failure;
-    *current_token += 1;
     int args_counter = 0;
-    for (uint i = 0; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)
+    for (uint i = 1; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)
         args_counter++;
+    if (args_counter != op->nbr_args) {
+        print_invalid_nb_args_error(nb_line, *line.mnemonic); return failure;
+    } *current_token += 1;
     for (int i = 0; i < op->nbr_args; i++, *current_token += 1)
         line.params[i] = &tokens[*current_token];
-    if (args_counter != op->nbr_args || !check_params_validity(line, op)) {
-        print_invalid_args_error(nb_line, *line.mnemonic);
-        return failure;
-    }
-    update_registers(line, reg_bitmask, op, nb_line);
+    if (!check_params_validity(line, op)) {
+        print_invalid_args_error(nb_line, *line.mnemonic); return failure;
+    } update_registers(line, reg_bitmask, op, nb_line);
     set_line_bytes(&line);
     return line;
 }
