@@ -64,6 +64,8 @@ after the name.\033[0m\n"
     void print_syntax_error_header(char *value);
     int8_t write_buffer_to_file(char array filename, string_t buffer);
     void write_header_to_buffer(header_t *header, string_t buffer);
+    unsigned long hash_string(string_t str);
+    op_t ptr lookup_string(hash_table ptr table, string_t key);
 
 #endif //ASM_ASM_H
 /*

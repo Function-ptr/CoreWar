@@ -19,7 +19,7 @@
 
 void set_line_bytes(line_t *line)
 {
-    op_t *op = lookup(hashtable, line->mnemonic->token.str);
+    op_t *op = lookup_string(hashtable, line->mnemonic->token);
     uint32_t size = 1;
     if (!op) return;
     uint8_t c = (uint8_t)op->code;
@@ -53,7 +53,7 @@ line_t link_line(token_t array tokens, uint32_t ptr current_token,
     line_t line = {NULL, {NULL}, 0}, failure = {NULL, {NULL}, 0};
     for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
     line.mnemonic = &tokens[*current_token];
-    op_t *op = lookup(hashtable, line.mnemonic->token.str);
+    op_t *op = lookup_string(hashtable, line.mnemonic->token);
     if (!op) return failure;
     int args_counter = 0;
     for (uint i = 1; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)

@@ -32,6 +32,16 @@ unsigned long hash(const char *str)
     return TABLE_SIZE;
 }
 
+unsigned long hash_string(string_t str)
+{
+    for (unsigned long i = 0; i < NUM_KEYS; ++i) {
+        if (my_strncmp(keys[i], str.str, (int)str.len) == 0)
+            return i;
+    }
+
+    return TABLE_SIZE;
+}
+
 /*
 ─▄▀▀▀▀▄─█──█────▄▀▀█─▄▀▀▀▀▄─█▀▀▄
 ─█────█─█──█────█────█────█─█──█
