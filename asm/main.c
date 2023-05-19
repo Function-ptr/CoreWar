@@ -15,13 +15,26 @@ void nwwrite(int fd, char array buf, size_t size)
     write(fd, buf, size);
     #pragma GCC diagnostic pop
 }
-
+/*
 void swap_uint32(uint32_t ptr little)
 {
     *little = (*little >> 24) |
         ((*little << 8) & 0x00FF0000) |
         ((*little >> 8) & 0x0000FF00) |
         (*little << 24);
+}
+*/
+
+void free_file_processing(token_t array tokens, header_t ptr header,
+    string_t content, char array fcontent)
+{
+    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
+        free_string(tokens[i].token);
+    free(tokens);
+    free(header);
+    free_string(content);
+    free(fcontent);
+    free_table(hashtable);
 }
 
 void handle_error(char* fcontent, string_t content, header_t* header)
@@ -49,19 +62,13 @@ int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
         handle_error(fcontent, content, header);
         return 84;
     }
-    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
-        free_string(tokens[i].token);
-    free(tokens);
-    free(header);
-    free_string(content);
-    free(fcontent);
+    free_file_processing(tokens, header, content, fcontent);
     return 0;
 }
 
 int main(int ac, char **av)
 {
-    if (ac != 2)
-        return 84;
+    if (ac != 2) return 84;
     if (!my_strrchr(av[1], '.') || my_strcmp(my_strrchr(av[1], '.'), ".s"))
         return 84;
     uint16_t nb_of_line_in_file = 0;
@@ -70,12 +77,10 @@ int main(int ac, char **av)
         nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
         return 84;
     }
-
     string_t content = create_string(fcontent);
     if (content.len == 0) {
         handle_error(fcontent, content, NULL);
         return 84;
     }
-
     return process_file(fcontent, nb_of_line_in_file, content, NULL);
 }
