@@ -5,13 +5,55 @@
 ## Makefile
 ##
 
-SOURCES = .
+SOURCES = src/ src/messages/ src/messages/errors/ src/read_flags src/utilities
 
-SRCS = 	main.c	\
+SRCS = 	src//main.c	\
+	src/messages//help.c	\
+	src/messages//usage.c	\
+	src/messages/errors//duplicate_option_error.c	\
+	src/messages/errors//duplicate_prog_nb_error.c	\
+	src/messages/errors//invalid_operand.c	\
+	src/messages/errors//missing_operand.c	\
+	src/messages/errors//too_many_champions_error.c	\
+	src/read_flags/champion_file.c	\
+	src/read_flags/dump.c	\
+	src/read_flags/load_add.c	\
+	src/read_flags/prog_nb.c	\
+	src/read_flags/read_flags.c	\
+	src/read_flags/str_to_unsigned_i32.c	\
+	src/utilities/my_strlen_const.c	\
 
-OBJS = 	obj/main.o	\
+OBJS = 	obj/src--main.o	\
+	obj/src-messages--help.o	\
+	obj/src-messages--usage.o	\
+	obj/src-messages-errors--duplicate_option_error.o	\
+	obj/src-messages-errors--duplicate_prog_nb_error.o	\
+	obj/src-messages-errors--invalid_operand.o	\
+	obj/src-messages-errors--missing_operand.o	\
+	obj/src-messages-errors--too_many_champions_error.o	\
+	obj/src-read_flags-champion_file.o	\
+	obj/src-read_flags-dump.o	\
+	obj/src-read_flags-load_add.o	\
+	obj/src-read_flags-prog_nb.o	\
+	obj/src-read_flags-read_flags.o	\
+	obj/src-read_flags-str_to_unsigned_i32.o	\
+	obj/src-utilities-my_strlen_const.o	\
 
-RELEASE_OBJS = 	obj/release/main.o	\
+RELEASE_OBJS = 	obj/release/src--main.o	\
+	obj/release/src-messages--help.o	\
+	obj/release/src-messages--usage.o	\
+	obj/release/src-messages-errors--duplicate_option_error.o	\
+	obj/release/src-messages-errors--duplicate_prog_nb_error.o	\
+	obj/release/src-messages-errors--invalid_operand.o	\
+	obj/release/src-messages-errors--missing_operand.o	\
+	obj/release/src-messages-errors--too_many_champions_error.o	\
+	obj/release/src-read_flags-champion_file.o	\
+	obj/release/src-read_flags-dump.o	\
+	obj/release/src-read_flags-load_add.o	\
+	obj/release/src-read_flags-prog_nb.o	\
+	obj/release/src-read_flags-read_flags.o	\
+	obj/release/src-read_flags-str_to_unsigned_i32.o	\
+	obj/release/src-utilities-my_strlen_const.o	\
 
 OBJ_DIR = obj
 
@@ -22,11 +64,9 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -Ofast -ftree-vectorize \
--ftree-loop-distribution -funroll-all-loops -funswitch-loops \
--march=native -mtune=native -fopenmp -mavx2 \
--lm -ffast-math -mfpmath=sse \
--fno-omit-frame-pointer -fno-optimize-sibling-calls \
+OPTI = -Ofast \
+-funroll-loops \
+-march=native -mtune=native -fopenmp \
 -flto=auto
 
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
@@ -85,7 +125,7 @@ CFLAGS += -Wall -Wextra $(debug) $(opti)\
 DEBUGFLAGS += -Wall -Wextra $(debug) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) \
+RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
 	$(LIB) $(HEADER)
 
 all: $(NAME)
