@@ -8,9 +8,6 @@
 #include "my.h"
 #include "asm.h"
 
-const char* tokentypes[] = {"mnemonic", "register", "direct",
-    "indirect", "newline", "label"};
-
 void nwwrite(int fd, char array buf, size_t size)
 {
     #pragma GCC diagnostic push
@@ -52,13 +49,9 @@ int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
         handle_error(fcontent, content, header);
         return 84;
     }
-    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++) {
-        char *tok = my_strndup(tokens[i].token.str, tokens[i].token.len);
-        printf("token n°%u : %s ==> %s\n", i, tokentypes[tokens[i].type],
-               tok);
-        free(tok);
+    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
         free_string(tokens[i].token);
-    }
+    free(tokens);
     free(header);
     free_string(content);
     free(fcontent);

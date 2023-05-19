@@ -33,6 +33,8 @@ char* parse_mnemonic(char array input, token_t ptr token, uint16_t line_nb,
     token->token = create_string(val);
     free(val);
     *current_token += 1;
+    while (*end && (*end == ' ' || *end == '\t'))
+        end++;
     return end;
 }
 /*

@@ -25,30 +25,35 @@
     #include "op.h"
 
     #define CHECK_TOKEN_AND_TOKENIZE_NEWLINE \
-        if (input == NULL) { \
-            for (uint32_t x = 0; x < current_token; x++) \
-                free_string(tokens[i].token); \
-            free(tokens); \
-            return (NULL); \
-        } \
-        if (current_token + 1 >= max_tokens) { \
-            max_tokens *= 2; \
-            token_t array tmp = realloc(tokens, sizeof(token_t) * max_tokens); \
-            if (!tmp) {                      \
-                for (uint32_t x = 0; x < current_token; x++) \
-                    free_string(tokens[i].token); \
-                free(tokens); \
-                return (NULL); \
-            } \
-            tokens = tmp; \
-        } \
-        if (*input == '\n') { \
-            tokens[current_token].token = create_string("\n"); \
-            tokens[current_token].type = TOKEN_NEWLINE; \
-            current_token++; \
-            input++; \
-            break; \
-        }
+        if (input && *input == ',') \
+                input++;\
+        if (input == NULL) {\
+            for (uint32_t x = 0; x < current_token; x++)\
+                free_string(tokens[x].token);\
+            free(tokens);\
+            return (NULL);\
+        }\
+        if (current_token + 1 >= max_tokens) {\
+            max_tokens *= 2;\
+            token_t array tmp = realloc(tokens,\
+                                        sizeof(token_t) * max_tokens);\
+            if (!tmp) {\
+                for (uint32_t x = 0; x < current_token; x++)\
+                    free_string(tokens[x].token);\
+                free(tokens);\
+                return (NULL);\
+            }\
+            tokens = tmp;\
+        }\
+        if (*input == '\n') {\
+            tokens[current_token].token = create_string("\n");\
+            tokens[current_token].type = TOKEN_NEWLINE;\
+            current_token++;\
+            input++;\
+            break;\
+        }\
+        if (backup != input && i > 1)\
+            i = 1;
 
     typedef enum {
         TOKEN_MNEMONIC,

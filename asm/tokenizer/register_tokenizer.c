@@ -43,6 +43,7 @@ char* parse_register(char array input, token_t ptr token, uint16_t line_nb,
 {
     char ptr end = input;
     if (!input || !token) return (NULL);
+    if (*input != REG_CHAR) return (input);
     while (*end && *end != REG_CHAR && *end != '\n') end++;
     if (*end != REG_CHAR) return (input);
     if (detect_register_syntax_error(&end, input, line_nb)) return NULL;
@@ -53,7 +54,7 @@ char* parse_register(char array input, token_t ptr token, uint16_t line_nb,
     if (token->token.len == 0) return (NULL);
     token->type = TOKEN_REGISTER;
     *current_token += 1;
-    return (++end);
+    return (end);
 }
 
 /*

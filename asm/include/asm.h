@@ -19,7 +19,6 @@
     #include <unistd.h>
     #include <stddef.h>
     #include <stdint.h>
-    #include <stdio.h>
     #include "op.h"
     #include "tokenizer.h"
 
