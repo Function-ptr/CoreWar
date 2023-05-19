@@ -68,7 +68,7 @@ char array process_line(char array buff, char ptr array file_content,
         *comm = '\n';
         my_memset(comm + 1, (size_t)my_strlen(comm + 1), 0);
     }
-    while (is_space(*buff))
+    while (*buff == ' ' || *buff == '\t')
         my_memmove(buff, buff + 1, (size_t) my_strlen(buff));
     uint64_t len = (uint64_t)my_strlen(buff);
     clean_labels(buff, &len);
