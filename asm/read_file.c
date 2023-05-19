@@ -83,6 +83,14 @@ char array process_line(char array buff, char ptr array file_content,
 
 }
 
+uint16_t get_file_len(char array file_content)
+{
+    uint16_t nb_lines = 0;
+    for (; *file_content; ++file_content)
+        nb_lines = (*file_content == '\n') ? nb_lines + 1 : nb_lines;
+    return nb_lines;
+}
+
 char array read_s_file(char array filename, uint16_t ptr nb_of_lines_in_file)
 {
     FILE ptr f = fopen(filename, "r");
@@ -101,9 +109,9 @@ char array read_s_file(char array filename, uint16_t ptr nb_of_lines_in_file)
         my_strcpy(file_content + file_len, buff);
         file_len += (uint64_t)my_strlen(buff);
         free(obuff);
-        obuff = buff = NULL; *nb_of_lines_in_file += 1;
-    } free(obuff);
-    fclose(f);
+        obuff = buff = NULL;
+    } free(obuff); fclose(f);
+    *nb_of_lines_in_file = get_file_len(file_content);
     return file_content;
 }
 /*
