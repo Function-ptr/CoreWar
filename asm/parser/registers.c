@@ -26,8 +26,8 @@ uint8_t get_register_number(token_t token)
 bool register_unused(token_t token, uint16_t reg_bitmask, uint16_t line_nb)
 {
     if (token.type != TOKEN_REGISTER) return false;
-    uint8_t reg_nb = get_register_number(token);
-    if (!(reg_bitmask & (1 << reg_nb)))
+    uint8_t reg_nb = get_register_number(token) - 1;
+    if (reg_bitmask & (1 << reg_nb))
         return true;
     nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
     (void)my_put_nbr_do(line_nb);
@@ -41,7 +41,7 @@ bool register_unused(token_t token, uint16_t reg_bitmask, uint16_t line_nb)
 void update_register_usage(token_t token, uint16_t *reg_bitmask)
 {
     if (token.type != TOKEN_REGISTER) return;
-    uint8_t reg_nb = get_register_number(token);
+    uint8_t reg_nb = get_register_number(token) - 1;
     *reg_bitmask |= (uint16_t)(1 << reg_nb);
 }
 /*
