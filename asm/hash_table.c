@@ -41,6 +41,7 @@ void insert(hash_table ptr table, char array key, op_t ptr value)
 op_t ptr lookup(hash_table ptr table, char array key)
 {
     unsigned long index = hash(key);
+    if (index == TABLE_SIZE) return NULL;
     Entry ptr bucket = table->buckets[index];
     while (bucket) {
         if (my_strcmp(bucket->key, key) == 0)
