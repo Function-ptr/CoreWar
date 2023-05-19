@@ -78,6 +78,8 @@ line_t array parser(token_t array tokens, uint16_t nb_lines,
         if (tokens[curr_token].type == TOKEN_LABEL &&
         add_and_check_labels(tokens, labels, data, lines)) return NULL;
         if (update_line(tokens, data, &lines, labels)) return NULL;
+    } if (replace_all_labels_refs(labels, lines, *len_output)) {
+        free(lines); lines = NULL;
     }
     clean_labels_struct(labels);
     return lines;

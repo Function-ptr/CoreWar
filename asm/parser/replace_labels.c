@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** parser.h
+** replace_labels.c
 ** File description:
-** parser
+** replace labels with their offsets
 */
 /*
  __  __        _                            ___            ___
@@ -14,41 +14,70 @@
                               __/ |               ______
                              |___/               |______|
 */
-#ifndef ASM_PARSER_H
-    #define ASM_PARSER_H
-    #include "asm.h"
-    #include "tokenizer.h"
-    #include <stdbool.h>
+#include "parser.h"
+#include "my.h"
 
-    typedef struct {
-        token_t ptr mnemonic;
-        token_t ptr params[4];
-        uint32_t bytes_size;
-        uint16_t line_nb;
-    } line_t;
+uint8_t get_val_bytes(token_t **toks)
+{
+    op_t *op = lookup_string(hashtable, toks[0]->token);
+    if (!op) return 0;
+    uint8_t size = 0;
+    char c = op->code;
+    if (toks[1]->type == TOKEN_INDIRECT) {
+        size += 2;
+        return size;
+    }
+    if (toks[1]->type == TOKEN_DIRECT &&
+          c > 8 && c < 16 && c != 13)
+        size += 2;
+    else
+        size += 4;
+    return size;
+}
 
-    typedef struct {
-        char array array labels;
-        uint32_t array byte_pos;
-        uint32_t nb_labels;
-    } labels_t;
+bool process_param(token_t **toks, labels_t ptr labels, uint32_t bytes_pos)
+{
+    token_t *param = toks[1];
+    if (param->type & 0x6 && param->token.str[0] == ':') {
+        int64_t label_pos = get_label_offset(labels, *param);
+        if (label_pos == -1) return true;
+        uint8_t bytes_val = get_val_bytes(toks);
+        if (bytes_val == 4) {
+            uint32_t v = (uint32_t)(bytes_pos - label_pos);
+            my_memcpy(param->token.str, &v, 4);
+        } else {
+            uint16_t v = (uint16_t)(bytes_pos - label_pos);
+            my_memcpy(param->token.str, &v, 2);
+        }
+        param->token.len = bytes_val;
+    }
+    return false;
+}
 
-    void print_invalid_args_error(uint16_t line_nb, token_t inst);
-    void print_invalid_nb_args_error(uint16_t line_nb, token_t inst);
-    line_t link_line(token_t array tokens,
-        uint32_t ptr current_token, uint16_t nb_line);
-    labels_t *init_labels(void);
-    void clean_labels_struct(labels_t *labels);
-    int64_t get_label_offset(labels_t ptr labels, token_t token);
-    bool add_label(labels_t ptr labels, uint32_t curr_offset, token_t token,
-    uint16_t line_nb);
-    bool is_label_defined(labels_t ptr labels, token_t token, uint16_t line_nb);
-    line_t array parser(token_t array tokens, uint16_t nb_lines,
-        uint16_t line_nb, uint32_t ptr len_output);
-    bool replace_all_labels_refs(labels_t *labels, line_t array lines,
-    uint32_t processed_lines);
-    void print_labels_syntax_error(uint16_t line_nb);
-#endif //ASM_PARSER_H
+bool replace_line_labels(line_t line, labels_t ptr labels, uint32_t bytes_pos)
+{
+    for (int i = 0; line.params[i] && i < 4; i++) {
+        token_t *toks[2] = {line.mnemonic, line.params[i]};
+        if (process_param(toks, labels, bytes_pos)) {
+            print_labels_syntax_error(line.line_nb);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool replace_all_labels_refs(labels_t ptr labels, line_t array lines,
+   uint32_t processed_lines)
+{
+    uint32_t bytes_pos = 0;
+    if (lines == NULL) return true;
+    for (uint32_t i = 0; i < processed_lines; i++) {
+        if (replace_line_labels(lines[i], labels, bytes_pos))
+            return true;
+        bytes_pos += lines[i].bytes_size;
+    }
+    return false;
+}
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

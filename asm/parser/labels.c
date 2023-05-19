@@ -49,6 +49,7 @@ bool add_label(labels_t ptr labels, uint32_t curr_offset, token_t token,
     itmp[labels->nb_labels] = curr_offset;
     labels->labels = tmp;
     labels->byte_pos = itmp;
+    labels->nb_labels += 1;
     return false;
 }
 
@@ -69,7 +70,7 @@ int64_t get_label_offset(labels_t ptr labels, token_t token)
 void clean_labels_struct(labels_t *labels)
 {
     for (uint32_t i = 0; i < labels->nb_labels; i++)
-        free(labels->labels);
+        free(labels->labels[i]);
     free(labels->labels);
     free(labels->byte_pos);
     free(labels);

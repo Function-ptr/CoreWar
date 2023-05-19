@@ -26,13 +26,16 @@ void set_line_bytes(line_t *line)
     if (c != 9 && c != 1 && c != 12 && c != 15)
         size += 1;
     for (int i = 0; i < op->nbr_args; i++) {
-        if (line->params[i]->type == TOKEN_REGISTER)
+        if (line->params[i]->type == TOKEN_REGISTER) {
             ++size;
-        if (line->params[i]->type == TOKEN_INDIRECT)
+            continue;
+        } if (line->params[i]->type == TOKEN_INDIRECT) {
             size += 2;
-        if (line->params[i]->type == TOKEN_DIRECT && c > 8 && c < 16 && c != 13)
+            continue;
+        } if (line->params[i]->type == TOKEN_DIRECT &&
+            c > 8 && c < 16 && c != 13) {
             size += 2;
-        else
+        } else
             size += 4;
     }
     line->bytes_size = size;
@@ -50,7 +53,7 @@ bool check_params_validity(line_t line, op_t ptr op)
 line_t link_line(token_t array tokens, uint32_t ptr current_token,
     uint16_t nb_line)
 {
-    line_t line = {NULL, {NULL}, 0}, failure = {NULL, {NULL}, 0};
+    line_t line = {NULL, {NULL}, 0, 0}, failure = {NULL, {NULL}, 0, 0};
     for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
     line.mnemonic = &tokens[*current_token];
     op_t *op = lookup_string(hashtable, line.mnemonic->token);
@@ -67,6 +70,7 @@ line_t link_line(token_t array tokens, uint32_t ptr current_token,
         print_invalid_args_error(nb_line, *line.mnemonic); return failure;
     }
     set_line_bytes(&line);
+    line.line_nb = nb_line;
     return line;
 }
 /*
