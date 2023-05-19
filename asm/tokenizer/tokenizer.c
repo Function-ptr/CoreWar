@@ -18,6 +18,21 @@
 #include "tokenizer.h"
 #include "my.h"
 
+char array check_comma(char array input, uint16_t line_nb)
+{
+    if (!input) return input;
+    if (*input == ',' && (*(input + 1) == 'r' || *(input + 1) == '%' ||
+    *(input + 1) == ':' || (*(input + 1) >= '0' && *(input + 1) <= '9'))) {
+        input++;
+        return input;
+    }
+    if (*input == ',') {
+        print_syntax_error(input, line_nb);
+        input = NULL;
+    }
+    return input;
+}
+
 void tokenize_first_newline(char ptr array input, token_t ptr token,
     uint16_t ptr line_nb, uint32_t ptr current_token)
 {
@@ -48,6 +63,7 @@ token_t array tokenize(char array input, uint16_t current_line,
             char ptr backup = input;
             input = parse_funcs[i](input, &tokens[current_token], current_line,
                 &current_token);
+            input = check_comma(input, current_line);
             CHECK_TOKEN_AND_TOKENIZE_NEWLINE
         }
     }

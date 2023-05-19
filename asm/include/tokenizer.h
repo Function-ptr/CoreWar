@@ -24,9 +24,9 @@
     #include "string.h"
     #include "op.h"
 
+    char array check_comma(char array input, uint16_t line_nb);
+
     #define CHECK_TOKEN_AND_TOKENIZE_NEWLINE \
-        if (input && *input == ',') \
-                input++;\
         if (input == NULL) {\
             for (uint32_t x = 0; x < current_token; x++)\
                 free_string(tokens[x].token);\

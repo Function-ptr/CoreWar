@@ -26,6 +26,10 @@ char *parse_indirect(char array input, token_t ptr token, uint16_t line_nb,
     token->type = TOKEN_INDIRECT;
     for (; *end && *end != SEPARATOR_CHAR && *end != '\n'; end++);
     char ptr start = my_strlchr(input, "0123456789");
+    if (end - start <= 0) {
+        print_syntax_error(input, line_nb);
+        return NULL;
+    }
     char array val = my_strndup(start, (int)(end - start));
     if (!my_str_isnum(val)) {
         print_syntax_error(input, line_nb);

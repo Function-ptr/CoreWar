@@ -15,7 +15,8 @@ void nwwrite(int fd, char array buf, size_t size)
     write(fd, buf, size);
     #pragma GCC diagnostic pop
 }
-/*
+
+/**
 void swap_uint32(uint32_t ptr little)
 {
     *little = (*little >> 24) |
@@ -24,7 +25,6 @@ void swap_uint32(uint32_t ptr little)
         (*little << 24);
 }
 */
-
 void free_file_processing(token_t array tokens, header_t ptr header,
     string_t content, char array fcontent)
 {
