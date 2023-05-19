@@ -27,12 +27,12 @@ bool detect_register_syntax_error(char ptr ptr end, char array input,
         return (true);
     }
     *end += 1;
-    uint nb_register = (uint)my_strtol(*end, NULL, 10);
+    long nb_register = my_strtol(*end, NULL, 10);
     if (nb_register < 1 || nb_register > REG_NUMBER) {
         print_syntax_error(input, line_nb);
         return true;
     }
-    if ((*(*end + 1) >= '0' && *(*end + 1) <= '9'))
+    if ((*(*end + 1) >= '0' && *(*end + 1) <= '6'))
         *end += 1;
     *end += 1;
     return false;
