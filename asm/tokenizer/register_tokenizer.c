@@ -34,6 +34,7 @@ bool detect_register_syntax_error(char ptr ptr end, char array input,
     }
     if ((*(*end + 1) >= '0' && *(*end + 1) <= '9'))
         *end += 1;
+    *end += 1;
     return false;
 }
 
