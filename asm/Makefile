@@ -26,7 +26,6 @@ SRCS = 	hash.c	\
 	parser/link_line.c	\
 	parser/parser.c	\
 	parser/parser_errors.c	\
-	parser/registers.c	\
 
 OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
@@ -47,7 +46,6 @@ OBJS = 	obj/hash.o	\
 	obj/parser-link_line.o	\
 	obj/parser-parser.o	\
 	obj/parser-parser_errors.o	\
-	obj/parser-registers.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
@@ -68,7 +66,6 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/parser-link_line.o	\
 	obj/release/parser-parser.o	\
 	obj/release/parser-parser_errors.o	\
-	obj/release/parser-registers.o	\
 
 OBJ_DIR = obj
 

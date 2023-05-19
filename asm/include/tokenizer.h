@@ -56,13 +56,13 @@
             i = 1;
 
     typedef enum {
-        TOKEN_MNEMONIC,
-        TOKEN_REGISTER,
-        TOKEN_DIRECT,
-        TOKEN_INDIRECT,
-        TOKEN_NEWLINE,
-        TOKEN_LABEL,
-        TOKEN_END
+        TOKEN_MNEMONIC = 0,
+        TOKEN_REGISTER = 1 << 0,
+        TOKEN_DIRECT = 1 << 1,
+        TOKEN_INDIRECT = 1 << 2,
+        TOKEN_NEWLINE = 1 << 3,
+        TOKEN_LABEL = 1 << 4,
+        TOKEN_END = 1 << 5,
     } token_type_t;
 
     typedef struct {

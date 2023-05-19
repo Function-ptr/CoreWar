@@ -33,10 +33,8 @@
     } labels_t;
 
     void print_invalid_args_error(uint16_t line_nb, token_t inst);
-    bool register_unused(token_t token, uint16_t reg_bitmask,
-        uint16_t line_nb);
-    void update_register_usage(token_t token, uint16_t *reg_bitmask);
-    line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
+    void print_invalid_nb_args_error(uint16_t line_nb, token_t inst);
+    line_t link_line(token_t array tokens,
         uint32_t ptr current_token, uint16_t nb_line);
     labels_t *init_labels(void);
     void clean_labels_struct(labels_t *labels);
@@ -44,6 +42,8 @@
     bool add_label(labels_t ptr labels, uint32_t curr_offset, token_t token,
     uint16_t line_nb);
     bool is_label_defined(labels_t ptr labels, token_t token, uint16_t line_nb);
+    line_t array parser(token_t array tokens, uint16_t nb_lines,
+        uint16_t line_nb, uint32_t ptr len_output);
 #endif //ASM_PARSER_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

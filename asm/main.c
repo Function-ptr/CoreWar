@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "asm.h"
+#include "parser.h"
 
 void nwwrite(int fd, char array buf, size_t size)
 {
@@ -26,43 +27,45 @@ void swap_uint32(uint32_t ptr little)
 }
 */
 void free_file_processing(token_t array tokens, header_t ptr header,
-    string_t content, char array fcontent)
+    string_t content)
 {
     for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
         free_string(tokens[i].token);
     free(tokens);
     free(header);
     free_string(content);
-    free(fcontent);
     free_table(hashtable);
 }
 
-void handle_error(char* fcontent, string_t content, header_t* header)
+void handle_error(string_t content, header_t* header)
 {
     free_string(content);
-    free(fcontent);
     free(header);
 
     nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
 }
 
-int process_file(char* fcontent, uint16_t nb_of_line_in_file, string_t content,
+int process_file(uint16_t nb_of_line_in_file, string_t content,
     header_t* header)
 {
     char* end = NULL;
     uint16_t line_nb = 1;
+    uint32_t nb_parsed_lines = 0;
     header = parse_header(&content, &end, &line_nb);
     if (!header) {
-        handle_error(fcontent, content, header);
+        handle_error(content, header);
         return 84;
     }
     init_hashtable();
     token_t array tokens = tokenize(end, line_nb, nb_of_line_in_file);
     if (!tokens) {
-        handle_error(fcontent, content, header);
+        handle_error(content, header);
         return 84;
     }
-    free_file_processing(tokens, header, content, fcontent);
+    line_t array lines = parser(tokens, nb_of_line_in_file, line_nb,
+        &nb_parsed_lines);
+    if (lines) free(lines);
+    free_file_processing(tokens, header, content);
     return 0;
 }
 
@@ -78,9 +81,10 @@ int main(int ac, char **av)
         return 84;
     }
     string_t content = create_string(fcontent);
+    free(fcontent);
     if (content.len == 0) {
-        handle_error(fcontent, content, NULL);
+        handle_error(content, NULL);
         return 84;
     }
-    return process_file(fcontent, nb_of_line_in_file, content, NULL);
+    return process_file(nb_of_line_in_file, content, NULL);
 }

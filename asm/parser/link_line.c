@@ -17,31 +17,6 @@
 #include "parser.h"
 #include "my.h"
 
-void update_registers(line_t line, uint16_t ptr reg_bitmask, op_t *op,
-    uint16_t line_nb)
-{
-    if (op->code == 2)
-        update_register_usage(*line.params[1], reg_bitmask);
-    if (op->code == 3) {
-        register_unused(*line.params[0], *reg_bitmask, line_nb);
-        update_register_usage(*line.params[1], reg_bitmask);
-    }
-    if (op->code > 3 && op->code < 12 && op->code != 9) {
-        register_unused(*line.params[0], *reg_bitmask, line_nb);
-        register_unused(*line.params[1], *reg_bitmask, line_nb);
-        update_register_usage(*line.params[2], reg_bitmask);
-    }
-    if (op->code == 14) {
-        register_unused(*line.params[0], *reg_bitmask, line_nb);
-        register_unused(*line.params[1], *reg_bitmask, line_nb);
-        update_register_usage(*line.params[2], reg_bitmask);
-    }
-    if (op->code == 13)
-        update_register_usage(*line.params[1], reg_bitmask);
-    if (op->code == 16)
-        register_unused(*line.params[0], *reg_bitmask, line_nb);
-}
-
 void set_line_bytes(line_t *line)
 {
     op_t *op = lookup(hashtable, line->mnemonic->token.str);
@@ -72,8 +47,8 @@ bool check_params_validity(line_t line, op_t ptr op)
     return true;
 }
 
-line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
-    uint32_t ptr current_token, uint16_t nb_line)
+line_t link_line(token_t array tokens, uint32_t ptr current_token,
+    uint16_t nb_line)
 {
     line_t line = {NULL, {NULL}, 0}, failure = {NULL, {NULL}, 0};
     for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
@@ -90,7 +65,7 @@ line_t link_line(token_t array tokens, uint16_t ptr reg_bitmask,
         line.params[i] = &tokens[*current_token];
     if (!check_params_validity(line, op)) {
         print_invalid_args_error(nb_line, *line.mnemonic); return failure;
-    } update_registers(line, reg_bitmask, op, nb_line);
+    }
     set_line_bytes(&line);
     return line;
 }
