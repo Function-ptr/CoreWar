@@ -47,7 +47,7 @@ char* parse_label(char array input, token_t ptr token, uint16_t line_nb,
     }
     char temp[copy - input];
     my_memcpy(temp, input, (size_t) (copy - input));
-    temp[end - input] = '\0';
+    temp[copy - input - 1] = '\0';
     token->type = TOKEN_LABEL;
     token->token = create_string(temp);
     if (token->token.len == 0) return (NULL);
