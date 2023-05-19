@@ -62,9 +62,9 @@ int main(int ac, char **av)
 {
     if (ac != 2)
         return 84;
-
+    if (!my_strrchr(av[1], '.') || my_strcmp(my_strrchr(av[1], '.'), ".s"))
+        return 84;
     uint16_t nb_of_line_in_file = 0;
-
     char* fcontent = read_s_file(av[1], &nb_of_line_in_file);
     if (!fcontent) {
         nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);

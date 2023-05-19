@@ -85,6 +85,7 @@ char array process_line(char array buff, char ptr array file_content,
 
 uint16_t get_file_len(char array file_content)
 {
+    if (file_content == NULL) return 0;
     uint16_t nb_lines = 0;
     for (; *file_content; ++file_content)
         nb_lines = (*file_content == '\n') ? nb_lines + 1 : nb_lines;
