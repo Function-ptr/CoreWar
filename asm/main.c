@@ -66,7 +66,6 @@ int main(int ac, char **av)
     uint16_t nb_of_line_in_file = 0;
 
     char* fcontent = read_s_file(av[1], &nb_of_line_in_file);
-    write(1, fcontent, my_strlen(fcontent));
     if (!fcontent) {
         nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
         return 84;
