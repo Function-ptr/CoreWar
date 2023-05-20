@@ -20,9 +20,9 @@ void nwwrite(int fd, char array buf, size_t size)
 void free_file_processing(token_t array tokens, header_t ptr header,
     string_t content, line_t array lines)
 {
-    for (uint32_t i = 0; tokens[i].type != TOKEN_END; i++)
+    for (uint32_t i = 0; tokens && tokens[i].type != TOKEN_END; i++)
         free_string(tokens[i].token);
-    free(tokens);
+    if (tokens) free(tokens);
     free(header);
     if (lines) free(lines);
     free_string(content);
@@ -35,43 +35,6 @@ void handle_error(string_t content, header_t* header)
     free(header);
 
     nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
-}
-
-int process_file(uint16_t nb_of_line_in_file, string_t content, char* file_name)
-{
-    char* end = NULL;
-    uint16_t line_nb = 1;
-    header_t *header = parse_header(&content, &end, &line_nb);
-    uint32_t nb_parsed_lines = 0, body_size = 0;
-    if (!header) {
-        handle_error(content, header);
-        return 84;
-    }
-    init_hashtable();
-    token_t array tokens = tokenize(end, line_nb, nb_of_line_in_file);
-    if (!tokens) {
-        handle_error(content, header);
-        return 84;
-    }
-    line_t array lines = parser(tokens, nb_of_line_in_file, line_nb,
-        &nb_parsed_lines);
-    if (!lines) {
-        free_file_processing(tokens, header, content, lines);
-        return 84;
-    }
-    for (uint32_t i = 0; i < nb_parsed_lines; i++)
-        body_size += lines[i].bytes_size;
-    string_t output; header->prog_size = (int)body_size;
-    output.len = 0; output.str = my_calloc
-        (body_size, sizeof(char), 0);
-    write_lines_to_buffer(lines, &output, nb_parsed_lines);
-    if (write_buffer_to_file(file_name, output, header) == -1) {
-        free_file_processing(tokens, header, content, lines);
-        free_string(output);
-        return 84;
-    } free_string(output);
-    free_file_processing(tokens, header, content, lines);
-    return 0;
 }
 
 int main(int ac, char **av)

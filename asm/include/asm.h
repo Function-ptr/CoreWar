@@ -72,6 +72,12 @@ after the name.\033[0m\n"
         uint32_t nb_lines);
     void translate_mnemonic(token_t ptr mnemonic, string_t ptr buffer);
 
+    void handle_error(string_t content, header_t* header);
+    void free_file_processing(token_t array tokens, header_t ptr header,
+        string_t content, line_t array lines);
+    int process_file(uint32_t nb_of_line_in_file, string_t content,
+        char* file_name);
+
 #endif //ASM_ASM_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
