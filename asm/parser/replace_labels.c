@@ -61,7 +61,7 @@ bool process_param(token_t **toks, labels_t ptr labels, uint32_t bytes_pos)
 
 bool replace_line_labels(line_t line, labels_t ptr labels, uint32_t bytes_pos)
 {
-    for (int i = 0; line.params[i] && i < 4; i++) {
+    for (int i = 0; i < 4 && line.params[i]; i++) {
         token_t *toks[2] = {line.mnemonic, line.params[i]};
         if (process_param(toks, labels, bytes_pos)) {
             print_labels_syntax_error(line.line_nb);
