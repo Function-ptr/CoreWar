@@ -78,7 +78,7 @@ bool write_content_to_file(uint32_t ptr array data, header_t *header,
 int process_file(uint32_t nb_line_file, string_t content, char* file_name)
 {
     char* end = NULL;
-    uint32_t line_nb = 1, nb_p_lines, body_size;
+    uint32_t line_nb = 1, nb_p_lines = 0, body_size = 0;
     uint32_t ptr data[4] = {&nb_line_file, &line_nb, &nb_p_lines, &body_size};
     init_hashtable();
     header_t ptr header = get_header(&content, &end, &line_nb);

@@ -11,6 +11,7 @@ SRCS = 	hash.c	\
 	hash_table.c	\
 	init_hashtable.c	\
 	main.c	\
+	my_strstr_string.c	\
 	op.c	\
 	parse_headers.c	\
 	process_file.c	\
@@ -35,6 +36,7 @@ OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
 	obj/init_hashtable.o	\
 	obj/main.o	\
+	obj/my_strstr_string.o	\
 	obj/op.o	\
 	obj/parse_headers.o	\
 	obj/process_file.o	\
@@ -59,6 +61,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
 	obj/release/init_hashtable.o	\
 	obj/release/main.o	\
+	obj/release/my_strstr_string.o	\
 	obj/release/op.o	\
 	obj/release/parse_headers.o	\
 	obj/release/process_file.o	\
@@ -96,7 +99,7 @@ OPTI = -Ofast \
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
--fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
+-fno-omit-frame-pointer -fanalyzer -ggdb\
 -fstack-protector
 
 # 	Optimization flags:
