@@ -24,7 +24,7 @@ char* is_there_label(char array input)
 
     if (!input)
         return (NULL);
-    while (*end && *end != LABEL_CHAR && *end != '\n')
+    while (*end && *end != LABEL_CHAR && !is_space(*end))
         end++;
     if (*end == LABEL_CHAR && *(end - 1) != DIRECT_CHAR)
         return (end - 1);
