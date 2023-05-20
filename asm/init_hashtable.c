@@ -21,13 +21,16 @@ hash_table ptr hashtable;
 
 void init_hashtable(void)
 {
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wcast-qual"
     hashtable = create_table();
     int nb_iters = sizeof(op_tab) / sizeof(op_t);
     for (int i = 0; i < nb_iters; ++i) {
         char key[6] = {0};
         my_strncpy(key, op_tab[i].mnemonique, 5);
-        insert(hashtable, key, &op_tab[i]);
+        insert(hashtable, key, (op_t*)&op_tab[i]);
     }
+    #pragma GCC diagnostic pop
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
