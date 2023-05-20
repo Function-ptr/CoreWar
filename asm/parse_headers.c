@@ -72,16 +72,14 @@ int process_comment(char **comment)
     return clen;
 }
 
-header_t *create_and_fill_header(char ptr ptr end, char ptr name, int nlen,
-    string_t string)
+header_t *create_and_fill_header(char ptr ptr end, char ptr comment,
+    char ptr name, int nlen)
 {
     header_t *header = my_calloc(1, sizeof(header_t), 0);
     if (!header) return NULL;
     my_memcpy(&header->magic, &cem, 4);
     my_memcpy(header->prog_name, name, (size_t)nlen);
-    int commpos = my_strstr_string(string, ".comment");
-    if (commpos != -1) {
-        char ptr comment = my_strstr(string.str, ".comment");
+    if (comment) {
         if (comment != *end) {
             nwwrite(2, COMAFNAME, 65);
             free(header);
@@ -98,11 +96,12 @@ header_t *create_and_fill_header(char ptr ptr end, char ptr name, int nlen,
 header_t *parse_header(string_t ptr string, char ptr ptr endptr,
     uint16_t ptr line_nb)
 {
-    if (my_strstr_string(*string, ".name") == -1) {
+    char ptr end = string->str, ptr name = my_strstr(string->str, ".name");
+    char ptr comment = my_strstr(string->str, ".comment");
+    if (!name) {
         nwwrite(2, NONAME,43);
         return NULL;
     }
-    char ptr end = string->str, ptr name = my_strstr(string->str, ".name");
     for (; is_space(*end); ++end)
         *line_nb = *end == '\n' ? *line_nb + 1 : *line_nb;
     if (end != name) {
@@ -114,8 +113,9 @@ header_t *parse_header(string_t ptr string, char ptr ptr endptr,
     end += nlen + 8;
     for (; is_space(*end); ++end)
         *line_nb = *end == '\n' ? *line_nb + 1 : *line_nb;
-    header_t *header = create_and_fill_header(&end, name, nlen, *string);
-    *endptr = end; return header;
+    header_t *header = create_and_fill_header(&end, comment, name, nlen);
+    *endptr = end;
+    return header;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

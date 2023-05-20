@@ -22,6 +22,7 @@ char* parse_mnemonic(char array input, token_t ptr token, uint16_t line_nb,
     uint32_t ptr current_token)
 {
     char ptr end = my_strlchr(input, " \t");
+    if (end == NULL) return NULL;
     char array val = my_strndup(input, (int)(end - input));
     op_t ptr res = lookup(hashtable, val);
     if (res == NULL) {

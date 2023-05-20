@@ -11,7 +11,6 @@ SRCS = 	hash.c	\
 	hash_table.c	\
 	init_hashtable.c	\
 	main.c	\
-	my_strstr_string.c	\
 	op.c	\
 	parse_headers.c	\
 	process_file.c	\
@@ -36,7 +35,6 @@ OBJS = 	obj/hash.o	\
 	obj/hash_table.o	\
 	obj/init_hashtable.o	\
 	obj/main.o	\
-	obj/my_strstr_string.o	\
 	obj/op.o	\
 	obj/parse_headers.o	\
 	obj/process_file.o	\
@@ -61,7 +59,6 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/hash_table.o	\
 	obj/release/init_hashtable.o	\
 	obj/release/main.o	\
-	obj/release/my_strstr_string.o	\
 	obj/release/op.o	\
 	obj/release/parse_headers.o	\
 	obj/release/process_file.o	\
@@ -91,7 +88,7 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -Ofast \
+OPTI = -O1 \
 -funroll-loops \
 -march=native -mtune=native -fopenmp \
 -flto=auto -D_FORTIFY_SOURCE=2

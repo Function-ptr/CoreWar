@@ -78,8 +78,6 @@ after the name.\033[0m\n"
     int process_file(uint32_t nb_of_line_in_file, string_t content,
         char* file_name);
 
-    int my_strstr_string(string_t str, char const *to_find);
-
 #endif //ASM_ASM_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
