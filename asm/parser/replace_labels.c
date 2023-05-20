@@ -40,16 +40,18 @@ bool process_param(token_t **toks, labels_t ptr labels, uint32_t bytes_pos)
     token_t *param = toks[1];
     if (param->type & 0x6 && param->token.str[0] == ':') {
         int64_t label_pos = get_label_offset(labels, *param);
-        if (label_pos == -1) return true;
+        int64_t offset = label_pos - bytes_pos;
+        if (label_pos == -1 || (param->type == TOKEN_INDIRECT &&
+            offset < 0)) return true;
         uint8_t bytes_val = get_val_bytes(toks);
         char *tmp = realloc(param->token.str, bytes_val + 1);
         if (!tmp) return true;
         param->token.str = tmp;
         if (bytes_val == 4) {
-            uint32_t v = (uint32_t)(bytes_pos - label_pos);
+            uint32_t v = (uint32_t)offset;
             my_memcpy(param->token.str + 1, &v, 4);
         } else {
-            uint16_t v = (uint16_t)(bytes_pos - label_pos);
+            uint16_t v = (uint16_t)offset;
             my_memcpy(param->token.str + 1, &v, 2);
         }
         param->token.len = bytes_val + 1;
