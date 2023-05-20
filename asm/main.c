@@ -64,6 +64,10 @@ int process_file(uint16_t nb_of_line_in_file, string_t content, char* file_name)
     }
     line_t array lines = parser(tokens, nb_of_line_in_file, line_nb,
         &nb_parsed_lines);
+    if (!lines) {
+        free_file_processing(tokens, header, content, lines);
+        return 84;
+    }
     for (uint32_t i = 0; i < nb_parsed_lines; i++)
         file_size += lines[i].bytes_size;
     string_t output;
