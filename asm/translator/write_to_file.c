@@ -26,6 +26,9 @@ void write_header_to_buffer(header_t *header, string_t buffer)
 
 int8_t write_buffer_to_file(char array filename, string_t buffer)
 {
+    char ptr slash = my_strrchr(filename, '/');
+    if (slash != NULL)
+        filename = slash + 1;
     uint16_t file_len = (uint16_t) my_strlen(filename);
     char out_filename[file_len + 2];
     my_memcpy(out_filename, filename, file_len - 1);
