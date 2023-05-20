@@ -34,12 +34,14 @@ unsigned long hash(const char *str)
 
 unsigned long hash_string(string_t str)
 {
+    char *dup = my_strndup(str.str, (int)str.len);
     for (unsigned long i = 0; i < NUM_KEYS; ++i) {
-        int r = my_strncmp(keys[i], str.str, (int)str.len);
-        if (r == 0)
+        if (my_strcmp(keys[i], dup) == 0) {
+            free(dup);
             return i;
+        }
     }
-
+    free(dup);
     return TABLE_SIZE;
 }
 
@@ -48,11 +50,15 @@ op_t ptr lookup_string(hash_table ptr table, string_t key)
     unsigned long index = hash_string(key);
     if (index == TABLE_SIZE) return NULL;
     Entry ptr bucket = table->buckets[index];
+    char *dup = my_strndup(key.str, (int)key.len);
     while (bucket) {
-        if (my_strncmp(bucket->key, key.str, (int)key.len) == 0)
+        if (my_strcmp(bucket->key, dup) == 0) {
+            free(dup);
             return bucket->value;
+        }
         bucket = bucket->next;
     }
+    free(dup);
     return NULL;
 }
 /*

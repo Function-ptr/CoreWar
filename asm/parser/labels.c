@@ -60,11 +60,14 @@ int64_t get_label_offset(labels_t ptr labels, token_t token)
         token.token.str += 1;
         token.token.len -= 1;
     }
+    char *dup = my_strndup(token.token.str, (int)token.token.len);
     for (uint32_t i = 0; i < labels->nb_labels; i++) {
-        if (!my_strncmp(labels->labels[i], token.token.str,
-            (int)token.token.len))
-            return (int64_t)labels->byte_pos[i];
+        if (!my_strcmp(labels->labels[i], dup)) {
+            free(dup);
+            return (int64_t) labels->byte_pos[i];
+        }
     }
+    free(dup);
     return -1;
 }
 
