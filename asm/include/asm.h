@@ -20,6 +20,7 @@
     #include <stddef.h>
     #include <stdint.h>
     #include <stdio.h>
+    #include "parser.h"
     #include "op.h"
     #include "tokenizer.h"
 
@@ -62,10 +63,14 @@ after the name.\033[0m\n"
     void nwwrite(int fd, char array buf, size_t size);
     void init_hashtable(void);
     void print_syntax_error_header(char *value);
-    int8_t write_buffer_to_file(char array filename, string_t buffer);
-    void write_header_to_buffer(header_t *header, string_t buffer);
+    int8_t write_buffer_to_file(char array filename, string_t buffer,
+        header_t ptr header);
     unsigned long hash_string(string_t str);
     op_t ptr lookup_string(hash_table ptr table, string_t key);
+    void translate_params(line_t line, string_t ptr buffer);
+    void write_lines_to_buffer(line_t array lines, string_t ptr buffer,
+        uint32_t nb_lines);
+    void translate_mnemonic(token_t ptr mnemonic, string_t ptr buffer);
 
 #endif //ASM_ASM_H
 /*

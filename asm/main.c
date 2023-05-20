@@ -17,15 +17,6 @@ void nwwrite(int fd, char array buf, size_t size)
     #pragma GCC diagnostic pop
 }
 
-/**
-void swap_uint32(uint32_t ptr little)
-{
-    *little = (*little >> 24) |
-        ((*little << 8) & 0x00FF0000) |
-        ((*little >> 8) & 0x0000FF00) |
-        (*little << 24);
-}
-*/
 void free_file_processing(token_t array tokens, header_t ptr header,
     string_t content, line_t array lines)
 {
@@ -51,7 +42,7 @@ int process_file(uint16_t nb_of_line_in_file, string_t content, char* file_name)
     char* end = NULL;
     uint16_t line_nb = 1;
     header_t *header = parse_header(&content, &end, &line_nb);
-    uint32_t nb_parsed_lines = 0, file_size = sizeof(header_t);
+    uint32_t nb_parsed_lines = 0, body_size = 0;
     if (!header) {
         handle_error(content, header);
         return 84;
@@ -69,12 +60,12 @@ int process_file(uint16_t nb_of_line_in_file, string_t content, char* file_name)
         return 84;
     }
     for (uint32_t i = 0; i < nb_parsed_lines; i++)
-        file_size += lines[i].bytes_size;
-    string_t output;
-    output.len = file_size; output.str = my_calloc
-        (file_size, sizeof(char), 0);
-    write_header_to_buffer(header, output);
-    if (write_buffer_to_file(file_name, output) == -1) {
+        body_size += lines[i].bytes_size;
+    string_t output; header->prog_size = (int)body_size;
+    output.len = 0; output.str = my_calloc
+        (body_size, sizeof(char), 0);
+    write_lines_to_buffer(lines, &output, nb_parsed_lines);
+    if (write_buffer_to_file(file_name, output, header) == -1) {
         free_file_processing(tokens, header, content, lines);
         free_string(output);
         return 84;

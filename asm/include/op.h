@@ -73,7 +73,7 @@ extern const op_t op_tab[16];
     # define COMMENT_LENGTH          2048
     #define COREWAR_EM 0xf383ea00
     # define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
-typedef struct {
+typedef struct header {
     int magic;
     char prog_name[PROG_NAME_LENGTH + 1];
     int prog_size;

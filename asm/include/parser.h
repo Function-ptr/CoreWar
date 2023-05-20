@@ -16,7 +16,6 @@
 */
 #ifndef ASM_PARSER_H
     #define ASM_PARSER_H
-    #include "asm.h"
     #include "tokenizer.h"
     #include <stdbool.h>
 
@@ -32,6 +31,7 @@
         uint32_t array byte_pos;
         uint32_t nb_labels;
     } labels_t;
+    #include "asm.h"
 
     void print_invalid_args_error(uint16_t line_nb, token_t inst);
     void print_invalid_nb_args_error(uint16_t line_nb, token_t inst);

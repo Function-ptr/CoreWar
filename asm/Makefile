@@ -13,7 +13,6 @@ SRCS = 	hash.c	\
 	main.c	\
 	op.c	\
 	parse_headers.c	\
-	pdd.cor	\
 	read_file.c	\
 	strings.c	\
 	tokenizer/direct_tokenizer.c	\
@@ -37,7 +36,6 @@ OBJS = 	obj/hash.o	\
 	obj/main.o	\
 	obj/op.o	\
 	obj/parse_headers.o	\
-	obj/pdd.oor	\
 	obj/read_file.o	\
 	obj/strings.o	\
 	obj/tokenizer-direct_tokenizer.o	\
@@ -61,7 +59,6 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/main.o	\
 	obj/release/op.o	\
 	obj/release/parse_headers.o	\
-	obj/release/pdd.oor	\
 	obj/release/read_file.o	\
 	obj/release/strings.o	\
 	obj/release/tokenizer-direct_tokenizer.o	\
