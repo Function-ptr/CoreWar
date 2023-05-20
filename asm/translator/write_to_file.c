@@ -30,8 +30,7 @@ int8_t write_buffer_to_file(char array filename, string_t buffer)
     char out_filename[file_len + 2];
     my_memcpy(out_filename, filename, file_len - 1);
     my_memcpy(out_filename + file_len - 1, "cor", 3);
-    int fd = open(out_filename, O_CREAT | O_WRONLY | O_TRUNC, 'w');
-
+    int fd = open(out_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if (fd == -1)
         return -1;
 
