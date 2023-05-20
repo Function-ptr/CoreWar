@@ -13,6 +13,7 @@ SRCS = 	hash.c	\
 	main.c	\
 	op.c	\
 	parse_headers.c	\
+	pdd.cor	\
 	read_file.c	\
 	strings.c	\
 	tokenizer/direct_tokenizer.c	\
@@ -27,6 +28,7 @@ SRCS = 	hash.c	\
 	parser/parser.c	\
 	parser/parser_errors.c	\
 	parser/replace_labels.c	\
+	translator/translate_line.c	\
 	translator/write_to_file.c	\
 
 OBJS = 	obj/hash.o	\
@@ -35,6 +37,7 @@ OBJS = 	obj/hash.o	\
 	obj/main.o	\
 	obj/op.o	\
 	obj/parse_headers.o	\
+	obj/pdd.oor	\
 	obj/read_file.o	\
 	obj/strings.o	\
 	obj/tokenizer-direct_tokenizer.o	\
@@ -49,6 +52,7 @@ OBJS = 	obj/hash.o	\
 	obj/parser-parser.o	\
 	obj/parser-parser_errors.o	\
 	obj/parser-replace_labels.o	\
+	obj/translator-translate_line.o	\
 	obj/translator-write_to_file.o	\
 
 RELEASE_OBJS = 	obj/release/hash.o	\
@@ -57,6 +61,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/main.o	\
 	obj/release/op.o	\
 	obj/release/parse_headers.o	\
+	obj/release/pdd.oor	\
 	obj/release/read_file.o	\
 	obj/release/strings.o	\
 	obj/release/tokenizer-direct_tokenizer.o	\
@@ -71,6 +76,7 @@ RELEASE_OBJS = 	obj/release/hash.o	\
 	obj/release/parser-parser.o	\
 	obj/release/parser-parser_errors.o	\
 	obj/release/parser-replace_labels.o	\
+	obj/release/translator-translate_line.o	\
 	obj/release/translator-write_to_file.o	\
 
 OBJ_DIR = obj
