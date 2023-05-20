@@ -16,12 +16,32 @@
 */
 #include <fcntl.h>
 #include "asm.h"
+#include "parser.h"
 #include "my.h"
 
 void write_header_to_buffer(header_t *header, string_t buffer)
 {
     my_memcpy(buffer.str, header, sizeof(header_t));
     buffer.len += sizeof(header_t);
+}
+
+uint8_t get_line_coding_byte(line_t line)
+{
+    op_t *op = lookup_string(hashtable, line.mnemonic->token);
+    if (op->code == 1 || op->code == 9 || op->code == 12 || op->code == 15)
+        return 0;
+    uint8_t coding_byte = 0;
+    for (int i = 0, dec = 3; i > op->nbr_args; i++, dec--) {
+        char c = 0;
+        switch (line.params[i]->type) {
+            case TOKEN_REGISTER: c = 1;
+            case TOKEN_DIRECT: c = 2;
+            case TOKEN_INDIRECT: c = 3;
+            default: c = 0;
+        }
+        coding_byte |= (c << (8 * dec));
+    }
+    return coding_byte;
 }
 
 int8_t write_buffer_to_file(char array filename, string_t buffer)
