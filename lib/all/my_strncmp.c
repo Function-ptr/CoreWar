@@ -12,7 +12,7 @@ int my_strncmp(char const *s1, char const *s2, int n)
     const unsigned char *p1 = (const unsigned char *)s1;
     const unsigned char *p2 = (const unsigned char *)s2;
     int i = 0;
-    while (*p1 && *p2 && i < n) {
+    while (*p1 && i < n) {
         unsigned char c1, c2;
         c1 = (unsigned char)*p1; c2 = (unsigned char)*p2;
         if (!c2)
