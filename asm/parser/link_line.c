@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** link_line.c
 ** File description:
-** my_strchr
+** link tokens to form a line
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,64 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "parser.h"
+#include "my.h"
 
-char *my_strchr(char *s, int c)
+void set_line_bytes(line_t *line)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
+    op_t *op = lookup_string(hashtable, line->mnemonic->token);
+    uint32_t size = 1;
+    if (!op) return;
+    uint8_t c = (uint8_t)op->code;
+    if (c != 9 && c != 1 && c != 12 && c != 15)
+        size += 1;
+    for (int i = 0; i < op->nbr_args; i++) {
+        if (line->params[i]->type == TOKEN_REGISTER) {
+            ++size;
+            continue;
+        } if (line->params[i]->type == TOKEN_INDIRECT) {
+            size += 2;
+            continue;
+        } if (line->params[i]->type == TOKEN_DIRECT &&
+            c > 8 && c < 16 && c != 13) {
+            size += 2;
+        } else
+            size += 4;
+    }
+    line->bytes_size = size;
 }
 
-char *my_strrchr(char *s, int c)
+bool check_params_validity(line_t line, op_t ptr op)
 {
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    for (int i = 0; i < op->nbr_args; i++) {
+        if (!(line.params[i]->type & (uint)op->type[i]))
+            return false;
     }
-    return last;
+    return true;
 }
 
-char *my_dstrchr(char *start, char *endptr, char c)
+line_t link_line(token_t array tokens, uint32_t ptr current_token,
+    uint16_t nb_line)
 {
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
+    line_t line = {NULL, {NULL}, 0, 0}, failure = {NULL, {NULL}, 0, 0};
+    for (; tokens[*current_token].type != TOKEN_MNEMONIC; *current_token += 1);
+    line.mnemonic = &tokens[*current_token];
+    op_t *op = lookup_string(hashtable, line.mnemonic->token);
+    if (!op) return failure;
+    int args_counter = 0;
+    for (uint i = 1; tokens[*current_token + i].type != TOKEN_NEWLINE; i++)
+        args_counter++;
+    if (args_counter != op->nbr_args) {
+        print_invalid_nb_args_error(nb_line, *line.mnemonic); return failure;
+    } *current_token += 1;
+    for (int i = 0; i < op->nbr_args; i++, *current_token += 1)
+        line.params[i] = &tokens[*current_token];
+    if (!check_params_validity(line, op)) {
+        print_invalid_args_error(nb_line, *line.mnemonic); return failure;
     }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    set_line_bytes(&line);
+    line.line_nb = nb_line;
+    return line;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** indirect_tokenizer.c
 ** File description:
-** my_strchr
+** tokenize indirect values
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,33 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "tokenizer.h"
+#include "my.h"
+#include <stdio.h>
 
-char *my_strchr(char *s, int c)
+char *parse_indirect(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t ptr current_token)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
-}
-
-char *my_strrchr(char *s, int c)
-{
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    char ptr end = input, has_label = false, ptr start;
+    if (!input || !token) return NULL;
+    for (; *end && *end != SEPARATOR_CHAR && *end != '\n'; end++)
+        if (*end == LABEL_CHAR) has_label = true;
+    long valcheck = 0;
+    if (has_label)
+        start = my_dstrchr(input, end, LABEL_CHAR);
+    else {
+        start = my_strlchr(input, "-0123456789");
+        valcheck = my_strtol(start, NULL, 10);
+    } if (end - start <= 0 || (*end != SEPARATOR_CHAR && valcheck < 0)) {
+        print_syntax_error(input, line_nb); return NULL;
     }
-    return last;
-}
-
-char *my_dstrchr(char *start, char *endptr, char c)
-{
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    char array val = my_strndup(start, (int)(end - start));
+    if (!has_label && !my_str_isnum(val)) {
+        print_syntax_error(input, line_nb); free(val); return NULL;
+    } string_t str = create_string(val); free(val);
+    token->type = TOKEN_INDIRECT; token->token = str;
+    *current_token += 1;
+    return end;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

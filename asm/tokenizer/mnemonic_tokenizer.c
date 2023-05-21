@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** mnemonic_tokenizer.c
 ** File description:
-** my_strchr
+** mnemonic tokenizer
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,29 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "tokenizer.h"
+#include "asm.h"
+#include "my.h"
 
-char *my_strchr(char *s, int c)
+char* parse_mnemonic(char array input, token_t ptr token, uint16_t line_nb,
+    uint32_t ptr current_token)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
-}
-
-char *my_strrchr(char *s, int c)
-{
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    char ptr end = my_strlchr(input, " \t");
+    if (end == NULL) return NULL;
+    char array val = my_strndup(input, (int)(end - input));
+    op_t ptr res = lookup(hashtable, val);
+    if (res == NULL) {
+        print_instruction_error(input, line_nb);
+        free(val);
+        return NULL;
     }
-    return last;
-}
-
-char *my_dstrchr(char *start, char *endptr, char c)
-{
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    token->type = TOKEN_MNEMONIC;
+    token->token = create_string(val);
+    free(val);
+    *current_token += 1;
+    while (*end && (*end == ' ' || *end == '\t'))
+        end++;
+    return end;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

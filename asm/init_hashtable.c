@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** init_hashtable.c
 ** File description:
-** my_strchr
+** init the op hashtable
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,23 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "asm.h"
+#include "my.h"
 
-char *my_strchr(char *s, int c)
-{
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
-}
+hash_table ptr hashtable;
 
-char *my_strrchr(char *s, int c)
+void init_hashtable(void)
 {
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wcast-qual"
+    hashtable = create_table();
+    int nb_iters = sizeof(op_tab) / sizeof(op_t);
+    for (int i = 0; i < nb_iters; ++i) {
+        char key[6] = {0};
+        my_strncpy(key, op_tab[i].mnemonique, 5);
+        insert(hashtable, key, (op_t*)&op_tab[i]);
     }
-    return last;
-}
-
-char *my_dstrchr(char *start, char *endptr, char c)
-{
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    #pragma GCC diagnostic pop
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
