@@ -7,7 +7,8 @@
 
 #include "corewar.h"
 
-function_status_t read_dump_flag(i32 argc, const char **argv, i32 *argi, options_t *options)
+function_status_t read_dump_flag(i32 argc, const char **argv,
+    i32 *argi, options_t *options)
 {
     if (my_strcmp(argv[*argi], DUMP_FLAG) != 0)
         return FAILURE;

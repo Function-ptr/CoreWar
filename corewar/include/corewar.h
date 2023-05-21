@@ -72,6 +72,7 @@ void duplicate_option_error(const char *option);
 void too_many_champions_error(void);
 void duplicate_prog_nb_error(const char *option);
 void duplicate_load_add_error(const char *option);
+void not_enough_champions_error(void);
 
 /*
     Flags

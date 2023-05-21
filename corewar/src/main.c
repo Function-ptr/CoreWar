@@ -7,6 +7,19 @@
 
 #include "corewar.h"
 
+options_t build_options(champion_t *champions)
+{
+    options_t options = {
+        .valid = true,
+        .dump = -1,
+        .champions = {
+            .len = 0,
+            .champions = champions
+        }
+    };
+    return options;
+}
+
 i32 main(i32 argc, const char **argv)
 {
     if (argc == 1) {
@@ -20,9 +33,9 @@ i32 main(i32 argc, const char **argv)
     champion_t champions[MAX_CHAMPIONS];
     for (i32 i = 0; i < MAX_CHAMPIONS; i++)
         champions[i] = (champion_t) {-1, -1, NULL};
-    options_t options = (options_t) {true, -1, (champions_list_t) {0, champions}};
+    options_t options = build_options(champions);
     read_flags(argc, argv, &options);
-    if (options.valid == false)
+    if (!options.valid)
         return 1;
 
     return (0);

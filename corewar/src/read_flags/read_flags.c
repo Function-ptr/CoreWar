@@ -10,8 +10,7 @@
 void update_prog_address_and_nbs(options_t *options)
 {
     i32 prog_nb = 1;
-    i32 prog_address = 0;
-    
+
     for (u32 champion = 0; champion < options->champions.len; champion++) {
         if (options->champions.champions[champion].number == -1) {
             options->champions.champions[champion].number = prog_nb++;
@@ -25,10 +24,8 @@ void read_flags(i32 argc, const char **argv, options_t *options)
 {
     function_status_t (*argument_functions[])
         (i32, const char **, i32 *, options_t *) = {
-        &read_dump_flag,
-        &read_prog_nb_flag,
-        &read_load_add_flag,
-        &read_champion_file
+        &read_dump_flag, &read_prog_nb_flag,
+        &read_load_add_flag, &read_champion_file
     };
     for (i32 argi = 1; argi < argc; argi++) {
         function_status_t status = FAILURE;

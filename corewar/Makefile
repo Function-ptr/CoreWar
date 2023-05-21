@@ -8,12 +8,15 @@
 SOURCES = src/ src/messages/ src/messages/errors/ src/read_flags src/utilities
 
 SRCS = 	src//main.c	\
+	src//op.c	\
 	src/messages//help.c	\
 	src/messages//usage.c	\
+	src/messages/errors//duplicate_load_add_error.c	\
 	src/messages/errors//duplicate_option_error.c	\
 	src/messages/errors//duplicate_prog_nb_error.c	\
 	src/messages/errors//invalid_operand.c	\
 	src/messages/errors//missing_operand.c	\
+	src/messages/errors//not_enough_champions_error.c	\
 	src/messages/errors//too_many_champions_error.c	\
 	src/read_flags/champion_file.c	\
 	src/read_flags/dump.c	\
@@ -24,12 +27,15 @@ SRCS = 	src//main.c	\
 	src/utilities/my_strlen_const.c	\
 
 OBJS = 	obj/src--main.o	\
+	obj/src--op.o	\
 	obj/src-messages--help.o	\
 	obj/src-messages--usage.o	\
+	obj/src-messages-errors--duplicate_load_add_error.o	\
 	obj/src-messages-errors--duplicate_option_error.o	\
 	obj/src-messages-errors--duplicate_prog_nb_error.o	\
 	obj/src-messages-errors--invalid_operand.o	\
 	obj/src-messages-errors--missing_operand.o	\
+	obj/src-messages-errors--not_enough_champions_error.o	\
 	obj/src-messages-errors--too_many_champions_error.o	\
 	obj/src-read_flags-champion_file.o	\
 	obj/src-read_flags-dump.o	\
@@ -40,12 +46,15 @@ OBJS = 	obj/src--main.o	\
 	obj/src-utilities-my_strlen_const.o	\
 
 RELEASE_OBJS = 	obj/release/src--main.o	\
+	obj/release/src--op.o	\
 	obj/release/src-messages--help.o	\
 	obj/release/src-messages--usage.o	\
+	obj/release/src-messages-errors--duplicate_load_add_error.o	\
 	obj/release/src-messages-errors--duplicate_option_error.o	\
 	obj/release/src-messages-errors--duplicate_prog_nb_error.o	\
 	obj/release/src-messages-errors--invalid_operand.o	\
 	obj/release/src-messages-errors--missing_operand.o	\
+	obj/release/src-messages-errors--not_enough_champions_error.o	\
 	obj/release/src-messages-errors--too_many_champions_error.o	\
 	obj/release/src-read_flags-champion_file.o	\
 	obj/release/src-read_flags-dump.o	\

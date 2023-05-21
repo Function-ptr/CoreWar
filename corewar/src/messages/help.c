@@ -22,5 +22,6 @@ void help_message(void)
     "-a load_address sets the next program's loading address. "
     "When no address is\n"
     "specified, optimize the addresses so that the processes are as far\n"
-    "away from each other as possible. The addresses are MEM_SIZE modulo.\n", 499);
+    "away from each other as possible. The addresses are MEM_SIZE modulo.\n",
+    499);
 }
