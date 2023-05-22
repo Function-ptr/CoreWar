@@ -41,8 +41,7 @@ bool process_param(token_t **toks, labels_t ptr labels, uint32_t bytes_pos)
     if (param->type & 0x6 && param->token.str[0] == ':') {
         int64_t label_pos = get_label_offset(labels, *param);
         int64_t offset = label_pos - bytes_pos;
-        if (label_pos == -1 || (param->type == TOKEN_INDIRECT &&
-            offset < 0)) return true;
+        if (label_pos == -1) return true;
         uint8_t bytes_val = get_val_bytes(toks);
         char *tmp = realloc(param->token.str, bytes_val + 1);
         if (!tmp) return true;

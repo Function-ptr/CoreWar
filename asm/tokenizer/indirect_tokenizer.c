@@ -25,13 +25,11 @@ char *parse_indirect(char array input, token_t ptr token, uint16_t line_nb,
     if (!input || !token) return NULL;
     for (; *end && *end != SEPARATOR_CHAR && *end != '\n'; end++)
         if (*end == LABEL_CHAR) has_label = true;
-    long valcheck = 0;
     if (has_label)
         start = my_dstrchr(input, end, LABEL_CHAR);
     else {
         start = my_strlchr(input, "-0123456789");
-        valcheck = my_strtol(start, NULL, 10);
-    } if (end - start <= 0 || (*end != SEPARATOR_CHAR && valcheck < 0)) {
+    } if (end - start <= 0) {
         print_syntax_error(input, line_nb); return NULL;
     }
     char array val = my_strndup(start, (int)(end - start));
