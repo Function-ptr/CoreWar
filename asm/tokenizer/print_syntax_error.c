@@ -19,6 +19,24 @@
 #include "my.h"
 #include "asm.h"
 
+void my_put_nbr_err(int n)
+{
+    int buffer = 0;
+    if (n <= -2147483648) {
+        n = n + 1;
+        buffer = 1;
+    }
+    if (n < 0) {
+        nwwrite(2, "-", 1);
+        n = -n;
+    }
+    if (n >= 10) {
+        my_put_nbr_do(n / 10);
+    }
+    char c = (char)(n % 10 + 48 + buffer);
+    nwwrite(2, &c, 1);
+}
+
 void print_syntax_error(char array input, uint16_t line_nb)
 {
     char ptr end = input;
@@ -26,7 +44,7 @@ void print_syntax_error(char array input, uint16_t line_nb)
     while (*end && *end != '\n')
         end++;
     nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
-    (void)my_put_nbr_do(line_nb);
+    (void)my_put_nbr_err(line_nb);
     nwwrite(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
     nwwrite(2, input, (size_t) (end - input));
     nwwrite(2, "\n", 1);
@@ -37,7 +55,7 @@ void print_instruction_error(char array input, uint16_t line_nb)
     char ptr end = input;
     for (; *end && *end != '\n'; ++end);
     nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
-    (void)my_put_nbr_do(line_nb);
+    (void)my_put_nbr_err(line_nb);
     nwwrite(2, ": \033[38;5;9mError: Invalid instruction\033[0m\n", 43);
     nwwrite(2, input, (size_t) (end - input));
     nwwrite(2, "\n", 1);
