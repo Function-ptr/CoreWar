@@ -16,6 +16,7 @@
 */
 #include "parser.h"
 #include <stdlib.h>
+#include "my.h"
 
 bool add_and_check_labels(token_t array tokens, labels_t array labels,
     uint32_t ptr array data, line_t array lines)
@@ -66,9 +67,9 @@ line_t array parser(token_t array tokens, uint16_t nb_lines,
 {
     uint32_t curr_token = 0, bytes_pos = 0,
     *data[5] = {&(uint32_t){nb_lines},
-        &(uint32_t){line_nb}, &curr_token, &bytes_pos,
-        len_output};
-    line_t array lines = NULL;
+        &(uint32_t){line_nb}, &curr_token, &bytes_pos, len_output};
+    line_t array lines = my_calloc(sizeof(line_t), 1, 0);
+    if (!lines) return NULL;
     labels_t *labels = init_labels();
     while (tokens[curr_token].type != TOKEN_END) {
         if (tokens[curr_token].type == TOKEN_NEWLINE) {
