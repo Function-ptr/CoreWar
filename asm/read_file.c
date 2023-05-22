@@ -89,6 +89,8 @@ uint16_t get_file_len(char array file_content)
     uint16_t nb_lines = 0;
     for (; *file_content; ++file_content)
         nb_lines = (*file_content == '\n') ? nb_lines + 1 : nb_lines;
+    if (*(file_content - 1) != '\n')
+        nb_lines += 1;
     return nb_lines;
 }
 

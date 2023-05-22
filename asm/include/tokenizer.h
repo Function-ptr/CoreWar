@@ -45,7 +45,7 @@
             }\
             tokens = tmp;\
         }\
-        if (*input == '\n') {\
+        if (*input == '\n' || *input == 0) {\
             tokens[current_token].token = create_string("\n");\
             tokens[current_token].type = TOKEN_NEWLINE;\
             current_token++;\
