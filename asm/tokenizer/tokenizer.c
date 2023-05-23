@@ -22,7 +22,8 @@ char array check_comma(char array input, uint16_t line_nb)
 {
     if (!input) return input;
     if (*input == ',' && (*(input + 1) == 'r' || *(input + 1) == '%' ||
-    *(input + 1) == ':' || (*(input + 1) >= '0' && *(input + 1) <= '9'))) {
+    *(input + 1) == ':' || (*(input + 1) >= '0' && *(input + 1) <= '9') ||
+    *(input + 1) == '-')) {
         input++;
         return input;
     }

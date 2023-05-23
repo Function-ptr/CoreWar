@@ -21,11 +21,10 @@ bool is_label_defined(labels_t ptr labels, token_t token, uint16_t line_nb)
 {
     if (!labels) return true;
     for (uint32_t i = 0; i < labels->nb_labels; i++) {
-        if (!my_strncmp(labels->labels[i], token.token.str,
-            (int)token.token.len)) {
+        if (!my_strcmp(labels->labels[i], token.token.str)) {
             nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
-            (void)my_put_nbr_do(line_nb);
-            nwwrite(2, ": \033[38;5;9mError: Multiple definition of ", 39);
+            (void)my_put_nbr_err(line_nb);
+            nwwrite(2, ": \033[38;5;9mError: Multiple definition of ", 41);
             nwwrite(2, "label\033[0m\n", 10);
             return true;
         }
