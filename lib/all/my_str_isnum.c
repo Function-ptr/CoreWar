@@ -9,7 +9,9 @@ int my_str_isnum(char *str)
 {
     if (!str || *str == 0)
         return (1);
+    char found_char = 0;
     for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '-' && !found_char) continue;
         if (str[i] < 48 || str[i] > 57)
             return (0);
     }
