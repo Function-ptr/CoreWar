@@ -36,8 +36,8 @@ void purge_spaces(char array buff, uint64_t len)
         nb_spaces = buff[i] == 32 || buff[i] == 9 ? nb_spaces + 1 : nb_spaces;
     while (nb_spaces > 1) {
         char ptr pos = my_strrchr(buff, ' ');
-        my_memmove(pos, pos + 1, (size_t)my_strlen(pos));
-        nb_spaces--;
+        if (pos == NULL) pos = my_strrchr(buff, '\t');
+        my_memmove(pos, pos + 1, (size_t)my_strlen(pos)); nb_spaces--;
     }
 }
 
