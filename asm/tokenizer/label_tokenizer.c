@@ -39,7 +39,8 @@ char* parse_label(char array input, token_t ptr token, uint16_t line_nb,
     if (!(end = is_there_label(input))) return (input);
     char ptr copy = end + 2;
     while (*end != '\n') {
-        if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9')) {
+        if (!(*end >= 'a' && *end <= 'z') && !(*end >= '0' && *end <= '9')
+            && *end != '_') {
             print_syntax_error(input, line_nb);
             return (NULL);
         }
