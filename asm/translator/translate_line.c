@@ -36,15 +36,16 @@ void translate_direct(token_t ptr param, string_t ptr buffer, token_t ptr inst)
 {
     op_t *op = lookup_string(hashtable, inst->token);
     if (op == NULL) return;
-    char code = op->code;
+    char code = op->code, str[6] = {0};
     uint8_t nb_bytes = code >= 9 && code <= 15 && code != 13 ? 2 : 4;
-    char str[6] = {0};
     my_memcpy(str, param->token.str, param->token.len);
     if (str[0] != ':') {
         int32_t value = (int32_t) my_strtol(str, NULL, 10);
-        for (int j = 0; j < nb_bytes; j++)
-            buffer->str[buffer->len++] = (int8_t)
-                (value >> (8 * (nb_bytes - j - 1)));
+        for (int j = 0; j < nb_bytes; j++) {
+            int8_t char_val = (int8_t)(value >> (8 * (nb_bytes - j - 1)));
+            buffer->str[buffer->len++] = char_val;
+
+        }
     } else {
         if (nb_bytes == 4) my_revstr(str + 1);
         if (nb_bytes == 2) {

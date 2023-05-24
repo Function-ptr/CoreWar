@@ -88,7 +88,7 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -O1 \
+OPTI = -Ofast \
 -funroll-loops \
 -march=native -mtune=native -fopenmp \
 -flto=auto -D_FORTIFY_SOURCE=2
@@ -96,7 +96,7 @@ OPTI = -O1 \
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
--fno-omit-frame-pointer -fanalyzer -ggdb\
+-fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
 -fstack-protector
 
 # 	Optimization flags:
@@ -143,13 +143,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
+CFLAGS += -Wall -Wextra $(DEBUG) -march=native -mtune=native -flto=auto\
 	$(LIB) $(HEADER)
 
 DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
+RELEASEFLAGS += -Wall -Wextra -fomit-frame-pointer -march=native -mtune=native -flto=auto \
 	$(LIB) $(HEADER)
 
 all: $(NAME)
