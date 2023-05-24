@@ -143,13 +143,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(DEBUG) -march=native -mtune=native -flto=auto\
+CFLAGS += -Wall -Wextra $(DEBUG) -march=native -mtune=native\
 	$(LIB) $(HEADER)
 
 DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra -fomit-frame-pointer -march=native -mtune=native -flto=auto \
+RELEASEFLAGS += -Wall -Wextra -fomit-frame-pointer -march=native -mtune=native \
 	$(LIB) $(HEADER)
 
 all: $(NAME)

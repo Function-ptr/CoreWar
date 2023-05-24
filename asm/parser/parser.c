@@ -41,8 +41,8 @@ bool update_line(token_t array tokens, uint32_t ptr array data,
     line_t array ptr lines, labels_t ptr labels)
 {
     if (tokens[*data[2]].type == TOKEN_LABEL ||
-    tokens[*data[2]].type == TOKEN_END || tokens[*data[2]].type == TOKEN_NEWLINE)
-        return false;
+    tokens[*data[2]].type == TOKEN_END ||
+    tokens[*data[2]].type == TOKEN_NEWLINE) return false;
     uint16_t line_nb = (uint16_t)*(data[1]), nb_lines = (uint16_t)*(data[0]);
     uint32_t ptr len_output = data[4], ptr bytes_pos = data[3];
     line_t l = link_line(tokens, data[2], line_nb);

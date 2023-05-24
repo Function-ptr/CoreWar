@@ -2,9 +2,9 @@ CC;gcc
 PROJECT_DIR;.
 SOURCES_DIR;. tokenizer parser translator
 HEADERS_DIR;include/
-CFLAGS;$(DEBUG) -march=native -mtune=native -flto=auto
+CFLAGS;$(DEBUG) -march=native -mtune=native
 DEBUGFLAGS;$(DEBUG)
-RELEASEFLAGS;-fomit-frame-pointer -march=native -mtune=native -flto=auto
+RELEASEFLAGS;-fomit-frame-pointer -march=native -mtune=native
 LIBS_DIR;lib/all
 LIB_POS;..
 EXEC;asm
