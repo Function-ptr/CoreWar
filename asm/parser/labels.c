@@ -55,6 +55,7 @@ bool add_label(labels_t ptr labels, uint32_t curr_offset, token_t token,
 
 int64_t get_label_offset(labels_t ptr labels, token_t token)
 {
+    if (!labels) return -1;
     if (token.token.str[0] == ':') {
         token.token.str += 1;
         token.token.len -= 1;
