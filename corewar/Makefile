@@ -11,6 +11,7 @@ SRCS = 	src//main.c	\
 	src//op.c	\
 	src/messages//help.c	\
 	src/messages//usage.c	\
+	src/messages/error_handling.c	\
 	src/messages/errors//duplicate_load_add_error.c	\
 	src/messages/errors//duplicate_option_error.c	\
 	src/messages/errors//duplicate_prog_nb_error.c	\
@@ -30,6 +31,7 @@ OBJS = 	obj/src--main.o	\
 	obj/src--op.o	\
 	obj/src-messages--help.o	\
 	obj/src-messages--usage.o	\
+	obj/src-messages-error_handling.o	\
 	obj/src-messages-errors--duplicate_load_add_error.o	\
 	obj/src-messages-errors--duplicate_option_error.o	\
 	obj/src-messages-errors--duplicate_prog_nb_error.o	\
@@ -49,6 +51,7 @@ RELEASE_OBJS = 	obj/release/src--main.o	\
 	obj/release/src--op.o	\
 	obj/release/src-messages--help.o	\
 	obj/release/src-messages--usage.o	\
+	obj/release/src-messages-error_handling.o	\
 	obj/release/src-messages-errors--duplicate_load_add_error.o	\
 	obj/release/src-messages-errors--duplicate_option_error.o	\
 	obj/release/src-messages-errors--duplicate_prog_nb_error.o	\
