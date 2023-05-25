@@ -9,7 +9,7 @@
 
 void duplicate_load_add_error(const char *option)
 {
-    write(2, option, my_strlen_const(option));
-    write(2, ": load address already in use\n"
+    write_void(2, option, my_strlen_const(option));
+    write_void(2, ": load address already in use\n"
     "Try 'corewar -h' for more information.\n", 69);
 }

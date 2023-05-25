@@ -10,7 +10,7 @@
 int error_handling(int argc)
 {
     if (argc < 3 || argc > 5) {
-        write(2, "Error: Wrong number of arguments\n", 33);
+        write_void(2, "Error: Wrong number of arguments\n", 33);
         return (84);
     }
     return (0);

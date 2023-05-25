@@ -15,8 +15,9 @@ void vm_run_champion(champion_t *champion, options_t *options)
 void champions_loop(champions_list_t *champions, options_t *options)
 {
     for (u32 i = 0; i < champions->len; i++) {
-        if (champions->champions[i].alive)
+        if (champions->champions[i].alive) {
             vm_run_champion(&champions->champions[i], options);
+        }
     }
 }
 

@@ -9,5 +9,5 @@
 
 void too_many_champions_error(void)
 {
-    write(2, "too many champions.\n", 20);
+    write_void(2, "too many champions.\n", 20);
 }

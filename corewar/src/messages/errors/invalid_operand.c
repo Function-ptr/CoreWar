@@ -9,7 +9,7 @@
 
 void invalid_operand_error(const char *option)
 {
-    write(2, option, my_strlen_const(option));
-    write(2, ": invalid operand\n"
+    write_void(2, option, my_strlen_const(option));
+    write_void(2, ": invalid operand\n"
     "Try 'corewar -h' for more information.\n", 57);
 }

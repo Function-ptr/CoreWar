@@ -9,5 +9,5 @@
 
 void not_enough_champions_error(void)
 {
-    write(2, "not enough champions.\n", 22);
+    write_void(2, "not enough champions.\n", 22);
 }

@@ -11,7 +11,7 @@ void help_message(void)
 {
     usage_message(1);
 
-    write( 1, "DESCRIPTION\n"
+    write_void(1, "DESCRIPTION\n"
     "-dump nbr_cycle dumps the memory after the nbr_cycle execution "
     "(if the round isn't\n"
     "already over) with the following format: 32 bytes/line\n"

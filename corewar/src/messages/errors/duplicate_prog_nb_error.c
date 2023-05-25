@@ -9,7 +9,7 @@
 
 void duplicate_prog_nb_error(const char *option)
 {
-    write(2, option, my_strlen_const(option));
-    write(2, ": program number already in use\n"
+    write_void(2, option, my_strlen_const(option));
+    write_void(2, ": program number already in use\n"
     "Try 'corewar -h' for more information.\n", 71);
 }

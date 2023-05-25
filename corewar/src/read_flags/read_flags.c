@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-u32 if_for_ass_addresses(u32 maxDistance, u32 distance)
+i32 if_for_ass_addresses(i32 maxDistance, i32 distance)
 {
     if (distance > maxDistance) {
         maxDistance = distance;
@@ -17,16 +17,16 @@ u32 if_for_ass_addresses(u32 maxDistance, u32 distance)
 
 void assign_addresses(champions_list_t *champions)
 {
-    u32 numChampions = champions->len;
-    u32 maxDistance = 0;
-    for (u32 i = 0; i < numChampions - 1; i++) {
-        for (u32 j = i + 1; j < numChampions; j++) {
-            u32 distance = champions->champions[j].address -
+    i32 numChampions = (i32) champions->len;
+    i32 maxDistance = 0;
+    for (i32 i = 0; i < numChampions - 1; i++) {
+        for (i32 j = i + 1; j < numChampions; j++) {
+            i32 distance = champions->champions[j].address -
                 champions->champions[i].address;
             maxDistance = if_for_ass_addresses(maxDistance, distance);
         }
     }
-    for (u32 i = 0; i < numChampions; i++) {
+    for (i32 i = 0; i < numChampions; i++) {
         if (champions->champions[i].address == -1) {
             champions->champions[i].address = maxDistance * i;
         }

@@ -5,21 +5,22 @@
 ## Makefile
 ##
 
-SOURCES = src/ src/messages/ src/messages/errors/ src/read_flags src/utilities
+SOURCES = src src/messages src/messages/errors src/read_flags src/utilities
 
-SRCS = 	src//main.c	\
-	src//op.c	\
-	src//vm_start.c	\
-	src/messages//help.c	\
-	src/messages//usage.c	\
+SRCS = 	src/main.c	\
+	src/op.c	\
+	src/vm_start.c	\
 	src/messages/error_handling.c	\
-	src/messages/errors//duplicate_load_add_error.c	\
-	src/messages/errors//duplicate_option_error.c	\
-	src/messages/errors//duplicate_prog_nb_error.c	\
-	src/messages/errors//invalid_operand.c	\
-	src/messages/errors//missing_operand.c	\
-	src/messages/errors//not_enough_champions_error.c	\
-	src/messages/errors//too_many_champions_error.c	\
+	src/messages/help.c	\
+	src/messages/usage.c	\
+	src/messages/write_void.c	\
+	src/messages/errors/duplicate_load_add_error.c	\
+	src/messages/errors/duplicate_option_error.c	\
+	src/messages/errors/duplicate_prog_nb_error.c	\
+	src/messages/errors/invalid_operand.c	\
+	src/messages/errors/missing_operand.c	\
+	src/messages/errors/not_enough_champions_error.c	\
+	src/messages/errors/too_many_champions_error.c	\
 	src/read_flags/champion_file.c	\
 	src/read_flags/dump.c	\
 	src/read_flags/load_add.c	\
@@ -28,19 +29,20 @@ SRCS = 	src//main.c	\
 	src/read_flags/str_to_unsigned_i32.c	\
 	src/utilities/my_strlen_const.c	\
 
-OBJS = 	obj/src--main.o	\
-	obj/src--op.o	\
-	obj/src--vm_start.o	\
-	obj/src-messages--help.o	\
-	obj/src-messages--usage.o	\
+OBJS = 	obj/src-main.o	\
+	obj/src-op.o	\
+	obj/src-vm_start.o	\
 	obj/src-messages-error_handling.o	\
-	obj/src-messages-errors--duplicate_load_add_error.o	\
-	obj/src-messages-errors--duplicate_option_error.o	\
-	obj/src-messages-errors--duplicate_prog_nb_error.o	\
-	obj/src-messages-errors--invalid_operand.o	\
-	obj/src-messages-errors--missing_operand.o	\
-	obj/src-messages-errors--not_enough_champions_error.o	\
-	obj/src-messages-errors--too_many_champions_error.o	\
+	obj/src-messages-help.o	\
+	obj/src-messages-usage.o	\
+	obj/src-messages-write_void.o	\
+	obj/src-messages-errors-duplicate_load_add_error.o	\
+	obj/src-messages-errors-duplicate_option_error.o	\
+	obj/src-messages-errors-duplicate_prog_nb_error.o	\
+	obj/src-messages-errors-invalid_operand.o	\
+	obj/src-messages-errors-missing_operand.o	\
+	obj/src-messages-errors-not_enough_champions_error.o	\
+	obj/src-messages-errors-too_many_champions_error.o	\
 	obj/src-read_flags-champion_file.o	\
 	obj/src-read_flags-dump.o	\
 	obj/src-read_flags-load_add.o	\
@@ -49,19 +51,20 @@ OBJS = 	obj/src--main.o	\
 	obj/src-read_flags-str_to_unsigned_i32.o	\
 	obj/src-utilities-my_strlen_const.o	\
 
-RELEASE_OBJS = 	obj/release/src--main.o	\
-	obj/release/src--op.o	\
-	obj/release/src--vm_start.o	\
-	obj/release/src-messages--help.o	\
-	obj/release/src-messages--usage.o	\
+RELEASE_OBJS = 	obj/release/src-main.o	\
+	obj/release/src-op.o	\
+	obj/release/src-vm_start.o	\
 	obj/release/src-messages-error_handling.o	\
-	obj/release/src-messages-errors--duplicate_load_add_error.o	\
-	obj/release/src-messages-errors--duplicate_option_error.o	\
-	obj/release/src-messages-errors--duplicate_prog_nb_error.o	\
-	obj/release/src-messages-errors--invalid_operand.o	\
-	obj/release/src-messages-errors--missing_operand.o	\
-	obj/release/src-messages-errors--not_enough_champions_error.o	\
-	obj/release/src-messages-errors--too_many_champions_error.o	\
+	obj/release/src-messages-help.o	\
+	obj/release/src-messages-usage.o	\
+	obj/release/src-messages-write_void.o	\
+	obj/release/src-messages-errors-duplicate_load_add_error.o	\
+	obj/release/src-messages-errors-duplicate_option_error.o	\
+	obj/release/src-messages-errors-duplicate_prog_nb_error.o	\
+	obj/release/src-messages-errors-invalid_operand.o	\
+	obj/release/src-messages-errors-missing_operand.o	\
+	obj/release/src-messages-errors-not_enough_champions_error.o	\
+	obj/release/src-messages-errors-too_many_champions_error.o	\
 	obj/release/src-read_flags-champion_file.o	\
 	obj/release/src-read_flags-dump.o	\
 	obj/release/src-read_flags-load_add.o	\
@@ -82,7 +85,7 @@ RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 OPTI = -Ofast \
 -funroll-loops \
 -march=native -mtune=native -fopenmp \
--flto=auto
+-flto=auto -D_FORTIFY_SOURCE=2
 
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
@@ -140,7 +143,7 @@ CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
 DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
+RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
 	$(LIB) $(HEADER)
 
 all: $(NAME)

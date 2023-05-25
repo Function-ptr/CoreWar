@@ -65,6 +65,7 @@ u64 my_strlen_const(const char *str);
     Messages
 */
 
+void write_void(int fd, const void *buf, size_t n);
 void usage_message(int fd);
 void help_message(void);
 void missing_operand_error(const char *option);
