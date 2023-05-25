@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** parser_errors.c
 ** File description:
-** my_strchr
+** print parser errors
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,34 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#include "parser.h"
+#include "my.h"
 
-char *my_strchr(char *s, int c)
+void print_invalid_nb_args_error(uint16_t line_nb, token_t inst)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
+    (void)my_put_nbr_err(line_nb);
+    nwwrite(2, ": \033[38;5;9mError: Invalid number of arguments for ", 51);
+    nwwrite(2, "instruction ", 12);
+    nwwrite(2, inst.token.str, (size_t) my_strlen(inst.token.str));
+    nwwrite(2, "\n", 1);
 }
 
-char *my_strrchr(char *s, int c)
+void print_invalid_args_error(uint16_t line_nb, token_t inst)
 {
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
-    }
-    return last;
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
+    (void)my_put_nbr_err(line_nb);
+    nwwrite(2, ": \033[38;5;9mError: Invalid arguments for ", 41);
+    nwwrite(2, "instruction ", 12);
+    nwwrite(2, inst.token.str, (size_t) my_strlen(inst.token.str));
+    nwwrite(2, "\n", 1);
 }
 
-char *my_dstrchr(char *start, char *endptr, char c)
+void print_labels_syntax_error(uint16_t line_nb)
 {
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    nwwrite(2, "\033[1m\033[38;5;8mLine ", 19);
+    (void)my_put_nbr_err(line_nb);
+    nwwrite(2, ": \033[38;5;9mError: Invalid syntax\033[0m\n", 38);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

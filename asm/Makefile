@@ -5,13 +5,79 @@
 ## Makefile
 ##
 
-SOURCES = .
+SOURCES = . tokenizer parser translator
 
-SRCS = 	main.c	\
+SRCS = 	hash.c	\
+	hash_table.c	\
+	init_hashtable.c	\
+	main.c	\
+	op.c	\
+	parse_headers.c	\
+	process_file.c	\
+	read_file.c	\
+	strings.c	\
+	tokenizer/direct_tokenizer.c	\
+	tokenizer/indirect_tokenizer.c	\
+	tokenizer/label_tokenizer.c	\
+	tokenizer/mnemonic_tokenizer.c	\
+	tokenizer/print_syntax_error.c	\
+	tokenizer/register_tokenizer.c	\
+	tokenizer/tokenizer.c	\
+	parser/labels.c	\
+	parser/link_line.c	\
+	parser/parser.c	\
+	parser/parser_errors.c	\
+	parser/replace_labels.c	\
+	translator/translate_line.c	\
+	translator/write_to_file.c	\
 
-OBJS = 	obj/main.o	\
+OBJS = 	obj/hash.o	\
+	obj/hash_table.o	\
+	obj/init_hashtable.o	\
+	obj/main.o	\
+	obj/op.o	\
+	obj/parse_headers.o	\
+	obj/process_file.o	\
+	obj/read_file.o	\
+	obj/strings.o	\
+	obj/tokenizer-direct_tokenizer.o	\
+	obj/tokenizer-indirect_tokenizer.o	\
+	obj/tokenizer-label_tokenizer.o	\
+	obj/tokenizer-mnemonic_tokenizer.o	\
+	obj/tokenizer-print_syntax_error.o	\
+	obj/tokenizer-register_tokenizer.o	\
+	obj/tokenizer-tokenizer.o	\
+	obj/parser-labels.o	\
+	obj/parser-link_line.o	\
+	obj/parser-parser.o	\
+	obj/parser-parser_errors.o	\
+	obj/parser-replace_labels.o	\
+	obj/translator-translate_line.o	\
+	obj/translator-write_to_file.o	\
 
-RELEASE_OBJS = 	obj/release/main.o	\
+RELEASE_OBJS = 	obj/release/hash.o	\
+	obj/release/hash_table.o	\
+	obj/release/init_hashtable.o	\
+	obj/release/main.o	\
+	obj/release/op.o	\
+	obj/release/parse_headers.o	\
+	obj/release/process_file.o	\
+	obj/release/read_file.o	\
+	obj/release/strings.o	\
+	obj/release/tokenizer-direct_tokenizer.o	\
+	obj/release/tokenizer-indirect_tokenizer.o	\
+	obj/release/tokenizer-label_tokenizer.o	\
+	obj/release/tokenizer-mnemonic_tokenizer.o	\
+	obj/release/tokenizer-print_syntax_error.o	\
+	obj/release/tokenizer-register_tokenizer.o	\
+	obj/release/tokenizer-tokenizer.o	\
+	obj/release/parser-labels.o	\
+	obj/release/parser-link_line.o	\
+	obj/release/parser-parser.o	\
+	obj/release/parser-parser_errors.o	\
+	obj/release/parser-replace_labels.o	\
+	obj/release/translator-translate_line.o	\
+	obj/release/translator-write_to_file.o	\
 
 OBJ_DIR = obj
 
@@ -22,18 +88,16 @@ OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 RELEASE_OBJ = $(SRCS:%.c=$(RELEASE_DIR)/%.o)
 
-OPTI = -Ofast -ftree-vectorize \
--ftree-loop-distribution -funroll-all-loops -funswitch-loops \
--march=native -mtune=native -fopenmp -mavx2 \
--lm -ffast-math -mfpmath=sse \
--fno-omit-frame-pointer -fno-optimize-sibling-calls \
--flto=auto
+OPTI = -Ofast \
+-funroll-loops \
+-march=native -mtune=native -fopenmp \
+-flto=auto -D_FORTIFY_SOURCE=2
 
 DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
--D_FORTIFY_SOURCE=2 -fstack-protector
+-fstack-protector
 
 # 	Optimization flags:
 
@@ -79,13 +143,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(debug) $(opti)\
+CFLAGS += -Wall -Wextra $(DEBUG) -march=native -mtune=native\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall -Wextra $(debug) \
+DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(opti) \
+RELEASEFLAGS += -Wall -Wextra -fomit-frame-pointer -march=native -mtune=native \
 	$(LIB) $(HEADER)
 
 all: $(NAME)

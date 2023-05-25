@@ -85,7 +85,7 @@ DEBUG = -Wshadow -Wduplicated-cond -Wcast-align\
 -pedantic -Wformat=2\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\
 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\
--D_FORTIFY_SOURCE=2 -fstack-protector
+-fstack-protector
 
 # 	Optimization flags:
 
@@ -131,13 +131,14 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(debug) $(opti)\
+CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall -Wextra $(debug) \
+DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
 RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
+
 	$(LIB) $(HEADER)
 
 all: $(NAME)

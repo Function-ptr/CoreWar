@@ -28,13 +28,13 @@ fi
 opti="-Ofast \\
 -funroll-loops \\
 -march=native -mtune=native -fopenmp \\
--flto=auto"
+-flto=auto -D_FORTIFY_SOURCE=2"
 
 debug="-Wshadow -Wduplicated-cond -Wcast-align\\
 -pedantic -Wformat=2\\
 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wcast-qual\\
 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -fanalyzer -ggdb\\
--D_FORTIFY_SOURCE=2 -fstack-protector"
+-fstack-protector"
 
 function header()
 {

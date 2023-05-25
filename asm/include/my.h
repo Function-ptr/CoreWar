@@ -80,6 +80,8 @@ int nb_in_base(char nb, const char *base);
 
 int my_str_isalphanum(char *str);
 
+int my_put_nbr_do(int n);
+
 
 //////////////////
 ///  My Lib C  ///
@@ -115,7 +117,7 @@ char *my_strndup(char *str, int len);
 
 void *my_memmove(void *dest, const void *src, size_t n);
 
-void *my_memcpy(void *restrict dest, const void *restrict src, size_t n);
+void* my_memcpy(void* dest, const void* src, size_t n);
 
 int my_printf(const char *f, ...);
 
@@ -146,5 +148,11 @@ float my_powf(float x, int y);
 char *itos(int nb);
 
 float my_strtof(const char *s, char **ep);
+
+char *my_dstrchr(char *start, char *endptr, char c);
+
+char *my_strlchr(char *str, char *list);
+
+char *my_dstrlchr(char *str, char *endptr, char *list);
 
 #endif

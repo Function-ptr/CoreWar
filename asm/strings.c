@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** strings.c
 ** File description:
-** my_strchr
+** strings functions
 */
 /*
  __  __        _                            ___            ___
@@ -14,57 +14,45 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
 
-char *my_strchr(char *s, int c)
+#include "my.h"
+#include "tokenizer.h"
+#include "string.h"
+
+string_t create_string(char array str)
 {
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
+    uint64_t len = (uint64_t)my_strlen(str);
+    string_t new = {0, 0};
+    new.len = 0;
+    char array newstr = malloc(sizeof(char) * (len + 1));
+    if (!newstr) {
+        return new;
+    }
+    my_memcpy(newstr, str, len);
+    newstr[len] = 0;
+    new.len = len;
+    new.str = newstr;
+    return new;
 }
 
-char *my_strrchr(char *s, int c)
+string_t string_dup(string_t str)
 {
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
+    string_t new = {0, 0};
+    new.len = 0;
+    char array duped = malloc(sizeof(char) * (str.len + 1));
+    if (!duped) {
+        return new;
     }
-    return last;
+    my_memcpy(duped, str.str, str.len);
+    new.len = str.len;
+    duped[str.len] = 0;
+    new.str = duped;
+    return new;
 }
 
-char *my_dstrchr(char *start, char *endptr, char c)
+void free_string(string_t str)
 {
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
+    free(str.str);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

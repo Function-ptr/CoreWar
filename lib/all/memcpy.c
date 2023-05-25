@@ -16,15 +16,16 @@
 */
 #include <stddef.h>
 
-void *my_memcpy(void *restrict dest, const void *restrict src, size_t n)
+void* my_memcpy(void* dest, const void* src, size_t n)
 {
-    char *sdest = (char*)dest;
-    const char *ssrc = (char*)src;
-    if (sdest < ssrc)
-        while (n--)
-            *sdest++ = *ssrc++;
-    return (dest);
+    char* dest_char = (char*)dest;
+    const char* src_char = (const char*)src;
+    for (size_t i = 0; i < n; i++) {
+        dest_char[i] = src_char[i];
+    }
+    return dest;
 }
+
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

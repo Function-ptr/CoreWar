@@ -5,8 +5,12 @@
 ** header op corewar
 */
 
-#ifndef _OP_H_
-    # define _OP_H_
+#ifndef COREWAR_OP_H_
+    # define COREWAR_OP_H_
+    #include <stdint.h>
+
+    #define ptr *
+    #define array *
 
     # define MEM_SIZE                (6 * 1024)
     # define IDX_MOD                 512   /* modulo of the index < */
@@ -16,6 +20,7 @@
     # define LABEL_CHAR              ':'
     # define DIRECT_CHAR             '%'
     # define SEPARATOR_CHAR          ','
+    # define REG_CHAR                'r'
 
     # define LABEL_CHARS             "abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -42,12 +47,11 @@ typedef char args_type_t;
     # define T_LAB           8       /* LABEL */
 
 typedef struct {
-    char *mnemonique;
+    char mnemonique[5];
     char nbr_args;
     args_type_t type[MAX_ARGS_NUMBER];
     char code;
-    int  nbr_cycles;
-    char *comment;
+    uint16_t nbr_cycles;
 } op_t;
 
 /*
@@ -60,17 +64,17 @@ typedef struct {
 /*
 ** op_tab
 */
-extern op_t op_tab[];
+extern const op_t op_tab[16];
 
 /*
 ** header
 */
     # define PROG_NAME_LENGTH        128
     # define COMMENT_LENGTH          2048
-
-typedef struct {
-    int magic;
+    #define COREWAR_EM 0xf383ea00
     # define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
+typedef struct header {
+    int magic;
     char prog_name[PROG_NAME_LENGTH + 1];
     int prog_size;
     char comment[COMMENT_LENGTH + 1];
@@ -80,7 +84,8 @@ typedef struct {
 ** live
 */
     # define CYCLE_TO_DIE    1536
-/* number of cycle before beig declared dead */
+    // number of cycle before being declared dead
+
     # define CYCLE_DELTA     5
     # define NBR_LIVE        40
 

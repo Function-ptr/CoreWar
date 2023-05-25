@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_strchr.c
+** parser.h
 ** File description:
-** my_strchr
+** parser
 */
 /*
  __  __        _                            ___            ___
@@ -14,58 +14,41 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include <stddef.h>
+#ifndef ASM_PARSER_H
+    #define ASM_PARSER_H
+    #include "tokenizer.h"
+    #include <stdbool.h>
 
-char *my_strchr(char *s, int c)
-{
-    for (int i = 0; s[i] != 0; i++)
-        if (s[i] == c)
-            return (&s[i]);
-    return (NULL);
-}
+    typedef struct {
+        token_t ptr mnemonic;
+        token_t ptr params[4];
+        uint32_t bytes_size;
+        uint16_t line_nb;
+    } line_t;
 
-char *my_strrchr(char *s, int c)
-{
-    char *last = NULL;
-    for (int i = 0; s[i] != 0; i++) {
-        if (s[i] == c)
-            last = &s[i];
-    }
-    return last;
-}
+    typedef struct {
+        char array array labels;
+        uint32_t array byte_pos;
+        uint32_t nb_labels;
+    } labels_t;
+    #include "asm.h"
 
-char *my_dstrchr(char *start, char *endptr, char c)
-{
-    if (!start) return NULL;
-    if (!endptr) return my_strchr(start, c);
-    for (; *start && start != endptr; start++) {
-        if (*start == c)
-            return start;
-    }
-    return NULL;
-}
-
-char *my_strlchr(char *str, char *list)
-{
-    if (!str || !list) return NULL;
-    for (; *str; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
-
-char *my_dstrlchr(char *str, char *endptr, char *list)
-{
-    if (!str || !list) return NULL;
-    if (!endptr)
-        return my_strlchr(str, list);
-    for (; *str && str != endptr; str++) {
-        if (my_strchr(list, *str))
-            return str;
-    }
-    return NULL;
-}
+    void print_invalid_args_error(uint16_t line_nb, token_t inst);
+    void print_invalid_nb_args_error(uint16_t line_nb, token_t inst);
+    line_t link_line(token_t array tokens,
+        uint32_t ptr current_token, uint16_t nb_line);
+    labels_t *init_labels(void);
+    void clean_labels_struct(labels_t *labels);
+    int64_t get_label_offset(labels_t ptr labels, token_t token);
+    bool add_label(labels_t ptr labels, uint32_t curr_offset, token_t token,
+    uint16_t line_nb);
+    bool is_label_defined(labels_t ptr labels, token_t token, uint16_t line_nb);
+    line_t array parser(token_t array tokens, uint16_t nb_lines,
+        uint16_t line_nb, uint32_t ptr len_output);
+    bool replace_all_labels_refs(labels_t *labels, line_t array lines,
+    uint32_t processed_lines);
+    void print_labels_syntax_error(uint16_t line_nb);
+#endif //ASM_PARSER_H
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀
