@@ -87,4 +87,10 @@ function_status_t read_prog_nb_flag(i32, const char **, i32 *, options_t*);
 function_status_t read_load_add_flag(i32, const char **, i32 *, options_t*);
 function_status_t read_champion_file(i32, const char **, i32 *, options_t*);
 
+/*
+    VM loop
+*/
+
+void vm_run(options_t *options);
+
 #endif

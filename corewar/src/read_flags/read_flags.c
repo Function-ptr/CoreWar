@@ -21,8 +21,8 @@ void assign_addresses(champions_list_t *champions)
     u32 maxDistance = 0;
     for (u32 i = 0; i < numChampions - 1; i++) {
         for (u32 j = i + 1; j < numChampions; j++) {
-            u32 distance = (champions->champions[j].address -
-                champions->champions[i].address);
+            u32 distance = champions->champions[j].address -
+                champions->champions[i].address;
             maxDistance = if_for_ass_addresses(maxDistance, distance);
         }
     }

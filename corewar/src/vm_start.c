@@ -9,7 +9,7 @@
 
 void vm_run_champion(champion_t *champion, options_t *options)
 {
-    // TODO: implement op and cooldown for the champion
+    return;
 }
 
 void champions_loop(champions_list_t *champions, options_t *options)
@@ -20,7 +20,7 @@ void champions_loop(champions_list_t *champions, options_t *options)
     }
 }
 
-int vm_run(options_t *options)
+void vm_run(options_t *options)
 {
     while (options->champions.len > 0) {
         champions_loop(&options->champions, options);
