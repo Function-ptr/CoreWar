@@ -38,6 +38,5 @@ i32 main(i32 argc, const char **argv)
     read_flags(argc, argv, &options);
     if (!options.valid)
         return 1;
-    
     return (0);
 }

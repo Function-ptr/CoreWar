@@ -15,7 +15,8 @@ u32 if_for_ass_addresses(u32 maxDistance, u32 distance)
     return maxDistance;
 }
 
-void assign_addresses(champions_list_t *champions) {
+void assign_addresses(champions_list_t *champions)
+{
     u32 numChampions = champions->len;
     u32 maxDistance = 0;
     for (u32 i = 0; i < numChampions - 1; i++) {
@@ -35,13 +36,10 @@ void assign_addresses(champions_list_t *champions) {
 void update_prog_address_and_nbs(options_t *options)
 {
     i32 prog_nb = 1;
-
     for (u32 champion = 0; champion < options->champions.len; champion++) {
         if (options->champions.champions[champion].number == -1) {
             options->champions.champions[champion].number = prog_nb++;
         }
-        // TODO: give an adress to the champion if it doesn't have one.
-        // Champions need to be as far away from each other as possible.
         assign_addresses(&options->champions);
     }
 }
