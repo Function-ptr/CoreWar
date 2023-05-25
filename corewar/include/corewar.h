@@ -38,6 +38,7 @@ typedef enum {
 } function_status_t;
 
 typedef struct {
+    bool alive;
     i32 number;
     i32 address;
     const char *name;
