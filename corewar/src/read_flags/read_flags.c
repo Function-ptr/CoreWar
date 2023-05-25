@@ -7,6 +7,24 @@
 
 #include "corewar.h"
 
+void assign_addresses(champions_list_t *champions) {
+    u32 numChampions = champions->len;
+    u32 maxDistance = 0;
+    for (u32 i = 0; i < numChampions - 1; i++) {
+        for (u32 j = i + 1; j < numChampions; j++) {
+            u32 distance = champions->champions[j].address - champions->champions[i].address;
+            if (distance > maxDistance) {
+                maxDistance = distance;
+            }
+        }
+    }
+    for (u32 i = 0; i < numChampions; i++) {
+        if (champions->champions[i].address == -1) {
+            champions->champions[i].address = maxDistance * i;
+        }
+    }
+}
+
 void update_prog_address_and_nbs(options_t *options)
 {
     i32 prog_nb = 1;
@@ -17,6 +35,7 @@ void update_prog_address_and_nbs(options_t *options)
         }
         // TODO: give an adress to the champion if it doesn't have one.
         // Champions need to be as far away from each other as possible.
+        assign_addresses(&options->champions);
     }
 }
 

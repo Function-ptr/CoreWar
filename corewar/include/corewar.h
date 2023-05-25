@@ -14,7 +14,7 @@
     #include "op.h"
 
     // Constants
-    #define MAX_CHAMPIONS 16
+    #define MAX_CHAMPIONS 4
 
     // Flags
     #define DUMP_FLAG "-dump"
