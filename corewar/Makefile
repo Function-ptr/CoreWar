@@ -138,7 +138,6 @@ DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
 	$(LIB) $(HEADER)
 
 RELEASEFLAGS += -Wall -Wextra $(opti) -fomit-frame-pointer \
-
 	$(LIB) $(HEADER)
 
 all: $(NAME)
