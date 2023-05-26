@@ -9,7 +9,7 @@
 
 int error_handling(int argc)
 {
-    if (argc < 3 || argc > 5) {
+    if (argc < 3) {
         usage_message(2);
         return (84);
     }
