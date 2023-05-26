@@ -25,8 +25,10 @@ void vm_run(options_t *options)
 {
     u8 registers[REG_NUMBER];
     u32 alive_hashmap[options->champions.len];
-    memset(registers, 0, REG_NUMBER);
-    memset(alive_hashmap, 0, options->champions.len * 4);
+    for (u32 i = 0; i < REG_NUMBER; i++)
+        registers[i] = 0;
+    for (u32 i = 0; i < options->champions.len; i++)
+        alive_hashmap[i] = 0;
     vm_t vm = {.registers = registers, .alive_hashmap = alive_hashmap};
     u32 cycle = 0;
     while (true) {
