@@ -9,7 +9,11 @@
 
 void vm_run_champion(options_t *options)
 {
-    return;
+    if (options->champions.champions[0].op_cycle == 0) {
+        // TODO: run champion op
+    } else {
+        options->champions.champions[0].op_cycle -= 1;
+    }
 }
 
 void champions_loop(options_t *options, vm_t *vm, u32 cycle)
