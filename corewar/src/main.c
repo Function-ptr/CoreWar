@@ -33,7 +33,7 @@ i32 main(i32 argc, const char **argv)
     }
     champion_t champions[MAX_CHAMPIONS];
     for (i32 i = 0; i < MAX_CHAMPIONS; i++)
-        champions[i] = (champion_t) {-1, -1, NULL};
+        champions[i] = (champion_t) {-1, -1, NULL, op_tab[16], 0};
     options_t options = build_options(champions);
     read_flags(argc, argv, &options);
     if (!options.valid)

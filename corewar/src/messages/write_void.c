@@ -9,5 +9,5 @@
 
 void write_void(int fd, const void *buf, size_t n)
 {
-    write(fd, buf, n);
+    (void) (write(fd, buf, n) + 1);
 }

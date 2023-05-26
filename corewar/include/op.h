@@ -64,7 +64,7 @@ typedef struct {
 /*
 ** op_tab
 */
-extern const op_t op_tab[16];
+extern const op_t op_tab[17];
 
 /*
 ** header

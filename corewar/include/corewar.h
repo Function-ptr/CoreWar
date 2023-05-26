@@ -42,7 +42,7 @@ typedef struct {
     i32 address;
     const char *name;
     op_t op;
-    u8 op_cycle;
+    u16 op_cycle;
 } champion_t;
 
 typedef struct {
@@ -57,9 +57,9 @@ typedef struct {
 } options_t;
 
 typedef struct {
-    u32 registers[REG_NUMBER];
+    u32 *registers;
     u32 *alive_hashmap;
-    u32 arena[MEM_SIZE / 4]; // 4 bytes per cell
+    u32 *arena;
 } vm_t;
 
 /*
