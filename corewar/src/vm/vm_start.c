@@ -66,7 +66,11 @@ void vm_run(options_t *options)
     vm_t vm = {registers, alive_hashmap, arena};
     u32 cycle = 0;
     while (true) {
-        if (champions_loop(options, &vm, &cycle))
+        if (champions_loop(options, &vm, &cycle)) {
             break;
+        }
+        if (cycle == (u32) options->dump) {
+            dump_memory(&vm);
+        }
     }
 }

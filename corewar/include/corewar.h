@@ -104,4 +104,10 @@ function_status_t read_champion_file(i32, const char **, i32 *, options_t*);
 
 void vm_run(options_t *options);
 
+/*
+    Dump memory
+*/
+
+void dump_memory(vm_t *vm);
+
 #endif
