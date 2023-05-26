@@ -34,7 +34,7 @@ function_status_t read_load_add_flag(i32 argc, const char **argv,
         return ERROR;
 
     i32 input_add = str_to_unsigned_i32(argv[++(*argi)]);
-    if (input_add == -1 || input_add % MEM_SIZE != 0) {
+    if (input_add == -1 || MEM_SIZE / input_add * input_add != MEM_SIZE) {
         invalid_operand_error(LOAD_ADD_FLAG);
         return true;
     }

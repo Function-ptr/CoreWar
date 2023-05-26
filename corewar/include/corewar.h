@@ -14,7 +14,7 @@
     #include "op.h"
 
     // Constants
-    #define MAX_CHAMPIONS 4
+    #define MAX_CHAMPIONS MAX_ARGS_NUMBER
 
     // Flags
     #define DUMP_FLAG "-dump"
@@ -38,7 +38,6 @@ typedef enum {
 } function_status_t;
 
 typedef struct {
-    bool alive;
     i32 number;
     i32 address;
     const char *name;
@@ -54,6 +53,11 @@ typedef struct {
     i32 dump; // if dump is -1, then no dump
     champions_list_t champions;
 } options_t;
+
+typedef struct {
+    u8 registers[REG_NUMBER];
+    u32 *alive_hashmap;
+} vm_t;
 
 /*
     Utilities
