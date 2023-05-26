@@ -29,21 +29,27 @@ void vm_run_champion(options_t *options)
     }
 }
 
-void champions_loop(options_t *options, vm_t *vm, u32 cycle)
+bool champions_loop(options_t *options, vm_t *vm, u32 *cycle)
 {
-    for (u32 i = 0; i < options->champions.len; i++) {
-        if (cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE) {
+    for (u32 i = 0; i < options->champions.len; i++)
+        if (*cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE)
             vm_run_champion(options);
-        }
+    (*cycle) += 1;
+    u32 min_alive_age = vm->alive_hashmap[0], min_alive_index = 0, alive = 0;
+    for (u32 i = 0; i < options->champions.len; i++)
+        if (vm->alive_hashmap[i] < min_alive_age)
+            min_alive_age = vm->alive_hashmap[min_alive_index = i];
+    if (*cycle - min_alive_age >= CYCLE_TO_DIE) {
+        my_printf(WIN_MESSAGE);
+        return true;
     }
-}
-
-bool is_everyone_dead(vm_t *vm, u32 cycle)
-{
-    for (u32 i = 0; i < MAX_CHAMPIONS; i++)
-        if (cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE)
-            return false;
-    return true;
+    for (u32 i = 0; i < options->champions.len; i++)
+        alive += (*cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE) ? 1 : 0;
+    if (alive == 1) {
+        my_printf(WIN_MESSAGE);
+        return true;
+    }
+    return false;
 }
 
 void vm_run(options_t *options)
@@ -60,9 +66,6 @@ void vm_run(options_t *options)
     vm_t vm = {registers, alive_hashmap, arena};
     u32 cycle = 0;
     while (true) {
-        if (is_everyone_dead(&vm, cycle))
-            break;
-        champions_loop(options, &vm, cycle);
-        cycle += 1;
+        champions_loop(options, &vm, &cycle);
     }
 }

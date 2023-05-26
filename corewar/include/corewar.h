@@ -15,6 +15,9 @@
 
     // Constants
     #define MAX_CHAMPIONS MAX_ARGS_NUMBER
+    #define WIN_MESSAGE "The player %d(%s) has won.\n", \
+    options->champions.champions[min_alive_index].number, \
+    options->champions.champions[min_alive_index].name
 
     // Flags
     #define DUMP_FLAG "-dump"
