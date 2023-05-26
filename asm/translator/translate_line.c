@@ -18,6 +18,8 @@
 #include "asm.h"
 #include "my.h"
 
+void swap_dir_label_4b(char *str);
+
 void translate_mnemonic(token_t ptr mnemonic, string_t ptr buffer)
 {
     op_t *op = lookup_string(hashtable, mnemonic->token);
@@ -44,10 +46,9 @@ void translate_direct(token_t ptr param, string_t ptr buffer, token_t ptr inst)
         for (int j = 0; j < nb_bytes; j++) {
             int8_t char_val = (int8_t)(value >> (8 * (nb_bytes - j - 1)));
             buffer->str[buffer->len++] = char_val;
-
         }
     } else {
-        if (nb_bytes == 4) my_revstr(str + 1);
+        if (nb_bytes == 4) swap_dir_label_4b(str + 1);
         if (nb_bytes == 2) {
             char tmp = str[1]; str[1] = str[2]; str[2] = tmp;
         }
