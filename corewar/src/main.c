@@ -22,7 +22,8 @@ options_t build_options(champion_t *champions)
 
 i32 main(i32 argc, const char **argv)
 {
-    if (error_handling(argc) == 84) return 84;
+    if (error_handling(argc) == 84)
+        return 84;
     if (my_strcmp(argv[1], "-h") == 0) {
         help_message();
         return 0;
