@@ -1,6 +1,6 @@
 CC;gcc
 PROJECT_DIR;.
-SOURCES_DIR;src src/messages src/messages/errors src/read_flags src/utilities
+SOURCES_DIR;src src/messages src/messages/errors src/read_flags src/utilities src/vm
 HEADERS_DIR;include/
 CFLAGS;$(DEBUG) $(OPTI)
 DEBUGFLAGS;$(DEBUG)
