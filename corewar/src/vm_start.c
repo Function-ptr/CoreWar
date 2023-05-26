@@ -21,6 +21,14 @@ void champions_loop(options_t *options, vm_t *vm, u32 cycle)
     }
 }
 
+bool is_everyone_dead(vm_t *vm, u32 cycle)
+{
+    for (u32 i = 0; i < MAX_CHAMPIONS; i++)
+        if (cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE)
+            return false;
+    return true;
+}
+
 void vm_run(options_t *options)
 {
     u8 registers[REG_NUMBER];
@@ -32,11 +40,7 @@ void vm_run(options_t *options)
     vm_t vm = {.registers = registers, .alive_hashmap = alive_hashmap};
     u32 cycle = 0;
     while (true) {
-        bool all_dead = true;
-        for (u32 i = 0; i < MAX_CHAMPIONS; i++)
-            if (cycle - vm.alive_hashmap[i] < CYCLE_TO_DIE) 
-                all_dead = false;
-        if (all_dead)
+        if (is_everyone_dead(&vm, cycle))
             break;
         champions_loop(options, &vm, cycle);
     }
