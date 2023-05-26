@@ -7,10 +7,21 @@
 
 #include "corewar.h"
 
+void champion_cycles_loop(options_t *options)
+{
+    for (u32 i = 0; i < REG_NUMBER; i++) {
+        if (my_strcmp(options->champions.champions[0].op.mnemonique,
+            op_tab[i].mnemonique) == 0) {
+            options->champions.champions[0].op_cycle = op_tab[i].nbr_cycles;
+            break;
+        }
+    }
+}
+
 void vm_run_champion(options_t *options)
 {
     if (options->champions.champions[0].op_cycle == 0) {
-        // TODO: run champion op
+        champion_cycles_loop(options);
     } else {
         options->champions.champions[0].op_cycle -= 1;
     }
