@@ -31,17 +31,21 @@ bool is_everyone_dead(vm_t *vm, u32 cycle)
 
 void vm_run(options_t *options)
 {
-    u8 registers[REG_NUMBER];
+    u32 registers[REG_NUMBER];
     u32 alive_hashmap[options->champions.len];
+    u32 arena[MEM_SIZE / 4];
     for (u32 i = 0; i < REG_NUMBER; i++)
         registers[i] = 0;
     for (u32 i = 0; i < options->champions.len; i++)
         alive_hashmap[i] = 0;
-    vm_t vm = {.registers = registers, .alive_hashmap = alive_hashmap};
+    for (u32 i = 0; i < MEM_SIZE / 4; i++)
+        arena[i] = 0;
+    vm_t vm = {registers, alive_hashmap, arena};
     u32 cycle = 0;
     while (true) {
         if (is_everyone_dead(&vm, cycle))
             break;
         champions_loop(options, &vm, cycle);
+        cycle += 1;
     }
 }

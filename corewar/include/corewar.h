@@ -55,8 +55,9 @@ typedef struct {
 } options_t;
 
 typedef struct {
-    u8 registers[REG_NUMBER];
+    u32 registers[REG_NUMBER];
     u32 *alive_hashmap;
+    u32 arena[MEM_SIZE / 4]; // 4 bytes per cell
 } vm_t;
 
 /*
