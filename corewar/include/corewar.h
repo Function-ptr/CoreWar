@@ -41,6 +41,8 @@ typedef struct {
     i32 number;
     i32 address;
     const char *name;
+    op_t op;
+    u8 op_cycle;
 } champion_t;
 
 typedef struct {

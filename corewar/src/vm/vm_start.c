@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-void vm_run_champion(champion_t *champion, options_t *options)
+void vm_run_champion(options_t *options)
 {
     return;
 }
@@ -16,7 +16,7 @@ void champions_loop(options_t *options, vm_t *vm, u32 cycle)
 {
     for (u32 i = 0; i < options->champions.len; i++) {
         if (cycle - vm->alive_hashmap[i] < CYCLE_TO_DIE) {
-            vm_run_champion(&options->champions.champions[i], options);
+            vm_run_champion(options);
         }
     }
 }

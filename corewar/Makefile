@@ -9,7 +9,6 @@ SOURCES = src src/messages src/messages/errors src/read_flags src/utilities
 
 SRCS = 	src/main.c	\
 	src/op.c	\
-	src/vm_start.c	\
 	src/messages/error_handling.c	\
 	src/messages/help.c	\
 	src/messages/usage.c	\
@@ -31,7 +30,6 @@ SRCS = 	src/main.c	\
 
 OBJS = 	obj/src-main.o	\
 	obj/src-op.o	\
-	obj/src-vm_start.o	\
 	obj/src-messages-error_handling.o	\
 	obj/src-messages-help.o	\
 	obj/src-messages-usage.o	\
@@ -53,7 +51,6 @@ OBJS = 	obj/src-main.o	\
 
 RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-op.o	\
-	obj/release/src-vm_start.o	\
 	obj/release/src-messages-error_handling.o	\
 	obj/release/src-messages-help.o	\
 	obj/release/src-messages-usage.o	\
