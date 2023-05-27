@@ -45,6 +45,8 @@ typedef struct {
     i32 number;
     i32 address;
     const char *name;
+    i32 registers[REG_NUMBER];
+    bool carry;
     op_t op;
     u16 op_cycle;
 } champion_t;
@@ -61,9 +63,8 @@ typedef struct {
 } options_t;
 
 typedef struct {
-    u32 *registers;
     u32 *alive_hashmap;
-    u32 *arena;
+    u8 *arena;
 } vm_t;
 
 /*

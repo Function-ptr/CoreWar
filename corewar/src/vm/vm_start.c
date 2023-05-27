@@ -52,24 +52,16 @@ bool champions_loop(options_t *options, vm_t *vm, u32 *cycle)
     return false;
 }
 
-void fill_arena(options_t *options, u32 *arena)
-{
-    for (u32 i = 0; i < MEM_SIZE / 4; i++) {
-        arena[i] = 0;
-    }
-}
-
 void vm_run(options_t *options)
 {
-    u32 registers[REG_NUMBER];
     u32 alive_hashmap[options->champions.len];
-    u32 arena[MEM_SIZE / 4];
-    for (u32 i = 0; i < REG_NUMBER; i++)
-        registers[i] = 0;
-    for (u32 i = 0; i < options->champions.len; i++)
+    u8 arena[MEM_SIZE] = {0};
+    for (u32 i = 0; i < options->champions.len; i++) {
         alive_hashmap[i] = 0;
-    fill_arena(options, arena);
-    vm_t vm = {registers, alive_hashmap, arena};
+        options->champions.champions[i].registers[0] = options->champions
+            .champions->number;
+    }
+    vm_t vm = {alive_hashmap, arena};
     u32 cycle = 0;
     while (true) {
         if (champions_loop(options, &vm, &cycle)) {
