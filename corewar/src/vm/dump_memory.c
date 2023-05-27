@@ -7,7 +7,8 @@
 
 #include "corewar.h"
 
-void print_u8_as_hexa(u8 c) {
+void print_u8_as_hexa(u8 c)
+{
     u8 hex = (u8) ((c > 9) ? (c - 10) + 'A' : c + '0');
     write_void(1, &hex, 1);
 }
