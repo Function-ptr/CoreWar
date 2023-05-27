@@ -40,4 +40,4 @@ i32 main(i32 argc, const char **argv)
     vm_run(&options);
     return (0);
 }
-// L34 : oui c'est immonde mais sinon ca trigger le coding style pété
+// L34 : oui c'est immonde mais sinon ca trigger le coding style pété.
