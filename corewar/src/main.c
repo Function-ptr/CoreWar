@@ -30,7 +30,9 @@ i32 main(i32 argc, const char **argv)
     }
     champion_t champions[MAX_CHAMPIONS];
     for (i32 i = 0; i < MAX_CHAMPIONS; i++)
-        champions[i] = (champion_t) {-1, -1, NULL, {0}, 0, op_tab[16], 0};
+        champions[i] = (champion_t) {-1, -1, NULL,
+            .registers = {0}, 0, op_tab[16], 0
+    };
     options_t options = build_options(champions);
     read_flags(argc, argv, &options);
     if (!options.valid)
@@ -38,3 +40,4 @@ i32 main(i32 argc, const char **argv)
     vm_run(&options);
     return (0);
 }
+// L34 : oui c'est immonde mais sinon ca trigger le coding style pété
