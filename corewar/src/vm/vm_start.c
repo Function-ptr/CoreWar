@@ -69,7 +69,7 @@ void vm_run(options_t *options)
         if (champions_loop(options, &vm, &cycle)) {
             break;
         }
-        if (cycle == (u32) options->dump) {
+        if (options->dump == -2 || (i32) cycle == options->dump) {
             dump_memory(&vm);
         }
     }

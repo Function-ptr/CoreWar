@@ -20,7 +20,8 @@ function_status_t read_dump_flag(i32 argc, const char **argv,
         duplicate_option_error(DUMP_FLAG);
         return ERROR;
     }
-    options->dump = str_to_unsigned_i32(argv[++(*argi)]);
+    options->dump = my_strcmp(argv[++(*argi)], ALWAYS_DUMP_FLAG) == 0 ? -2 :
+        str_to_unsigned_i32(argv[*argi]);
     if (options->dump == -1) {
         invalid_operand_error(DUMP_FLAG);
         return ERROR;

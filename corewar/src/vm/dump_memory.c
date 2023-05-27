@@ -27,4 +27,5 @@ void dump_memory(vm_t *vm)
             write_void(1, "\n", 1);
         print_u32_as_hex(vm->arena[i]);
     }
+    write_void(1, "\n", 1);
 }

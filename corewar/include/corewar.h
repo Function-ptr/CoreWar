@@ -23,6 +23,7 @@
     #define DUMP_FLAG "-dump"
     #define PROG_NB_FLAG "-n"
     #define LOAD_ADD_FLAG "-a"
+    #define ALWAYS_DUMP_FLAG "always"
 
     // Rust does this better
     #define u8 uint8_t
@@ -55,7 +56,7 @@ typedef struct {
 
 typedef struct {
     bool valid;
-    i32 dump; // if dump is -1, then no dump
+    i32 dump; // if dump is -1, then no dump. if dump is -2, then always dump
     champions_list_t champions;
 } options_t;
 
