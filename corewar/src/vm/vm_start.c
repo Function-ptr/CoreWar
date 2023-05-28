@@ -7,17 +7,6 @@
 
 #include "corewar.h"
 
-void champion_cycles_loop(options_t *options, u32 cham)
-{
-    for (u32 i = 0; i < REG_NUMBER; i++) {
-        if (1) {
-            options->champions.champions[cham].op_cooldown =
-                op_tab[i].nbr_cycles;
-            break;
-        }
-    }
-}
-
 void run_instruction(vm_t *vm, options_t *options, u8 i,
     const instruction_t instruction[16])
 {
@@ -41,18 +30,9 @@ void vm_run_champion(options_t *options, vm_t *vm,
             continue;
         if (options->champions.champions[i].op_cooldown == 0) {
             run_instruction(vm, options, (u8) i, instruction);
-            champion_cycles_loop(options , i);
         } else
             options->champions.champions[i].op_cooldown -= 1;
     }
-}
-
-void remove_dead_champions(champions_list_t *list, vm_t *vm)
-{
-    for (u32 i = 0; i < list->len; i++)
-        if (list->champions[i].number &&
-        vm->alive_hashmap[list->champions[i].hashmap_index] == 0)
-            list->champions[i].number = 0;
 }
 
 bool run_all_champions_and_cycle(options_t *options, vm_t *vm,
@@ -87,7 +67,7 @@ bool champions_loop(options_t *options, vm_t *vm, u32 *cycle,
     for (u32 i = 0; i < vm->len_hashmap; i++) {
         if (vm->alive_hashmap[i] && min_alive_index == -1)
             min_alive_index = (i8)i;
-        alive =+ (i8)vm->alive_hashmap[i] == 1 ? 1 : 0;
+        alive += (i8)vm->alive_hashmap[i] == 1 ? 1 : 0;
     } if (alive <= 1) {
         if (!alive)
             min_alive_index = last_min_alive;
