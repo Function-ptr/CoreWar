@@ -78,6 +78,8 @@ typedef struct {
 
 u64 my_strlen_const(const char *str);
 i32 mod(i32 a, i32 b);
+void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n);
+void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n);
 
 /*
     Messages

@@ -36,6 +36,7 @@ SRCS = 	src/main.c	\
 	src/utils/true_modulo.c	\
 	src/vm/dump_memory.c	\
 	src/vm/load_champions_in_arena.c	\
+	src/vm/memmove_arena.c	\
 	src/vm/vm_start.c	\
 	src/instructions/aff.c	\
 	src/instructions/or.c	\
@@ -65,6 +66,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-utils-true_modulo.o	\
 	obj/src-vm-dump_memory.o	\
 	obj/src-vm-load_champions_in_arena.o	\
+	obj/src-vm-memmove_arena.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-aff.o	\
 	obj/src-instructions-or.o	\
@@ -94,6 +96,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-utils-true_modulo.o	\
 	obj/release/src-vm-dump_memory.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
+	obj/release/src-vm-memmove_arena.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-aff.o	\
 	obj/release/src-instructions-or.o	\

@@ -20,7 +20,8 @@ void zjmp_inst(vm_t *vm, champion_t *champ)
 {
     if (!champ->carry) return;
     i16 offset = 0;
-    my_memmove(&offset, vm->arena + (champ->address + 1) % MEM_SIZE, IND_SIZE);
+    memmove_from_arena(&offset, vm->arena, (champ->address + 1) % MEM_SIZE,
+        IND_SIZE);
     champ->address = (champ->address + (offset % IDX_MOD)) % MEM_SIZE;
 }
 /*

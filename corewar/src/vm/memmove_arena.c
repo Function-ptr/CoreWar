@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** xor.c
+** memmove_arena.c
 ** File description:
-** xor instruction
+** memmove from/to arena
 */
 /*
  __  __        _                            ___            ___
@@ -16,47 +16,27 @@
 */
 #include "corewar.h"
 
-i32 get_xor_val_1(vm_t *vm, champion_t *champ, u8 tv1)
+void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n)
 {
-    i32 val1 = 0;
-    if (tv1 == 1)
-        val1 = champ->registers[vm->arena[(champ->address + 2) % MEM_SIZE] - 1];
-    if (tv1 == 2)
-        memmove_from_arena(&val1, vm->arena, (champ->address + 2) % MEM_SIZE,
-            4);
-    if (tv1 == 3) {
-        i16 off = 0;
-        memmove_from_arena(&off, vm->arena, (champ->address + 2) % MEM_SIZE, 2);
-        memmove_from_arena(&val1, vm->arena,
-            mod(champ->address + off, MEM_SIZE), 4);
-    }
-    return val1;
+    char *dest_c = dest;
+    const char *src_c = src;
+    size_t i = 0;
+
+    for (; i < n; i++)
+        dest_c[i] = src_c[(pos + i) % MEM_SIZE];
+    return dest;
 }
 
-void xor_inst(vm_t *vm, champion_t *champ)
+void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n)
 {
-    u8 coding_byte = vm->arena[(champ->address + 1) % MEM_SIZE];
-    u8 tv1 = (coding_byte >> 6) & 3, tv2 = (coding_byte >> 4) & 3;
-    i32 val2 = 0, offsettv1 = (tv1 == 1 ? 1 : (tv1 == 2 ? 4 : 2)) + 2;
-    i32 val1 = get_xor_val_1(vm, champ, tv1);
-    if (tv2 == 3) {
-        i16 off = 0;
-        memmove_from_arena(&off,
-            vm->arena, (champ->address + offsettv1) % MEM_SIZE,2);
-        memmove_from_arena(&val1, vm->arena,
-            mod(champ->address + off, MEM_SIZE), 4);
-    } if (tv2 == 1) val1 = champ->registers[
-        vm->arena[(champ->address + offsettv1) % MEM_SIZE] - 1];
-    if (tv2 == 2) memmove_from_arena(&val1,
-        vm->arena, (offsettv1 + champ->address) % MEM_SIZE, 4);
-    i32 offsettv2 = (tv2 == 1 ? 1 : (tv2 == 2 ? 4 : 2)) + offsettv1;
-    champ->registers[vm->arena[(champ->address + offsettv2) % MEM_SIZE] - 1] =
-        val1 ^ val2;
-    champ->carry = (val1 ^ val2) == 0;
-    champ->address = mod(champ->address + offsettv2 + 1, MEM_SIZE);
+    char *dest_c = dest;
+    const char *src_c = src;
+    size_t i = 0;
+
+    for (; i < n; i++)
+        dest_c[(pos + i) % MEM_SIZE] = src_c[i];
+    return dest;
 }
-
-
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀

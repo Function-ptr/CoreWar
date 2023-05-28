@@ -22,11 +22,13 @@ i32 get_or_val_1(vm_t *vm, champion_t *champ, u8 tv1)
     if (tv1 == 1)
         val1 = champ->registers[vm->arena[(champ->address + 2) % MEM_SIZE] - 1];
     if (tv1 == 2)
-        my_memmove(&val1, vm->arena + (champ->address + 2) % MEM_SIZE, 4);
+        memmove_from_arena(&val1, vm->arena, (champ->address + 2) % MEM_SIZE,
+            4);
     if (tv1 == 3) {
         i16 off = 0;
-        my_memmove(&off, vm->arena + (champ->address + 2) % MEM_SIZE, 2);
-        my_memmove(&val1, vm->arena + mod(champ->address + off, MEM_SIZE), 4);
+        memmove_from_arena(&off, vm->arena, (champ->address + 2) % MEM_SIZE, 2);
+        memmove_from_arena(&val1, vm->arena,
+            mod(champ->address + off, MEM_SIZE), 4);
     }
     return val1;
 }
@@ -39,13 +41,14 @@ void or_inst(vm_t *vm, champion_t *champ)
     i32 val1 = get_or_val_1(vm, champ, tv1);
     if (tv2 == 3) {
         i16 off = 0;
-        my_memmove(&off,
-            vm->arena + (champ->address + offsettv1) % MEM_SIZE,2);
-        my_memmove(&val1, vm->arena + mod(champ->address + off, MEM_SIZE), 4);
+        memmove_from_arena(&off,
+            vm->arena, (champ->address + offsettv1) % MEM_SIZE,2);
+        memmove_from_arena(&val1, vm->arena,
+            mod(champ->address + off, MEM_SIZE), 4);
     } if (tv2 == 1) val1 = champ->registers[
-            vm->arena[(champ->address + offsettv1) % MEM_SIZE] - 1];
-    if (tv2 == 2) my_memmove(&val1,
-            vm->arena + (offsettv1 + champ->address) % MEM_SIZE, 4);
+        vm->arena[(champ->address + offsettv1) % MEM_SIZE] - 1];
+    if (tv2 == 2) memmove_from_arena(&val1,
+        vm->arena, (offsettv1 + champ->address) % MEM_SIZE, 4);
     i32 offsettv2 = (tv2 == 1 ? 1 : (tv2 == 2 ? 4 : 2)) + offsettv1;
     champ->registers[vm->arena[(champ->address + offsettv2) % MEM_SIZE] - 1] =
         val1 | val2;
