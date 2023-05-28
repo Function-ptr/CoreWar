@@ -39,8 +39,11 @@ SRCS = 	src/main.c	\
 	src/vm/memmove_arena.c	\
 	src/vm/vm_start.c	\
 	src/instructions/aff.c	\
+	src/instructions/and.c	\
+	src/instructions/fork.c	\
 	src/instructions/ldi.c	\
 	src/instructions/live.c	\
+	src/instructions/lldi.c	\
 	src/instructions/or.c	\
 	src/instructions/sti.c	\
 	src/instructions/xor.c	\
@@ -72,8 +75,11 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-memmove_arena.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-aff.o	\
+	obj/src-instructions-and.o	\
+	obj/src-instructions-fork.o	\
 	obj/src-instructions-ldi.o	\
 	obj/src-instructions-live.o	\
+	obj/src-instructions-lldi.o	\
 	obj/src-instructions-or.o	\
 	obj/src-instructions-sti.o	\
 	obj/src-instructions-xor.o	\
@@ -105,8 +111,11 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-memmove_arena.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-aff.o	\
+	obj/release/src-instructions-and.o	\
+	obj/release/src-instructions-fork.o	\
 	obj/release/src-instructions-ldi.o	\
 	obj/release/src-instructions-live.o	\
+	obj/release/src-instructions-lldi.o	\
 	obj/release/src-instructions-or.o	\
 	obj/release/src-instructions-sti.o	\
 	obj/release/src-instructions-xor.o	\
