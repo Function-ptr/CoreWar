@@ -120,4 +120,11 @@ void load_champs_to_arena(vm_t *vm, options_t *options,
 
 void dump_memory(vm_t *vm);
 
+/*
+    Instructions
+*/
+
+void or_inst(vm_t *vm, champion_t *champ);
+void aff(vm_t *vm, champion_t *champ);
+
 #endif

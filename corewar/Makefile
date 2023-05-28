@@ -5,7 +5,13 @@
 ## Makefile
 ##
 
-SOURCES = src src/messages src/messages/errors src/read_flags src/utils src/vm
+SOURCES = src\
+	src/messages\
+	src/messages/errors\
+	src/read_flags\
+	src/utils\
+	src/vm\
+	src/instructions
 
 SRCS = 	src/main.c	\
 	src/op.c	\
@@ -31,6 +37,8 @@ SRCS = 	src/main.c	\
 	src/vm/dump_memory.c	\
 	src/vm/load_champions_in_arena.c	\
 	src/vm/vm_start.c	\
+	src/instructions/aff.c	\
+	src/instructions/or.c	\
 
 OBJS = 	obj/src-main.o	\
 	obj/src-op.o	\
@@ -56,6 +64,8 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-dump_memory.o	\
 	obj/src-vm-load_champions_in_arena.o	\
 	obj/src-vm-vm_start.o	\
+	obj/src-instructions-aff.o	\
+	obj/src-instructions-or.o	\
 
 RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-op.o	\
@@ -81,6 +91,8 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-dump_memory.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
 	obj/release/src-vm-vm_start.o	\
+	obj/release/src-instructions-aff.o	\
+	obj/release/src-instructions-or.o	\
 
 OBJ_DIR = obj
 
