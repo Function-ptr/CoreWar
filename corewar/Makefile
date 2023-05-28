@@ -32,12 +32,14 @@ SRCS = 	src/main.c	\
 	src/read_flags/prog_nb.c	\
 	src/read_flags/read_flags.c	\
 	src/read_flags/str_to_unsigned_i32.c	\
+	src/utils/change_endianess.c	\
 	src/utils/my_strlen_const.c	\
 	src/utils/true_modulo.c	\
 	src/vm/dump_memory.c	\
 	src/vm/load_champions_in_arena.c	\
 	src/vm/memmove_arena.c	\
 	src/vm/vm_start.c	\
+	src/instructions/add.c	\
 	src/instructions/aff.c	\
 	src/instructions/and.c	\
 	src/instructions/fork.c	\
@@ -49,6 +51,7 @@ SRCS = 	src/main.c	\
 	src/instructions/or.c	\
 	src/instructions/st.c	\
 	src/instructions/sti.c	\
+	src/instructions/sub.c	\
 	src/instructions/xor.c	\
 	src/instructions/zjmp.c	\
 
@@ -71,12 +74,14 @@ OBJS = 	obj/src-main.o	\
 	obj/src-read_flags-prog_nb.o	\
 	obj/src-read_flags-read_flags.o	\
 	obj/src-read_flags-str_to_unsigned_i32.o	\
+	obj/src-utils-change_endianess.o	\
 	obj/src-utils-my_strlen_const.o	\
 	obj/src-utils-true_modulo.o	\
 	obj/src-vm-dump_memory.o	\
 	obj/src-vm-load_champions_in_arena.o	\
 	obj/src-vm-memmove_arena.o	\
 	obj/src-vm-vm_start.o	\
+	obj/src-instructions-add.o	\
 	obj/src-instructions-aff.o	\
 	obj/src-instructions-and.o	\
 	obj/src-instructions-fork.o	\
@@ -88,6 +93,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-instructions-or.o	\
 	obj/src-instructions-st.o	\
 	obj/src-instructions-sti.o	\
+	obj/src-instructions-sub.o	\
 	obj/src-instructions-xor.o	\
 	obj/src-instructions-zjmp.o	\
 
@@ -110,12 +116,14 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-read_flags-prog_nb.o	\
 	obj/release/src-read_flags-read_flags.o	\
 	obj/release/src-read_flags-str_to_unsigned_i32.o	\
+	obj/release/src-utils-change_endianess.o	\
 	obj/release/src-utils-my_strlen_const.o	\
 	obj/release/src-utils-true_modulo.o	\
 	obj/release/src-vm-dump_memory.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
 	obj/release/src-vm-memmove_arena.o	\
 	obj/release/src-vm-vm_start.o	\
+	obj/release/src-instructions-add.o	\
 	obj/release/src-instructions-aff.o	\
 	obj/release/src-instructions-and.o	\
 	obj/release/src-instructions-fork.o	\
@@ -127,6 +135,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-instructions-or.o	\
 	obj/release/src-instructions-st.o	\
 	obj/release/src-instructions-sti.o	\
+	obj/release/src-instructions-sub.o	\
 	obj/release/src-instructions-xor.o	\
 	obj/release/src-instructions-zjmp.o	\
 

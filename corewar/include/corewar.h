@@ -50,8 +50,6 @@ typedef struct {
     i32 registers[REG_NUMBER];
     bool carry;
     u8 hashmap_index;
-    u16 op_cycle;
-    op_t op;
 } champion_t;
 
 typedef struct {
@@ -84,6 +82,8 @@ i32 mod(i32 a, i32 b);
 void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n);
 void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n);
 void *memmove_in_arena(u8 *arena, int32_t dpos, int32_t spos, size_t n);
+void swap_uint32(uint32_t ptr little);
+void swap_uint16(uint16_t* little);
 
 /*
     Messages
@@ -131,6 +131,8 @@ void dump_memory(vm_t *vm);
 */
 void live_inst(vm_t *vm, champion_t *champ);
 void ld_inst(vm_t *vm, champion_t *champ);
+void add_inst(vm_t *vm, champion_t *champ);
+void sub_inst(vm_t *vm, champion_t *champ);
 void st_inst(vm_t *vm, champion_t *champ);
 void and_inst(vm_t *vm, champion_t *champ);
 void or_inst(vm_t *vm, champion_t *champ);

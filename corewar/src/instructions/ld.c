@@ -19,6 +19,7 @@ i32 get_ld_val_1(vm_t *vm, champion_t *champ, u8 tv1)
         memmove_from_arena(&val1, vm->arena,
             mod(champ->address + off, MEM_SIZE), 4);
     }
+    swap_uint32((u32*)&val1);
     return val1;
 }
 
