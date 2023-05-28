@@ -81,18 +81,15 @@ void vm_run(options_t *options)
         alive_hashmap[i] = 0;
         options->champions.champions[i].registers[0] = options->champions
             .champions->number;
-    }
-    vm_t vm = {alive_hashmap, arena};
+    } vm_t vm = {alive_hashmap, arena};
     champion_body_t *bodies = NULL;
     load_champs_to_arena(&vm, options, bodies);
     u32 cycle = 0;
     while (true) {
-        if (champions_loop(options, &vm, &cycle, instruction)) {
+        if (champions_loop(options, &vm, &cycle, instruction))
             break;
-        }
-        if (options->dump == -2 || (i32) cycle == options->dump) {
+        if (options->dump == -2 || (i32) cycle == options->dump)
             dump_memory(&vm);
-        }
     }
 }
 
