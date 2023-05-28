@@ -73,7 +73,6 @@ void vm_run(options_t *options)
             dump_memory(&vm);
         }
     }
-    free(alive_hashmap);
 }
 
 /*
