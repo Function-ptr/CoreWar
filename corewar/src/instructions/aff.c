@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** lld.c
+** aff.c
 ** File description:
-** lld
+** aff
 */
 /*
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⡫⡝⣜⢜⢜⢜⠝⡝⡜⣜⢜⢝⠿⣿⣿⣿⣿⣿⣿⣿
@@ -25,7 +25,7 @@
 #include "corewar.h"
 
 
-void aff(vm_t *vm, champion_t *champ)
+void aff_inst(vm_t *vm, champion_t *champ)
 {
     i32 register_index = vm->arena[(champ->address + 1) % MEM_SIZE] - 1;
     i32 register_value = champ->registers[register_index];
