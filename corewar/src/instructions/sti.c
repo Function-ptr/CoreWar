@@ -22,9 +22,11 @@ i16 get_sti_val_2(vm_t *vm, champion_t *champ, u8 tv2)
     if (tv2 == 1)
         val2 = (i16)champ->registers[vm->arena[(champ->address + 2) %
             MEM_SIZE] - 1];
-    if (tv2 == 2)
+    if (tv2 == 2) {
         memmove_from_arena(&val2, vm->arena, (champ->address + 2) % MEM_SIZE,
             2);
+        swap_uint16((u16*)&val2);
+    }
     return val2;
 }
 
@@ -36,10 +38,15 @@ void sti_inst(vm_t *vm, champion_t *champ)
     i16 val2 = get_sti_val_2(vm, champ, tv2);
     if (tv3 == 1) val3 = (i16)champ->registers[
         vm->arena[(champ->address + offsettv2) % MEM_SIZE] - 1];
-    if (tv3 == 2) memmove_from_arena(&val3,
-        vm->arena, (offsettv2 + champ->address) % MEM_SIZE, 2);
+    if (tv3 == 2) {
+        memmove_from_arena(&val3,vm->arena,
+            (offsettv2 + champ->address) % MEM_SIZE, 2);
+        swap_uint16((u16 *) &val3);
+    }
     u8 reg = vm->arena[(champ->address + 2) % MEM_SIZE];
-    memmove_to_arena(vm->arena, champ->registers + (reg - 1),
+    i32 regval = champ->registers[reg - 1];
+    swap_uint32((u32*)&regval);
+    memmove_to_arena(vm->arena, &regval,
         (champ->address + val3 + val2) % MEM_SIZE, REG_SIZE);
 }
 /*

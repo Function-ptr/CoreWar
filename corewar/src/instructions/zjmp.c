@@ -22,6 +22,7 @@ void zjmp_inst(vm_t *vm, champion_t *champ)
     i16 offset = 0;
     memmove_from_arena(&offset, vm->arena, (champ->address + 1) % MEM_SIZE,
         IND_SIZE);
+    swap_uint16((u16*)&offset);
     champ->address = (champ->address + (offset % IDX_MOD)) % MEM_SIZE;
 }
 /*
