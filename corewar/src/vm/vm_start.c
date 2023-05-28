@@ -104,7 +104,7 @@ void vm_run(options_t *options)
         add_inst, sub_inst, and_inst, or_inst, xor_inst, zjmp_inst, ldi_inst,
         sti_inst, NULL, lld_inst, lldi_inst, NULL, aff_inst
     };
-    u32 *alive_hashmap[options->champions.len];
+    u32 alive_hashmap[options->champions.len];
     u8 arena[MEM_SIZE] = {0};
     for (u32 i = 0; i < options->champions.len; i++) {
         alive_hashmap[i] = 0;

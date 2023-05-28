@@ -18,8 +18,6 @@
 
 void add_inst(vm_t *vm, champion_t *champ)
 {
-    u8 coding_byte = vm->arena[(champ->address + 1) % MEM_SIZE];
-    u8 tv1 = (coding_byte >> 6) & 3, tv2 = (coding_byte >> 4) & 3;
     i32 val1 = champ->registers[vm->arena[(champ->address + 2) % MEM_SIZE] - 1];
     i32 val2 = champ->registers[
         vm->arena[(champ->address + 3) % MEM_SIZE] - 1];
