@@ -38,6 +38,7 @@ SRCS = 	src/main.c	\
 	src/vm/dump_memory.c	\
 	src/vm/load_champions_in_arena.c	\
 	src/vm/memmove_arena.c	\
+	src/vm/remove_dead_champions.c	\
 	src/vm/vm_start.c	\
 	src/instructions/add.c	\
 	src/instructions/aff.c	\
@@ -81,6 +82,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-dump_memory.o	\
 	obj/src-vm-load_champions_in_arena.o	\
 	obj/src-vm-memmove_arena.o	\
+	obj/src-vm-remove_dead_champions.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-add.o	\
 	obj/src-instructions-aff.o	\
@@ -124,6 +126,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-dump_memory.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
 	obj/release/src-vm-memmove_arena.o	\
+	obj/release/src-vm-remove_dead_champions.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-add.o	\
 	obj/release/src-instructions-aff.o	\
