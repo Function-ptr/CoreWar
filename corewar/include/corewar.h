@@ -63,6 +63,11 @@ typedef struct {
 } options_t;
 
 typedef struct {
+    char *body;
+    u32 len;
+} champion_body_t;
+
+typedef struct {
     u32 *alive_hashmap;
     u8 *arena;
 } vm_t;
