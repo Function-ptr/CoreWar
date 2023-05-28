@@ -1,4 +1,4 @@
-#!/bin/bash
+    #!/bin/bash
 
 fconfig="config"
 configdir=$1
@@ -55,7 +55,8 @@ function header()
 header
 SOURCES=$(awk -F ';' '$1 == "SOURCES_DIR" {print $2}' $fconfig)
 NBDIRS=$(echo "$SOURCES" | sed -e 's/\(.\)/\1\n/g' | grep -c ' ')
-echo -e "SOURCES = $SOURCES\n" >> Makefile
+DISPSOURCES=$(echo "$SOURCES" | sed 's/ /\\\n\t/g')
+echo -e "SOURCES = $DISPSOURCES\n" >> Makefile
 echo -e 'SRCS =' | tr "\n" " " >> Makefile
 for i in $(seq 0 "$NBDIRS"); do
     CURRDIR=$(echo "$SOURCES" | cut -d ' ' -f$((i + 1)))
