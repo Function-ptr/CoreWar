@@ -35,6 +35,8 @@
     #define i32 int32_t
     #define i64 int64_t
 
+
+
 typedef enum {
     SUCCESS,
     FAILURE,
@@ -74,6 +76,8 @@ typedef struct {
     u32 *alive_hashmap;
     u8 *arena;
 } vm_t;
+
+typedef void (*instruction_t)(vm_t *vm, champion_t *champ);
 
 /*
     Utilities
