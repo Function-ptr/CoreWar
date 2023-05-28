@@ -133,6 +133,7 @@ void xor_inst(vm_t *vm, champion_t *champ);
 void zjmp_inst(vm_t *vm, champion_t *champ);
 void ldi_inst(vm_t *vm, champion_t *champ);
 void sti_inst(vm_t *vm, champion_t *champ);
-void aff(vm_t *vm, champion_t *champ);
+void aff_inst(vm_t *vm, champion_t *champ);
+void lldi_inst(vm_t *vm, champion_t *champ);
 
 #endif
