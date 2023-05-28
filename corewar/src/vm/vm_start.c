@@ -34,7 +34,7 @@ void run_instruction(vm_t *vm, options_t *options, u8 i,
 }
 
 void vm_run_champion(options_t *options, vm_t *vm,
-const instruction_t instruction[16])
+    const instruction_t instruction[16])
 {
     for (u32 i = 0; i < options->champions.len; i++) {
         if (options->champions.champions[i].number == 0)
@@ -55,13 +55,13 @@ void remove_dead_champions(champions_list_t *list, vm_t *vm)
             list->champions[i].number = 0;
 }
 
-bool run_all_champions_and_cycle(options_t *options, vm_t *vm, u32 *cycle,
-    u32 *cycles_data[3])
+bool run_all_champions_and_cycle(options_t *options, vm_t *vm,
+    u32 *cycles_data[4], const instruction_t instruction[16])
 {
     u32 *live_cycle = cycles_data[0], *nb_lives = cycles_data[1],
-    *cycles_to_die = cycles_data[2];
+    *cycles_to_die = cycles_data[2], *cycle = cycles_data[3];
     for (u32 i = 0; i < options->champions.len; i++)
-        vm_run_champion(options);
+        vm_run_champion(options, vm, instruction);
     (*cycle) += 1;
     *live_cycle += 1;
     if (*live_cycle == *cycles_to_die) {
@@ -75,11 +75,12 @@ bool run_all_champions_and_cycle(options_t *options, vm_t *vm, u32 *cycle,
     return false;
 }
 
-bool champions_loop(options_t *options, vm_t *vm, u32 *cycle, const instruction_t instruction[16])
+bool champions_loop(options_t *options, vm_t *vm, u32 *cycle,
+    const instruction_t instruction[16])
 {
     static u32 live_cycle = 0, nb_lives = 0, cycles_to_die = CYCLE_TO_DIE;
-    u32 *cycles_data[3] = {&live_cycle, &nb_lives, &cycles_to_die};
-    if (!run_all_champions_and_cycle(options, vm, cycle, cycles_data))
+    u32 *c_data[4] = {&live_cycle, &nb_lives, &cycles_to_die, cycle};
+    if (!run_all_champions_and_cycle(options, vm, c_data, instruction))
         return false;
     static i8 last_min_alive = 0;
     i8 alive = 0, min_alive_index = -1;
