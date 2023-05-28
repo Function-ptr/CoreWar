@@ -43,9 +43,11 @@ SRCS = 	src/main.c	\
 	src/instructions/fork.c	\
 	src/instructions/ld.c	\
 	src/instructions/ldi.c	\
+	src/instructions/lfork.c	\
 	src/instructions/live.c	\
 	src/instructions/lldi.c	\
 	src/instructions/or.c	\
+	src/instructions/st.c	\
 	src/instructions/sti.c	\
 	src/instructions/xor.c	\
 	src/instructions/zjmp.c	\
@@ -80,9 +82,11 @@ OBJS = 	obj/src-main.o	\
 	obj/src-instructions-fork.o	\
 	obj/src-instructions-ld.o	\
 	obj/src-instructions-ldi.o	\
+	obj/src-instructions-lfork.o	\
 	obj/src-instructions-live.o	\
 	obj/src-instructions-lldi.o	\
 	obj/src-instructions-or.o	\
+	obj/src-instructions-st.o	\
 	obj/src-instructions-sti.o	\
 	obj/src-instructions-xor.o	\
 	obj/src-instructions-zjmp.o	\
@@ -117,9 +121,11 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-instructions-fork.o	\
 	obj/release/src-instructions-ld.o	\
 	obj/release/src-instructions-ldi.o	\
+	obj/release/src-instructions-lfork.o	\
 	obj/release/src-instructions-live.o	\
 	obj/release/src-instructions-lldi.o	\
 	obj/release/src-instructions-or.o	\
+	obj/release/src-instructions-st.o	\
 	obj/release/src-instructions-sti.o	\
 	obj/release/src-instructions-xor.o	\
 	obj/release/src-instructions-zjmp.o	\

@@ -49,9 +49,9 @@ typedef struct {
     const char *name;
     i32 registers[REG_NUMBER];
     bool carry;
-    op_t op;
-    u16 op_cycle;
     u8 hashmap_index;
+    u16 op_cycle;
+    op_t op;
 } champion_t;
 
 typedef struct {
@@ -131,6 +131,7 @@ void dump_memory(vm_t *vm);
 */
 void live_inst(vm_t *vm, champion_t *champ);
 void ld_inst(vm_t *vm, champion_t *champ);
+void st_inst(vm_t *vm, champion_t *champ);
 void and_inst(vm_t *vm, champion_t *champ);
 void or_inst(vm_t *vm, champion_t *champ);
 void xor_inst(vm_t *vm, champion_t *champ);
