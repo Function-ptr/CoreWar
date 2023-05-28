@@ -27,6 +27,7 @@ SRCS = 	src/main.c	\
 	src/read_flags/read_flags.c	\
 	src/read_flags/str_to_unsigned_i32.c	\
 	src/utils/my_strlen_const.c	\
+	src/utils/true_modulo.c	\
 	src/vm/dump_memory.c	\
 	src/vm/load_champions_in_arena.c	\
 	src/vm/vm_start.c	\
@@ -51,6 +52,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-read_flags-read_flags.o	\
 	obj/src-read_flags-str_to_unsigned_i32.o	\
 	obj/src-utils-my_strlen_const.o	\
+	obj/src-utils-true_modulo.o	\
 	obj/src-vm-dump_memory.o	\
 	obj/src-vm-load_champions_in_arena.o	\
 	obj/src-vm-vm_start.o	\
@@ -75,6 +77,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-read_flags-read_flags.o	\
 	obj/release/src-read_flags-str_to_unsigned_i32.o	\
 	obj/release/src-utils-my_strlen_const.o	\
+	obj/release/src-utils-true_modulo.o	\
 	obj/release/src-vm-dump_memory.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
 	obj/release/src-vm-vm_start.o	\

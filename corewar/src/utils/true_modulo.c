@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** true_modulo.c
 ** File description:
-** load champions in arena
+** true arithmetic modulus
 */
 /*
  __  __        _                            ___            ___
@@ -16,16 +16,12 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t options, champion_body_t *bodies)
+i32 mod(i32 a, i32 b)
 {
-    uint32_t standard_offset = MEM_SIZE / options.champions.len;
-    for (u32 i = 0; i < options.champions.len; i++) {
-        u32 addr = (options.champions.champions[i].address == -1) ?
-            i * standard_offset : (u32)options.champions.champions[i].address;
-        my_memcpy(vm->arena + addr, bodies[i].body,
-            bodies[i].len);
-        options.champions.champions->address = (i32)addr;
-    }
+    i32 out = a % b;
+    if (out < 0)
+        out += b;
+    return out;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
