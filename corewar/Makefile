@@ -206,13 +206,13 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI)\
+CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI) -Wno-discarded-qualifiers -Wno-cast-qual\
 	$(LIB) $(HEADER)
 
-DEBUGFLAGS += -Wall -Wextra $(DEBUG) \
+DEBUGFLAGS += -Wall -Wextra $(DEBUG) -Wno-discarded-qualifiers -Wno-cast-qual \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
+RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer -Wno-discarded-qualifiers -Wno-cast-qual \
 	$(LIB) $(HEADER)
 
 all: $(NAME)

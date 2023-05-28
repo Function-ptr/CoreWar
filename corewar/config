@@ -2,9 +2,9 @@ CC;gcc
 PROJECT_DIR;.
 SOURCES_DIR;src src/messages src/messages/errors src/read_flags src/utils src/vm src/instructions
 HEADERS_DIR;include/
-CFLAGS;$(DEBUG) $(OPTI)
-DEBUGFLAGS;$(DEBUG)
-RELEASEFLAGS;$(OPTI) -fomit-frame-pointer
+CFLAGS;$(DEBUG) $(OPTI) -Wno-discarded-qualifiers -Wno-cast-qual
+DEBUGFLAGS;$(DEBUG) -Wno-discarded-qualifiers -Wno-cast-qual
+RELEASEFLAGS;$(OPTI) -fomit-frame-pointer -Wno-discarded-qualifiers -Wno-cast-qual
 LIBS_DIR;lib/all
 LIB_POS;..
 EXEC;corewar
