@@ -39,7 +39,7 @@ void ldi_inst(vm_t *vm, champion_t *champ)
     if (tv2 == 2) memmove_from_arena(&val2,
         vm->arena, (offsettv1 + champ->address) % MEM_SIZE, 2);
     u8 reg = vm->arena[(champ->address + offsettv1 + tv2) % MEM_SIZE];
-    u32 val3 = 0;
+    i32 val3 = 0;
     memmove_from_arena(&val3, vm->arena, (champ->address + val1 % IDX_MOD) %
         MEM_SIZE, 4);
     val3 += val2;

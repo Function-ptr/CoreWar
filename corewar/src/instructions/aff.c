@@ -31,8 +31,6 @@ void aff(vm_t *vm, champion_t *champ)
     i32 register_value = champ->registers[register_index];
 
     register_value %= 256;
-    char c = register_value;
-    if (register_value == 42) {
-        write(1, &c, 2);
-    }
+    char c = (char)register_value;
+    write_void(1, &c, 1);
 }

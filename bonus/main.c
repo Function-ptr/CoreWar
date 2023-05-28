@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** memmove_arena.c
+** main.c
 ** File description:
-** memmove from/to arena
+** main
 */
 /*
  __  __        _                            ___            ___
@@ -14,28 +14,59 @@
                               __/ |               ______
                              |___/               |______|
 */
-#include "corewar.h"
+#include "decompiler.h"
+#include <stdio.h>
 
-void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n)
+void nwwrite(int fd, char array buf, size_t size)
 {
-    u8 *dest_c = dest;
-    const u8 *src_c = src;
-    i32 i = 0;
-
-    for (; i < (i32)n; i++)
-        dest_c[i] = src_c[(pos + i) % MEM_SIZE];
-    return dest;
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunused-result"
+    write(fd, buf, size);
+    #pragma GCC diagnostic pop
 }
 
-void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n)
+char array read_cor_file(char array filename, uint64_t ptr lenfile)
 {
-    u8 *dest_c = dest;
-    const u8 *src_c = src;
-    i32 i = 0;
+    int fd = open(filename, O_RDONLY);
+    if (fd == -1) {
+        nwwrite(2, "Error in function open: No such file or directory.\n", 51);
+        return NULL;
+    }
+    char array file_content = NULL, array obuff = NULL, buff[512] = {0};
+    uint64_t file_len = 0, s = 0;
+    int64_t len = 0;
+    while ((len = read(fd, buff, 512)) != -1) {
+        char array tmp = realloc(file_content,
+            (file_len + (uint64_t)len) * sizeof(char));
+        if (!tmp) {free(obuff); free(file_content);
+            close(fd); return NULL;}
+        file_content = tmp;
+        my_strcpy(file_content + file_len, obuff);
+        file_len += (uint64_t)len;
+        my_memset(buff, 512, 0);
+    } free(obuff); close(fd); *lenfile = file_len;
+    return file_content;
+}
 
-    for (; i < (i32)n; i++)
-        dest_c[(pos + i) % MEM_SIZE] = src_c[i];
-    return dest;
+int main(int ac, char **av)
+{
+    if (ac != 2) return 84;
+    if (!my_strrchr(av[1], '.') || my_strcmp(my_strrchr(av[1], '.'), ".cor"))
+        return 84;
+    uint64_t lenfile = 0;
+    char* fcontent = read_cor_file(av[1], &lenfile);
+    if (!fcontent) {
+        nwwrite(2, "\033[1;31mError Detected!\033[97m Aborting!\033[0m\n", 43);
+        return 84;
+    }
+    return 0;/*
+    string_t content = create_string(fcontent);
+    free(fcontent);
+    if (content.len == 0) {
+        handle_error(content, NULL);
+        return 84;
+    }
+    return process_file(nb_of_line_in_file, content, av[1]);*/
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
