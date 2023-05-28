@@ -54,7 +54,7 @@ bool champions_loop(options_t *options, vm_t *vm, u32 *cycle)
 
 void vm_run(options_t *options)
 {
-    u32 *alive_hashmap = malloc(options->champions.len * sizeof(u32));
+    u32 *alive_hashmap[options->champions.len];
     u8 arena[MEM_SIZE] = {0};
     for (u32 i = 0; i < options->champions.len; i++) {
         alive_hashmap[i] = 0;
