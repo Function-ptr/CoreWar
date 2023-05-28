@@ -26,6 +26,7 @@ void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
         memmove_to_arena(vm->arena, bodies[i].body, addr,
             bodies[i].len);
         options->champions.champions->address = addr;
+        options->champions.champions->orig_addr = addr;
         options->champions.champions->hashmap_index = (u8)i;
     }
 }
