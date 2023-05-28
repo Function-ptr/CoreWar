@@ -40,6 +40,7 @@ SRCS = 	src/main.c	\
 	src/vm/vm_start.c	\
 	src/instructions/aff.c	\
 	src/instructions/ldi.c	\
+	src/instructions/live.c	\
 	src/instructions/or.c	\
 	src/instructions/xor.c	\
 	src/instructions/zjmp.c	\
@@ -71,6 +72,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-aff.o	\
 	obj/src-instructions-ldi.o	\
+	obj/src-instructions-live.o	\
 	obj/src-instructions-or.o	\
 	obj/src-instructions-xor.o	\
 	obj/src-instructions-zjmp.o	\
@@ -102,6 +104,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-aff.o	\
 	obj/release/src-instructions-ldi.o	\
+	obj/release/src-instructions-live.o	\
 	obj/release/src-instructions-or.o	\
 	obj/release/src-instructions-xor.o	\
 	obj/release/src-instructions-zjmp.o	\

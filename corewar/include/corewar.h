@@ -49,6 +49,7 @@ typedef struct {
     bool carry;
     op_t op;
     u16 op_cycle;
+    u8 hashmap_index;
 } champion_t;
 
 typedef struct {
@@ -125,7 +126,7 @@ void dump_memory(vm_t *vm);
 /*
     Instructions
 */
-
+void live_inst(vm_t *vm, champion_t *champ);
 void or_inst(vm_t *vm, champion_t *champ);
 void aff(vm_t *vm, champion_t *champ);
 void xor_inst(vm_t *vm, champion_t *champ);
