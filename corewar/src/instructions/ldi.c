@@ -45,8 +45,7 @@ void ldi_inst(vm_t *vm, champion_t *champ)
     val3 += val2;
     memmove_from_arena(champ->registers + (reg - 1), vm->arena,
         (i32)(champ->address + val3 % IDX_MOD) % MEM_SIZE, REG_SIZE);
-    if (champ->registers[reg - 1] == 0)
-        champ->carry = 1;
+    champ->carry = champ->registers[reg - 1] == 0;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

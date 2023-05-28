@@ -43,7 +43,9 @@ typedef enum {
 
 typedef struct {
     i32 number;
+    i32 orig_addr;
     i32 address;
+    i32 len_body;
     const char *name;
     i32 registers[REG_NUMBER];
     bool carry;
