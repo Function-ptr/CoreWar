@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** remove_dead_champions.c
 ** File description:
-** load champions in arena
+** remove dead champions
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,12 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
+void remove_dead_champions(champions_list_t *list, vm_t *vm)
 {
-    uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
-    }
+    for (u32 i = 0; i < list->len; i++)
+        if (list->champions[i].number &&
+            vm->alive_hashmap[list->champions[i].hashmap_index] == 0)
+            list->champions[i].number = 0;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

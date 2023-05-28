@@ -35,6 +35,8 @@
     #define i32 int32_t
     #define i64 int64_t
 
+
+
 typedef enum {
     SUCCESS,
     FAILURE,
@@ -43,12 +45,14 @@ typedef enum {
 
 typedef struct {
     i32 number;
+    i32 orig_addr;
     i32 address;
+    i32 len_body;
     const char *name;
     i32 registers[REG_NUMBER];
+    u32 op_cooldown;
     bool carry;
-    op_t op;
-    u16 op_cycle;
+    u8 hashmap_index;
 } champion_t;
 
 typedef struct {
@@ -69,8 +73,11 @@ typedef struct {
 
 typedef struct {
     u32 *alive_hashmap;
+    u8 len_hashmap;
     u8 *arena;
 } vm_t;
+
+typedef void (*instruction_t)(vm_t *vm, champion_t *champ);
 
 /*
     Utilities
@@ -78,6 +85,11 @@ typedef struct {
 
 u64 my_strlen_const(const char *str);
 i32 mod(i32 a, i32 b);
+void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n);
+void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n);
+void *memmove_in_arena(u8 *arena, int32_t dpos, int32_t spos, size_t n);
+void swap_uint32(uint32_t ptr little);
+void swap_uint16(uint16_t* little);
 
 /*
     Messages
@@ -113,11 +125,33 @@ function_status_t read_champion_file(i32, const char **, i32 *, options_t*);
 void vm_run(options_t *options);
 void load_champs_to_arena(vm_t *vm, options_t *options,
     champion_body_t *bodies);
+void remove_dead_champions(champions_list_t *list, vm_t *vm);
 
 /*
     Dump memory
 */
 
 void dump_memory(vm_t *vm);
+
+/*
+    Instructions
+*/
+void live_inst(vm_t *vm, champion_t *champ);
+void ld_inst(vm_t *vm, champion_t *champ);
+void add_inst(vm_t *vm, champion_t *champ);
+void sub_inst(vm_t *vm, champion_t *champ);
+void st_inst(vm_t *vm, champion_t *champ);
+void and_inst(vm_t *vm, champion_t *champ);
+void or_inst(vm_t *vm, champion_t *champ);
+void xor_inst(vm_t *vm, champion_t *champ);
+void zjmp_inst(vm_t *vm, champion_t *champ);
+void ldi_inst(vm_t *vm, champion_t *champ);
+void sti_inst(vm_t *vm, champion_t *champ);
+void aff_inst(vm_t *vm, champion_t *champ);
+void lldi_inst(vm_t *vm, champion_t *champ);
+void lld_inst(vm_t *vm, champion_t *champ);
+
+void fork_inst(vm_t *vm, champion_t *champ, options_t *options);
+void lfork_inst(vm_t *vm, champion_t *champ, options_t *options);
 
 #endif

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** memmove_arena.c
 ** File description:
-** load champions in arena
+** memmove from/to arena
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,34 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
+void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n)
 {
-    uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
-    }
+    u8 *dest_c = dest;
+    const u8 *src_c = src;
+    i32 i = 0;
+
+    for (; i < (i32)n; i++)
+        dest_c[i] = src_c[(pos + i) % MEM_SIZE];
+    return dest;
+}
+
+void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n)
+{
+    u8 *dest_c = dest;
+    const u8 *src_c = src;
+    i32 i = 0;
+
+    for (; i < (i32)n; i++)
+        dest_c[(pos + i) % MEM_SIZE] = src_c[i];
+    return dest;
+}
+
+void *memmove_in_arena(u8 *arena, int32_t dpos, int32_t spos, size_t n)
+{
+    i32 i = 0;
+    for (; i < (i32)n; i++)
+        arena[(dpos + i) % MEM_SIZE] = arena[(spos + i) % MEM_SIZE];
+    return arena;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** change_endianess.c
 ** File description:
-** load champions in arena
+** swap from big endian to little endian
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,17 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
+void swap_uint32(uint32_t ptr little)
 {
-    uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
-    }
+    *little = (*little >> 24) |
+        ((*little << 8) & 0x00FF0000) |
+        ((*little >> 8) & 0x0000FF00) |
+        (*little << 24);
+}
+
+void swap_uint16(uint16_t* little)
+{
+    *little = (uint16_t)((*little >> 8) | (*little << 8));
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

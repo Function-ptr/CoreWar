@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** zjmp.c
 ** File description:
-** load champions in arena
+** zjmp instruction
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,14 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
+void zjmp_inst(vm_t *vm, champion_t *champ)
 {
-    uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
-    }
+    if (!champ->carry) return;
+    i16 offset = 0;
+    memmove_from_arena(&offset, vm->arena, (champ->address + 1) % MEM_SIZE,
+        IND_SIZE);
+    swap_uint16((u16*)&offset);
+    champ->address = (champ->address + (offset % IDX_MOD)) % MEM_SIZE;
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

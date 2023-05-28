@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** sti.c
 ** File description:
-** load champions in arena
+** sti instruction
 */
 /*
  __  __        _                            ___            ___
@@ -16,19 +16,39 @@
 */
 #include "corewar.h"
 
-void load_champs_to_arena(vm_t *vm, options_t *options, champion_body_t *bodies)
+i16 get_sti_val_2(vm_t *vm, champion_t *champ, u8 tv2)
 {
-    uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
+    i16 val2 = 0;
+    if (tv2 == 1)
+        val2 = (i16)champ->registers[vm->arena[(champ->address + 2) %
+            MEM_SIZE] - 1];
+    if (tv2 == 2) {
+        memmove_from_arena(&val2, vm->arena, (champ->address + 2) % MEM_SIZE,
+            2);
+        swap_uint16((u16*)&val2);
     }
+    return val2;
+}
+
+void sti_inst(vm_t *vm, champion_t *champ)
+{
+    u8 coding_byte = vm->arena[(champ->address + 1) % MEM_SIZE];
+    u8 tv2 = (coding_byte >> 4) & 3, tv3 = (coding_byte >> 2) & 3;
+    i16 val3 = 0, offsettv2 = (i16)(tv2 == 1 ? 1 : 2) + 3;
+    i16 val2 = get_sti_val_2(vm, champ, tv2);
+    if (tv3 == 1) val3 = (i16)champ->registers[
+        vm->arena[(champ->address + offsettv2) % MEM_SIZE] - 1];
+    if (tv3 == 2) {
+        memmove_from_arena(&val3,vm->arena,
+            (offsettv2 + champ->address) % MEM_SIZE, 2);
+        swap_uint16((u16 *) &val3);
+    }
+    u8 reg = vm->arena[(champ->address + 2) % MEM_SIZE];
+    i32 regval = champ->registers[reg - 1];
+    swap_uint32((u32*)&regval);
+    memmove_to_arena(vm->arena, &regval,
+        (champ->address + val3 + val2) % MEM_SIZE, REG_SIZE);
+    champ->address = mod(champ->address + offsettv2 + tv3, MEM_SIZE);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
