@@ -50,10 +50,9 @@ typedef struct {
     i32 len_body;
     const char *name;
     i32 registers[REG_NUMBER];
+    u32 op_cooldown;
     bool carry;
     u8 hashmap_index;
-    u16 op_cycle;
-    op_t op;
 } champion_t;
 
 typedef struct {

@@ -46,12 +46,12 @@ void ldi_inst(vm_t *vm, champion_t *champ)
     u8 reg = vm->arena[(champ->address + offsettv1 + tv2) % MEM_SIZE];
     i32 val3 = 0;
     memmove_from_arena(&val3, vm->arena, (champ->address + val1 % IDX_MOD) %
-        MEM_SIZE, 4);
-    val3 += val2;
+        MEM_SIZE, 4); val3 += val2;
     memmove_from_arena(champ->registers + (reg - 1), vm->arena,
         (i32)(champ->address + val3 % IDX_MOD) % MEM_SIZE, REG_SIZE);
     swap_uint32((u32*)&champ->registers[reg - 1]);
     champ->carry = champ->registers[reg - 1] == 0;
+    champ->address = mod(champ->address + offsettv1 + tv2 + 1, MEM_SIZE);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

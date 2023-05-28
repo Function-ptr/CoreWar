@@ -33,4 +33,5 @@ void ld_inst(vm_t *vm, champion_t *champ)
     memmove_from_arena(champ->registers + (reg - 1), vm->arena,
         mod(champ->address + val1 % IDX_MOD, MEM_SIZE), REG_SIZE);
     champ->carry = champ->registers[reg - 1] == 0;
+    champ->address = mod(champ->address + offsettv1 + 1, MEM_SIZE);
 }

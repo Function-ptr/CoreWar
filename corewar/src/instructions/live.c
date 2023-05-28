@@ -21,4 +21,5 @@ void live_inst(vm_t *vm, champion_t *champ)
     write_void(1, "(", 1);
     write_void(1, champ->name, (u64)my_strlen((char*)(champ->name)));
     write_void(1, ") is alive.\n", 12);
+    champ->address = mod(champ->address + 5, MEM_SIZE);
 }

@@ -48,6 +48,7 @@ void sti_inst(vm_t *vm, champion_t *champ)
     swap_uint32((u32*)&regval);
     memmove_to_arena(vm->arena, &regval,
         (champ->address + val3 + val2) % MEM_SIZE, REG_SIZE);
+    champ->address = mod(champ->address + offsettv2 + tv3, MEM_SIZE);
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

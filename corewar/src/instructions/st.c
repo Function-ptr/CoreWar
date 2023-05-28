@@ -16,6 +16,7 @@ static void change_value(vm_t *vm, champion_t *champ, i32 val1, u8 tv2)
         swap_uint32((u32*)&val1);
         memmove_to_arena(vm->arena, &val1,
             mod(champ->address + off, MEM_SIZE), 4);
+        champ->address = mod(champ->address + 5, MEM_SIZE);
     }
 }
 

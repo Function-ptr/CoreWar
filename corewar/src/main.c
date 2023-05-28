@@ -30,7 +30,7 @@ i32 main(i32 argc, const char **argv)
     champion_t *champions = malloc(sizeof(champion_t) * MAX_CHAMPIONS);
     for (i32 i = 0; i < MAX_CHAMPIONS; i++)
         champions[i] = (champion_t) {-1, -1, -1, 0, NULL,
-            .registers = {0}, 0, op_tab[16], 0
+            .registers = {0}, 0, 0
     };
     options_t options = build_options(champions);
     read_flags(argc, argv, &options);
