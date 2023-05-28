@@ -39,6 +39,7 @@ SRCS = 	src/main.c	\
 	src/vm/vm_start.c	\
 	src/instructions/aff.c	\
 	src/instructions/or.c	\
+	src/instructions/xor.c	\
 
 OBJS = 	obj/src-main.o	\
 	obj/src-op.o	\
@@ -66,6 +67,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-aff.o	\
 	obj/src-instructions-or.o	\
+	obj/src-instructions-xor.o	\
 
 RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-op.o	\
@@ -93,6 +95,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-aff.o	\
 	obj/release/src-instructions-or.o	\
+	obj/release/src-instructions-xor.o	\
 
 OBJ_DIR = obj
 
