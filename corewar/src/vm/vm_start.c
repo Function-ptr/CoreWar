@@ -84,7 +84,7 @@ bool champions_loop(options_t *options, vm_t *vm, u32 *cycle,
         return false;
     static i8 last_min_alive = 0;
     i8 alive = 0, min_alive_index = -1;
-    for (u32 i = 0; i < (sizeof(vm->alive_hashmap) / sizeof(u32)); i++) {
+    for (u32 i = 0; i < vm->len_hashmap; i++) {
         if (vm->alive_hashmap[i] && min_alive_index == -1)
             min_alive_index = (i8)i;
         alive += vm->alive_hashmap[i] == 1 ? 1 : 0;
@@ -110,7 +110,7 @@ void vm_run(options_t *options)
         alive_hashmap[i] = 0;
         options->champions.champions[i].registers[0] = options->champions
             .champions->number;
-    } vm_t vm = {alive_hashmap, arena};
+    } vm_t vm = {alive_hashmap, (uint8_t) options->champions.len, arena};
     champion_body_t *bodies = NULL;
     load_champs_to_arena(&vm, options, bodies);
     u32 cycle = 0;
