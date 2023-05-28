@@ -12,13 +12,10 @@ static void change_value(vm_t *vm, champion_t *champ, i32 val1, u8 tv2)
     if (tv2 == 3) {
         i16 off = 0;
         memmove_from_arena(&off, vm->arena, (champ->address + 3) % MEM_SIZE, 2);
-        vm->arena[mod(champ->address + off, MEM_SIZE)] = (uint8_t) (val1 >> 24);
-        vm->arena[mod(champ->address + off + 1, MEM_SIZE)] =
-            (uint8_t) (val1 >> 16);
-        vm->arena[mod(champ->address + off + 2, MEM_SIZE)] =
-            (uint8_t) (val1 >> 8);
-        vm->arena[mod(champ->address + off + 3, MEM_SIZE)] =
-            (uint8_t) val1;
+        swap_uint16((u16*)&off);
+        swap_uint32((u32*)&val1);
+        memmove_to_arena(vm->arena, &val1,
+            mod(champ->address + off, MEM_SIZE), 4);
     }
 }
 
