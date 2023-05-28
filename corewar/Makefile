@@ -50,6 +50,7 @@ SRCS = 	src/main.c	\
 	src/instructions/lldi.c	\
 	src/instructions/or.c	\
 	src/instructions/sti.c	\
+	src/instructions/sub.c	\
 	src/instructions/xor.c	\
 	src/instructions/zjmp.c	\
 
@@ -90,6 +91,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-instructions-lldi.o	\
 	obj/src-instructions-or.o	\
 	obj/src-instructions-sti.o	\
+	obj/src-instructions-sub.o	\
 	obj/src-instructions-xor.o	\
 	obj/src-instructions-zjmp.o	\
 
@@ -130,6 +132,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-instructions-lldi.o	\
 	obj/release/src-instructions-or.o	\
 	obj/release/src-instructions-sti.o	\
+	obj/release/src-instructions-sub.o	\
 	obj/release/src-instructions-xor.o	\
 	obj/release/src-instructions-zjmp.o	\
 
