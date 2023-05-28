@@ -38,7 +38,8 @@ void translate_direct(token_t ptr param, string_t ptr buffer, token_t ptr inst)
 {
     op_t *op = lookup_string(hashtable, inst->token);
     if (op == NULL) return;
-    char code = op->code, str[6] = {0};
+    char code = op->code, str[param->token.len];
+    my_memset(str, param->token.len, 0);
     uint8_t nb_bytes = code >= 9 && code <= 15 && code != 13 ? 2 : 4;
     my_memcpy(str, param->token.str, param->token.len);
     if (str[0] != ':') {
