@@ -141,5 +141,6 @@ void aff_inst(vm_t *vm, champion_t *champ);
 void lldi_inst(vm_t *vm, champion_t *champ);
 
 void fork_inst(vm_t *vm, champion_t *champ, options_t *options);
+void lfork_inst(vm_t *vm, champion_t *champ, options_t *options);
 
 #endif
