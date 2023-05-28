@@ -43,11 +43,11 @@ void xor_inst(vm_t *vm, champion_t *champ)
         i16 off = 0;
         memmove_from_arena(&off,
             vm->arena, (champ->address + offsettv1) % MEM_SIZE,2);
-        memmove_from_arena(&val1, vm->arena,
+        memmove_from_arena(&val2, vm->arena,
             mod(champ->address + off, MEM_SIZE), 4);
-    } if (tv2 == 1) val1 = champ->registers[
+    } if (tv2 == 1) val2 = champ->registers[
         vm->arena[(champ->address + offsettv1) % MEM_SIZE] - 1];
-    if (tv2 == 2) memmove_from_arena(&val1,
+    if (tv2 == 2) memmove_from_arena(&val2,
         vm->arena, (offsettv1 + champ->address) % MEM_SIZE, 4);
     i32 offsettv2 = (tv2 == 1 ? 1 : (tv2 == 2 ? 4 : 2)) + offsettv1;
     champ->registers[vm->arena[(champ->address + offsettv2) % MEM_SIZE] - 1] =
