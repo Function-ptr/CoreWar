@@ -75,7 +75,7 @@ bool run_all_champions_and_cycle(options_t *options, vm_t *vm, u32 *cycle,
     return false;
 }
 
-bool champions_loop(options_t *options, vm_t *vm, u32 *cycle)
+bool champions_loop(options_t *options, vm_t *vm, u32 *cycle, const instruction_t instruction[16])
 {
     static u32 live_cycle = 0, nb_lives = 0, cycles_to_die = CYCLE_TO_DIE;
     u32 *cycles_data[3] = {&live_cycle, &nb_lives, &cycles_to_die};
