@@ -73,6 +73,7 @@ typedef struct {
 
 typedef struct {
     u32 *alive_hashmap;
+    u8 len_hashmap;
     u8 *arena;
 } vm_t;
 
