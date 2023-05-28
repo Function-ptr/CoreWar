@@ -148,6 +148,7 @@ void ldi_inst(vm_t *vm, champion_t *champ);
 void sti_inst(vm_t *vm, champion_t *champ);
 void aff_inst(vm_t *vm, champion_t *champ);
 void lldi_inst(vm_t *vm, champion_t *champ);
+void lld_inst(vm_t *vm, champion_t *champ);
 
 void fork_inst(vm_t *vm, champion_t *champ, options_t *options);
 void lfork_inst(vm_t *vm, champion_t *champ, options_t *options);
