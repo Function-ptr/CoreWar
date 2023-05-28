@@ -67,7 +67,7 @@ bool champions_loop(options_t *options, vm_t *vm, u32 *cycle,
     for (u32 i = 0; i < vm->len_hashmap; i++) {
         if (vm->alive_hashmap[i] && min_alive_index == -1)
             min_alive_index = (i8)i;
-        alive += (i8)vm->alive_hashmap[i] == 1 ? 1 : 0;
+        alive = alive + (i8)vm->alive_hashmap[i] == 1 ? 1 : 0;
     } if (alive <= 1) {
         if (!alive)
             min_alive_index = last_min_alive;
