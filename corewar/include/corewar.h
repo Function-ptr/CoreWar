@@ -50,6 +50,8 @@ typedef struct {
     i32 registers[REG_NUMBER];
     bool carry;
     u8 hashmap_index;
+    u16 op_cycle;
+    op_t op;
 } champion_t;
 
 typedef struct {
