@@ -40,6 +40,7 @@ SRCS = 	src/main.c	\
 	src/instructions/aff.c	\
 	src/instructions/or.c	\
 	src/instructions/xor.c	\
+	src/instructions/zjmp.c	\
 
 OBJS = 	obj/src-main.o	\
 	obj/src-op.o	\
@@ -68,6 +69,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-instructions-aff.o	\
 	obj/src-instructions-or.o	\
 	obj/src-instructions-xor.o	\
+	obj/src-instructions-zjmp.o	\
 
 RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-op.o	\
@@ -96,6 +98,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-instructions-aff.o	\
 	obj/release/src-instructions-or.o	\
 	obj/release/src-instructions-xor.o	\
+	obj/release/src-instructions-zjmp.o	\
 
 OBJ_DIR = obj
 

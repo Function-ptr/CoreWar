@@ -127,5 +127,6 @@ void dump_memory(vm_t *vm);
 void or_inst(vm_t *vm, champion_t *champ);
 void aff(vm_t *vm, champion_t *champ);
 void xor_inst(vm_t *vm, champion_t *champ);
+void zjmp_inst(vm_t *vm, champion_t *champ);
 
 #endif
