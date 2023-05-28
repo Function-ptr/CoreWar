@@ -39,9 +39,9 @@ SRCS = 	src/main.c	\
 	src/vm/memmove_arena.c	\
 	src/vm/vm_start.c	\
 	src/instructions/aff.c	\
-	src/instructions/ld.c	\
 	src/instructions/and.c	\
 	src/instructions/fork.c	\
+	src/instructions/ld.c	\
 	src/instructions/ldi.c	\
 	src/instructions/live.c	\
 	src/instructions/lldi.c	\
@@ -76,9 +76,9 @@ OBJS = 	obj/src-main.o	\
 	obj/src-vm-memmove_arena.o	\
 	obj/src-vm-vm_start.o	\
 	obj/src-instructions-aff.o	\
-	obj/src-instructions-ld.o	\
 	obj/src-instructions-and.o	\
 	obj/src-instructions-fork.o	\
+	obj/src-instructions-ld.o	\
 	obj/src-instructions-ldi.o	\
 	obj/src-instructions-live.o	\
 	obj/src-instructions-lldi.o	\
@@ -113,9 +113,9 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-vm-memmove_arena.o	\
 	obj/release/src-vm-vm_start.o	\
 	obj/release/src-instructions-aff.o	\
-	obj/release/src-instructions-ld.o	\
 	obj/release/src-instructions-and.o	\
 	obj/release/src-instructions-fork.o	\
+	obj/release/src-instructions-ld.o	\
 	obj/release/src-instructions-ldi.o	\
 	obj/release/src-instructions-live.o	\
 	obj/release/src-instructions-lldi.o	\

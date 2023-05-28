@@ -127,6 +127,7 @@ void dump_memory(vm_t *vm);
     Instructions
 */
 void live_inst(vm_t *vm, champion_t *champ);
+void ld_inst(vm_t *vm, champion_t *champ);
 void and_inst(vm_t *vm, champion_t *champ);
 void or_inst(vm_t *vm, champion_t *champ);
 void xor_inst(vm_t *vm, champion_t *champ);
