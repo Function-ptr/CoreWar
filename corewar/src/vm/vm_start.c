@@ -62,6 +62,8 @@ void vm_run(options_t *options)
             .champions->number;
     }
     vm_t vm = {alive_hashmap, arena};
+    champion_body_t *bodies = NULL;
+    load_champs_to_arena(&vm, options, bodies);
     u32 cycle = 0;
     while (true) {
         if (champions_loop(options, &vm, &cycle)) {

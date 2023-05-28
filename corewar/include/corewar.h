@@ -111,7 +111,8 @@ function_status_t read_champion_file(i32, const char **, i32 *, options_t*);
 */
 
 void vm_run(options_t *options);
-void load_champs_to_arena(vm_t *vm, options_t options, champion_body_t *bodies);
+void load_champs_to_arena(vm_t *vm, options_t *options,
+    champion_body_t *bodies);
 
 /*
     Dump memory
