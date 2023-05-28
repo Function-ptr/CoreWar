@@ -22,8 +22,7 @@ options_t build_options(champion_t *champions)
 
 i32 main(i32 argc, const char **argv)
 {
-    if (error_handling(argc) == 84)
-        return 84;
+    if (error_handling(argc) == 84) return 84;
     if (my_strcmp(argv[1], "-h") == 0) {
         help_message();
         return 0;
@@ -35,9 +34,11 @@ i32 main(i32 argc, const char **argv)
     };
     options_t options = build_options(champions);
     read_flags(argc, argv, &options);
-    if (!options.valid)
+    if (!options.valid) {
+        free(champions);
         return 1;
-    vm_run(&options);
+    } vm_run(&options);
+    free(champions);
     return (0);
 }
 // L34 : oui c'est immonde mais sinon ca trigger le coding style pété.

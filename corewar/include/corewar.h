@@ -83,6 +83,7 @@ u64 my_strlen_const(const char *str);
 i32 mod(i32 a, i32 b);
 void *memmove_from_arena(void *dest, u8 *src, int32_t pos, size_t n);
 void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n);
+void *memmove_in_arena(u8 *arena, int32_t dpos, int32_t spos, size_t n);
 
 /*
     Messages
@@ -138,5 +139,7 @@ void ldi_inst(vm_t *vm, champion_t *champ);
 void sti_inst(vm_t *vm, champion_t *champ);
 void aff_inst(vm_t *vm, champion_t *champ);
 void lldi_inst(vm_t *vm, champion_t *champ);
+
+void fork_inst(vm_t *vm, champion_t *champ, options_t *options);
 
 #endif

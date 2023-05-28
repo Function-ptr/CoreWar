@@ -37,6 +37,14 @@ void *memmove_to_arena(u8 *dest, void *src, int32_t pos, size_t n)
         dest_c[(pos + i) % MEM_SIZE] = src_c[i];
     return dest;
 }
+
+void *memmove_in_arena(u8 *arena, int32_t dpos, int32_t spos, size_t n)
+{
+    i32 i = 0;
+    for (; i < (i32)n; i++)
+        arena[(dpos + i) % MEM_SIZE] = arena[(spos + i) % MEM_SIZE];
+    return arena;
+}
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀
