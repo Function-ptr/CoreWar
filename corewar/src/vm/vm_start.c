@@ -21,15 +21,16 @@ void champion_cycles_loop(options_t *options, u32 cham)
 void run_instruction(vm_t *vm, options_t *options, u8 i,
     const instruction_t instruction[16])
 {
-    if (*vm->arena == 12) {
+    if (vm->arena[options->champions.champions[i].address] == 12) {
         fork_inst(vm, &options->champions.champions[i], options);
         return;
     }
-    if (*vm->arena == 15) {
+    if (vm->arena[options->champions.champions[i].address] == 15) {
         lfork_inst(vm, &options->champions.champions[i], options);
         return;
     }
-    instruction[*vm->arena - 1](vm, &options->champions.champions[i]);
+    instruction[vm->arena[options->champions.champions[i].address] - 1](vm,
+        &options->champions.champions[i]);
 }
 
 void vm_run_champion(options_t *options, vm_t *vm,
