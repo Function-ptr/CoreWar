@@ -6,10 +6,12 @@
 */
 
 #include "corewar.h"
+#include <stdio.h>
 
 void run_instruction(vm_t *vm, options_t *options, u8 i,
     const instruction_t instruction[16])
 {
+    //printf("--> %i\n", i);
     if (vm->arena[options->champions.champions[i].address] == 12) {
         fork_inst(vm, &options->champions.champions[i], options);
         return;
@@ -25,7 +27,9 @@ void run_instruction(vm_t *vm, options_t *options, u8 i,
 void vm_run_champion(options_t *options, vm_t *vm,
     const instruction_t instruction[16])
 {
+    printf("==> %u\n", options->champions.len);
     for (u32 i = 0; i < options->champions.len; i++) {
+        printf("-- %i () %i\n", i, options->champions.len);
         if (options->champions.champions[i].number == 0)
             continue;
         if (options->champions.champions[i].op_cooldown == 0) {
@@ -91,8 +95,7 @@ void vm_run(options_t *options)
         options->champions.champions[i].registers[0] = options->champions
             .champions->number;
     } vm_t vm = {alive_hashmap, (uint8_t) options->champions.len, arena};
-    champion_body_t *bodies = NULL;
-    load_champs_to_arena(&vm, options, bodies);
+    load_champs_to_arena(&vm, options);
     u32 cycle = 0;
     while (true) {
         if (champions_loop(options, &vm, &cycle, instruction))

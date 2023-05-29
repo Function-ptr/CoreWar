@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** load_champions_in_arena.c
+** load_champions.c
 ** File description:
-** load champions in arena
+** load champions into memory
 */
 /*
  __  __        _                            ___            ___
@@ -15,29 +15,24 @@
                              |___/               |______|
 */
 #include "corewar.h"
+#include <fcntl.h>
 
-void load_champs_to_arena(vm_t *vm, options_t *options)
+champion_body_t get_champion_body_and_update_name(champion_t *champ)
 {
-    champion_body_t bodies[options->champions.len];
-    for (u32 i = 0; i < options->champions.len; i++) {
-        bodies[i] = get_champion_body_and_update_name(
-            &options->champions.champions[i]);
-        if (bodies[i].len == 0 || bodies[i].body == NULL) {
-            my_printf("Error: champion %s is empty\n",
-                options->champions.champions[i].name);
-            exit(84);
-        }
-    } uint32_t standard_offset = MEM_SIZE / options->champions.len;
-    for (u32 i = 0; i < options->champions.len; i++) {
-        i32 addr = (options->champions.champions[i].address == -1) ?
-            (i32)(i * standard_offset) :
-            mod(options->champions.champions[i].address, MEM_SIZE);
-        memmove_to_arena(vm->arena, bodies[i].body, addr,
-            bodies[i].len);
-        options->champions.champions->address = addr;
-        options->champions.champions->orig_addr = addr;
-        options->champions.champions->hashmap_index = (u8)i;
-    }
+    int fd = open(champ->name, O_RDONLY);
+    if (fd == -1) {
+        my_printf("Can't read source file %s\n", champ->name);
+        return (champion_body_t){NULL, 0};
+    } header_t header;
+    if (read(fd, &header, sizeof(header_t)) != sizeof(header_t)) {
+        close(fd); return (champion_body_t){NULL, 0};
+    } char *body = malloc(sizeof(char) * ((uint)header.prog_size + 1));
+    swap_uint32((u32*)&header.prog_size);
+    if (read(fd, body, (uint)header.prog_size) != (uint)header.prog_size) {
+        close(fd); return (champion_body_t){NULL, 0};
+    } body[header.prog_size] = '\0';
+    close(fd);
+    return (champion_body_t){body, (uint)header.prog_size};
 }
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀

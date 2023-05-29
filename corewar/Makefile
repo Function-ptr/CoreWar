@@ -36,6 +36,7 @@ SRCS = 	src/main.c	\
 	src/utils/my_strlen_const.c	\
 	src/utils/true_modulo.c	\
 	src/vm/dump_memory.c	\
+	src/vm/load_champions.c	\
 	src/vm/load_champions_in_arena.c	\
 	src/vm/memmove_arena.c	\
 	src/vm/remove_dead_champions.c	\
@@ -80,6 +81,7 @@ OBJS = 	obj/src-main.o	\
 	obj/src-utils-my_strlen_const.o	\
 	obj/src-utils-true_modulo.o	\
 	obj/src-vm-dump_memory.o	\
+	obj/src-vm-load_champions.o	\
 	obj/src-vm-load_champions_in_arena.o	\
 	obj/src-vm-memmove_arena.o	\
 	obj/src-vm-remove_dead_champions.o	\
@@ -124,6 +126,7 @@ RELEASE_OBJS = 	obj/release/src-main.o	\
 	obj/release/src-utils-my_strlen_const.o	\
 	obj/release/src-utils-true_modulo.o	\
 	obj/release/src-vm-dump_memory.o	\
+	obj/release/src-vm-load_champions.o	\
 	obj/release/src-vm-load_champions_in_arena.o	\
 	obj/release/src-vm-memmove_arena.o	\
 	obj/release/src-vm-remove_dead_champions.o	\
@@ -209,14 +212,14 @@ LIB = -L..	-lall	\
 
 HEADER = 	-I./include/	\
 
-CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI) -Wno-discarded-qualifiers \
--Wno-cast-qual $(LIB) $(HEADER)
+CFLAGS += -Wall -Wextra $(DEBUG) $(OPTI) -Wno-discarded-qualifiers -Wno-cast-qual\
+	$(LIB) $(HEADER)
 
 DEBUGFLAGS += -Wall -Wextra $(DEBUG) -Wno-discarded-qualifiers -Wno-cast-qual \
 	$(LIB) $(HEADER)
 
-RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer \
--Wno-discarded-qualifiers -Wno-cast-qual $(LIB) $(HEADER)
+RELEASEFLAGS += -Wall -Wextra $(OPTI) -fomit-frame-pointer -Wno-discarded-qualifiers -Wno-cast-qual \
+	$(LIB) $(HEADER)
 
 all: $(NAME)
 
