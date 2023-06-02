@@ -19,20 +19,21 @@
 
 champion_body_t get_champion_body_and_update_name(champion_t *champ)
 {
+    champion_body_t failure = {NULL, 0}
     int fd = open(champ->name, O_RDONLY);
     if (fd == -1) {
         my_printf("Can't read source file %s\n", champ->name);
-        return (champion_body_t){NULL, 0};
+        return failure;
     } header_t header;
     if (read(fd, &header, sizeof(header_t)) !=
         sizeof(header_t)) {
-        close(fd); return (champion_body_t){NULL, 0};
+        close(fd); return failure;
     } char *body = malloc(sizeof(char) *
         ((uint)header.prog_size + 1));
     swap_uint32((u32*)&header.prog_size);
     if (read(fd, body, (uint)header.prog_size) !=
         (uint)header.prog_size) {
-        close(fd); return (champion_body_t){NULL, 0};
+        close(fd); return failure;
     } body[header.prog_size] = '\0';
     close(fd);
     return (champion_body_t){body, (uint)header.prog_size};
