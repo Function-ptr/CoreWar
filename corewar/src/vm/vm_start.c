@@ -11,7 +11,6 @@
 void run_instruction(vm_t *vm, options_t *options, u8 i,
     const instruction_t instruction[16])
 {
-    //printf("--> %i\n", i);
     if (vm->arena[options->champions.champions[i].address] == 12) {
         fork_inst(vm, &options->champions.champions[i], options);
         return;
