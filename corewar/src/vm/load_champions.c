@@ -19,7 +19,7 @@
 
 champion_body_t get_champion_body_and_update_name(champion_t *champ)
 {
-    champion_body_t failure = {NULL, 0}
+    champion_body_t failure = {NULL, 0};
     int fd = open(champ->name, O_RDONLY);
     if (fd == -1) {
         my_printf("Can't read source file %s\n", champ->name);
