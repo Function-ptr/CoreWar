@@ -123,9 +123,9 @@ function_status_t read_champion_file(i32, const char **, i32 *, options_t*);
 */
 
 void vm_run(options_t *options);
-void load_champs_to_arena(vm_t *vm, options_t *options,
-    champion_body_t *bodies);
+void load_champs_to_arena(vm_t *vm, options_t *options);
 void remove_dead_champions(champions_list_t *list, vm_t *vm);
+champion_body_t get_champion_body_and_update_name(champion_t *champ);
 
 /*
     Dump memory
