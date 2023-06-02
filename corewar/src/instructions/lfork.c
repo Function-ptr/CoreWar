@@ -35,8 +35,7 @@ void lfork_inst(vm_t *vm, champion_t *champ, options_t *options)
     champ = options->champions.champions + c_index;
     memmove_in_arena(vm->arena, new_address, champ->address,
         (u64)champ->len_body);
-    champion_t new_champ;
-    new_champ.number = champ->number;
+    champion_t new_champ; new_champ.number = champ->number;
     new_champ.address = new_champ.orig_addr = new_address;
     new_champ.name = champ->name;
     new_champ.hashmap_index = champ->hashmap_index;
